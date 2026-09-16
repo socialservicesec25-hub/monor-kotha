@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="as">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>মনৰ কথা | Tinsukia College Portal</title>
+    <style>
+        :root {
+            --navy: #0f172a;      
+            --highlight: #fb923c; 
+            --gold: #d69e2e;      
+            --bg: #f8fafc;        
+            --white: #ffffff;
+            --danger: #ef4444;    
+            --shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+        body { background-color: var(--bg); color: #1e293b; line-height: 1.6; }
+
+        nav {
+            background: var(--navy);
+            padding: 1.2rem 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow);
+        }
+
+        .brand { color: white; font-weight: bold; display: flex; align-items: center; }
+        .monor-highlight { color: var(--highlight); font-size: 1.8rem; font-weight: 800; margin-right: 12px; }
+
+        .nav-links { list-style: none; display: flex; gap: 20px; }
+        .nav-links li a { color: #cbd5e1; text-decoration: none; font-weight: 600; cursor: pointer; transition: 0.3s; font-size: 0.85rem; text-transform: uppercase; }
+        .nav-links li a:hover { color: var(--highlight); }
+
+        .page-content { display: none; padding: 60px 10%; min-height: 80vh; }
+        .active-page { display: block; }
+
+        .card {
+            background: var(--white);
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            border-top: 6px solid var(--navy);
+            margin-bottom: 30px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero {
+            text-align: center;
+            background: linear-gradient(rgba(15, 23, 42, 0.85), rgba(15, 23, 42, 0.85)), url('https://images.unsplash.com/photo-1541339907198-e08756ebafe3?auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            color: white;
+            padding: 100px 20px;
+            border-radius: 20px;
+            margin-bottom: 40px;
+            border-bottom: 5px solid var(--highlight);
+        }
+
+        label { display: block; font-weight: 700; margin-bottom: 5px; color: var(--navy); font-size: 0.9rem; }
+        input, select, textarea { width: 100%; padding: 12px; border: 2px solid #e2e8f0; border-radius: 10px; margin-bottom: 15px; }
+        .btn-submit { background: var(--highlight); color: var(--navy); border: none; padding: 15px 30px; border-radius: 10px; cursor: pointer; font-weight: 800; width: 100%; font-size: 1.1rem; }
+        .btn-submit:disabled { opacity: 0.6; cursor: not-allowed; }
+
+        .feed-item { padding: 25px; border-radius: 12px; border-left: 10px solid var(--navy); background: white; margin-bottom: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+        .feed-header { border-bottom: 1px solid #f1f5f9; padding-bottom: 10px; margin-bottom: 12px; display: flex; justify-content: space-between; }
+        .status-badge { background: #fff7ed; color: #f59e0b; padding: 4px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: bold; }
+
+        footer { background: var(--navy); color: #94a3b8; text-align: center; padding: 50px; margin-top: 50px; }
+        .switch-link { color: var(--highlight); cursor: pointer; font-weight: bold; text-decoration: underline; }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="brand"><span class="monor-highlight">মনৰ কথা</span> | Tinsukia College</div>
+        <ul class="nav-links">
+            <li><a onclick="showPage('home')">Home</a></li>
+            <li><a onclick="showPage('portal')">Portal</a></li>
+            <li id="logoutNav" style="display:none;"><a onclick="logout()">Logout</a></li>
+        </ul>
+    </nav>
+
+    <!-- HOME PAGE -->
+    <div id="home" class="page-content active-page">
+        <div class="hero">
+            <h1 style="font-size: 3.5rem;"><span style="color: var(--highlight);">মনৰ কথা</span></h1>
+            <p style="font-size: 1.2rem; margin-top: 10px;">Voices of Students & Staff | Tinsukia College</p>
+            <br>
+            <button class="btn-submit" style="width: auto; padding: 15px 40px;" onclick="showPage('portal')">Access Student Portal</button>
+        </div>
+    </div>
+
+    <!-- AUTH & PORTAL CONTAINER -->
+    <div id="portal" class="page-content">
+        
+        <!-- SECTION 1: REGISTRATION -->
+        <div id="registerBox" class="card">
+            <h2>Register for Monor Katha</h2>
+            <p style="margin-bottom: 20px; color: #64748b; font-size: 0.9rem;">Create your account to log private complaints & ideas.</p>
+            <form id="regForm">
+                <label>Full Name</label>
+                <input type="text" id="regName" placeholder="e.g. Deep Hazarika" required>
+                
+                <label>Class/Department</label>
+                <input type="text" id="regClass" placeholder="e.g. B.Sc 4th Sem" required>
+
+                <label>Email Address</label>
+                <input type="email" id="regEmail" placeholder="e.g. deep@gmail.com" required>
+
+                <label>Phone Number</label>
+                <input type="tel" id="regPhone" placeholder="10-digit mobile number" required>
+
+                <label>Create Password</label>
+                <input type="password" id="regPass" placeholder="Enter password" required>
+
+                <button type="submit" class="btn-submit">Register Account</button>
+            </form>
+            <p style="margin-top: 20px; text-align: center;">
+                Already registered? <span class="switch-link" onclick="toggleAuth('login')">Login here</span>
+            </p>
+        </div>
+
+        <!-- SECTION 2: LOGIN -->
+        <div id="loginBox" class="card" style="display:none;">
+            <h2>Student Login</h2>
+            <p style="margin-bottom: 20px; color: #64748b; font-size: 0.9rem;">Log in to access your submission portal.</p>
+            <form id="loginForm">
+                <label>Email Address</label>
+                <input type="email" id="loginEmail" placeholder="Enter your registered email" required>
+
+                <label>Password</label>
+                <input type="password" id="loginPass" placeholder="Enter your password" required>
+
+                <button type="submit" class="btn-submit">Login to Portal</button>
+            </form>
+            <p style="margin-top: 20px; text-align: center;">
+                New student? <span class="switch-link" onclick="toggleAuth('register')">Register here</span>
+            </p>
+        </div>
+
+        <!-- SECTION 3: SUBMISSION PORTAL (VISIBLE ONLY AFTER LOGIN) -->
+        <div id="submissionBox" style="display:none;">
+            <div class="card" style="max-width: 800px;">
+                <h2>Welcome, <span id="userDisplayName" style="color: var(--highlight);"></span>!</h2>
+                <p style="margin-bottom: 20px; color: #64748b;">Class: <span id="userDisplayClass"></span></p>
+                
+                <form id="submissionForm">
+                    <label>Category</label>
+                    <select id="msgType">
+                        <option value="Idea">Creative Idea</option>
+                        <option value="Complaint">Formal Grievance</option>
+                    </select>
+
+                    <label>Your Message (মনৰ কথা)</label>
+                    <textarea id="userMsg" rows="5" placeholder="Share your thought or complaint privately with the Social Service Secretary..." required></textarea>
+                    
+                    <button type="submit" class="btn-submit">Register Official Record</button>
+                </form>
+            </div>
+
+            <div style="max-width: 800px; margin: 40px auto 0 auto;">
+                <h3>Your Personal Submission History</h3>
+                <div id="historyFeed" style="margin-top: 15px;"></div>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        <span style="color: var(--highlight); font-weight: bold; font-size: 1.5rem;">মনৰ কথা</span>
+        <p>Official Campus Portal | Tinsukia College, Assam</p>
+    </footer>
+
+    <script>
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwIRe7XFpS9AjOJ6_tlyGsQxiDgWZQVulEgggg1lmrynCsSJ1pEpKle8OHSmICw3Zfl/exec';
+
+        // Navigation
+        function showPage(pageId) {
+            document.querySelectorAll('.page-content').forEach(p => p.classList.remove('active-page'));
+            document.getElementById(pageId).classList.add('active-page');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            if (pageId === 'portal') checkSession();
+        }
+
+        // Toggle Auth View
+        function toggleAuth(view) {
+            if (view === 'login') {
+                document.getElementById('registerBox').style.display = 'none';
+                document.getElementById('loginBox').style.display = 'block';
+            } else {
+                document.getElementById('loginBox').style.display = 'none';
+                document.getElementById('registerBox').style.display = 'block';
+            }
+        }
+
+        // Check active session
+        function checkSession() {
+            const user = JSON.parse(localStorage.getItem('monorKathaUser'));
+            if (user) {
+                document.getElementById('registerBox').style.display = 'none';
+                document.getElementById('loginBox').style.display = 'none';
+                document.getElementById('submissionBox').style.display = 'block';
+                document.getElementById('logoutNav').style.display = 'inline-block';
+                document.getElementById('userDisplayName').innerText = user.name;
+                document.getElementById('userDisplayClass').innerText = user.uClass;
+                loadLocalHistory();
+            } else {
+                document.getElementById('submissionBox').style.display = 'none';
+                document.getElementById('logoutNav').style.display = 'none';
+                toggleAuth('register');
+            }
+        }
+
+        // 1. REGISTER LOGIC
+        document.getElementById('regForm').onsubmit = async function(e) {
+            e.preventDefault();
+            const btn = this.querySelector('button');
+            btn.disabled = true; btn.innerText = "Registering...";
+
+            const payload = {
+                action: 'register',
+                name: document.getElementById('regName').value.trim(),
+                uClass: document.getElementById('regClass').value.trim(),
+                email: document.getElementById('regEmail').value.trim(),
+                phone: document.getElementById('regPhone').value.trim(),
+                password: document.getElementById('regPass').value.trim()
+            };
+
+            try {
+                await fetch(GOOGLE_SCRIPT_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                
+                alert("Registration submitted! Please login with your email and password.");
+                this.reset();
+                toggleAuth('login');
+            } catch (err) {
+                alert("Connection error. Please try again.");
+            } finally {
+                btn.disabled = false; btn.innerText = "Register Account";
+            }
+        };
+
+        // 2. LOGIN LOGIC
+        document.getElementById('loginForm').onsubmit = async function(e) {
+            e.preventDefault();
+            const btn = this.querySelector('button');
+            btn.disabled = true; btn.innerText = "Verifying...";
+
+            const payload = {
+                action: 'login',
+                email: document.getElementById('loginEmail').value.trim(),
+                password: document.getElementById('loginPass').value.trim()
+            };
+
+            try {
+                const res = await fetch(GOOGLE_SCRIPT_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'text/plain' },
+                    body: JSON.stringify(payload)
+                });
+                
+                const data = await res.json();
+                if (data.result === "login_success") {
+                    localStorage.setItem('monorKathaUser', JSON.stringify({
+                        email: payload.email,
+                        name: data.userName,
+                        uClass: data.uClass
+                    }));
+                    checkSession();
+                } else {
+                    alert("Invalid Email or Password. Please try again.");
+                }
+            } catch (err) {
+                alert("Error connecting to server. Make sure your Apps Script is correctly deployed.");
+            } finally {
+                btn.disabled = false; btn.innerText = "Login to Portal";
+            }
+        };
+
+        // 3. SUBMISSION LOGIC
+        document.getElementById('submissionForm').onsubmit = async function(e) {
+            e.preventDefault();
+            const btn = this.querySelector('button');
+            btn.disabled = true; btn.innerText = "Sending...";
+
+            const user = JSON.parse(localStorage.getItem('monorKathaUser'));
+            const type = document.getElementById('msgType').value;
+            const msg = document.getElementById('userMsg').value.trim();
+            const date = new Date().toLocaleDateString();
+
+            const payload = {
+                action: 'submit_msg',
+                name: user.name,
+                uClass: user.uClass,
+                email: user.email,
+                type: type,
+                msg: msg
+            };
+
+            try {
+                await fetch(GOOGLE_SCRIPT_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                const entry = document.createElement('div');
+                entry.className = 'feed-item';
+                entry.style.borderLeftColor = (type === 'Complaint') ? 'var(--danger)' : 'var(--gold)';
+                entry.innerHTML = `
+                    <div class="feed-header">
+                        <strong>[${type.toUpperCase()}]</strong>
+                        <span class="status-badge">SENT TO SECRETARY</span>
+                    </div>
+                    <p>${msg}</p>
+                    <small style="color:#94a3b8;">Date: ${date}</small>
+                `;
+
+                const feed = document.getElementById('historyFeed');
+                feed.prepend(entry);
+                localStorage.setItem('userFeed_' + user.email, feed.innerHTML);
+
+                this.reset();
+                alert("Your message was successfully registered in the database!");
+            } catch (err) {
+                alert("Network error while submitting.");
+            } finally {
+                btn.disabled = false; btn.innerText = "Register Official Record";
+            }
+        };
+
+        // Load personal local history
+        function loadLocalHistory() {
+            const user = JSON.parse(localStorage.getItem('monorKathaUser'));
+            if (user) {
+                const saved = localStorage.getItem('userFeed_' + user.email);
+                if (saved) document.getElementById('historyFeed').innerHTML = saved;
+            }
+        }
+
+        // Logout
+        function logout() {
+            localStorage.removeItem('monorKathaUser');
+            checkSession();
+        }
+    </script>
+</body>
+</html>
