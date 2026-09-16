@@ -179,7 +179,7 @@
     </footer>
 
     <script>
-        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwIRe7XFpS9AjOJ6_tlyGsQxiDgWZQVulEgggg1lmrynCsSJ1pEpKle8OHSmICw3Zfl/exec';
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwTiJlMIhVJqjQSfvgKe_X7Koretdv-V-x7h6_2c16Oif6V73sth9yj5voD2egC50ly/exec';
 
         // Navigation
         function showPage(pageId) {
@@ -252,10 +252,12 @@
         };
 
         // 2. LOGIN LOGIC
+ // 2. LOGIN LOGIC
         document.getElementById('loginForm').onsubmit = async function(e) {
             e.preventDefault();
             const btn = this.querySelector('button');
-            btn.disabled = true; btn.innerText = "Verifying...";
+            btn.disabled = true; 
+            btn.innerText = "Verifying...";
 
             const payload = {
                 action: 'login',
@@ -266,11 +268,12 @@
             try {
                 const res = await fetch(GOOGLE_SCRIPT_URL, {
                     method: 'POST',
-                    headers: { 'Content-Type': 'text/plain' },
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
                     body: JSON.stringify(payload)
                 });
                 
                 const data = await res.json();
+                
                 if (data.result === "login_success") {
                     localStorage.setItem('monorKathaUser', JSON.stringify({
                         email: payload.email,
@@ -279,12 +282,14 @@
                     }));
                     checkSession();
                 } else {
-                    alert("Invalid Email or Password. Please try again.");
+                    alert("Invalid Email or Password. Please register first or check credentials.");
                 }
             } catch (err) {
-                alert("Error connecting to server. Make sure your Apps Script is correctly deployed.");
+                console.error("Login Error:", err);
+                alert("Connection error: " + err.message);
             } finally {
-                btn.disabled = false; btn.innerText = "Login to Portal";
+                btn.disabled = false; 
+                btn.innerText = "Login to Portal";
             }
         };
 
