@@ -1,11 +1,11 @@
- Here is the complete, updated `index.html` file inside a single code block for direct copying:
+ Here is the complete, updated, and 100% mobile-responsive `index.html` file inside a single code block for direct copying:
 
 ```html
 <!DOCTYPE html>
 <html lang="as">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
     <title>মনৰ কথা | Tinsukia College Portal</title>
     <!-- Google Fonts: Modern Latin + Assamese Glyphs -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -47,7 +47,7 @@
             font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         }
 
-        /* College Campus Full-Screen Fixed Background with Subtle Dark Overlay */
+        /* College Campus Full-Screen Background with Responsive Dark Overlay */
         body {
             background-color: var(--navy-dark);
             background-image: 
@@ -56,16 +56,27 @@
                 url('campus.jpg'),
                 url('https://images.unsplash.com/photo-1541339907198-e08756ebafe3?auto=format&fit=crop&w=1920&q=85');
             background-size: cover;
-            background-position: center center;
+            background-position: center;
             background-attachment: fixed;
             background-repeat: no-repeat;
             color: #1e293b;
             line-height: 1.6;
             min-height: 100vh;
+            min-height: 100dvh;
             display: flex;
             flex-direction: column;
             position: relative;
             overflow-x: hidden;
+            -webkit-text-size-adjust: 100%;
+        }
+
+        /* Optimize background rendering on mobile touch devices */
+        @media (max-width: 900px), (hover: none) and (pointer: coarse) {
+            body {
+                background-attachment: scroll;
+                background-size: cover;
+                background-position: center;
+            }
         }
 
         /* Ambient background glow orbs for authentic glass refraction */
@@ -123,6 +134,7 @@
             gap: 15px;
             text-decoration: none;
             cursor: pointer;
+            flex-shrink: 0;
         }
 
         /* College Logo Circular Badge */
@@ -223,6 +235,7 @@
             position: relative;
             background: rgba(255, 255, 255, 0.04);
             border: 1px solid transparent;
+            display: inline-block;
         }
 
         .nav-links li a:hover {
@@ -395,19 +408,19 @@
             box-shadow: 0 2px 8px rgba(194, 65, 12, 0.3);
         }
 
+        /* SUBMISSION FORM GRID */
+        .submission-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 20px;
+        }
+
         /* TWO-COLUMN FEED GRID */
         .portal-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 25px;
             margin-top: 25px;
-        }
-
-        @media (max-width: 820px) {
-            .portal-grid { grid-template-columns: 1fr; }
-            .hero h1 { font-size: 2.6rem; }
-            nav { padding: 0.9rem 4%; }
-            .nav-links li a { padding: 6px 12px; font-size: 0.8rem; }
         }
 
         /* FORM ELEMENTS */
@@ -427,7 +440,7 @@
             border: 1.5px solid #cbd5e1;
             border-radius: 12px;
             margin-bottom: 18px;
-            font-size: 0.98rem;
+            font-size: 16px; /* 16px prevents iOS Safari auto-zoom */
             color: #0f172a;
             transition: var(--transition-smooth);
             box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04) inset;
@@ -771,6 +784,388 @@
         .switch-link:hover {
             color: #ea580c;
         }
+
+        /* ==========================================================================
+           RESPONSIVE MOBILE & TABLET MEDIA QUERIES (UNDER 900PX)
+           ========================================================================== */
+        @media (max-width: 900px) {
+            nav {
+                padding: 0.8rem 4%;
+                flex-wrap: wrap;
+                gap: 12px;
+            }
+
+            .brand-wrapper {
+                gap: 10px;
+            }
+
+            .college-logo-container {
+                width: 40px;
+                height: 40px;
+            }
+
+            .monor-highlight {
+                font-size: 1.55rem;
+                margin-right: 6px;
+            }
+
+            .brand-college-text {
+                font-size: 0.88rem;
+            }
+
+            .brand-college-sub {
+                font-size: 0.62rem;
+            }
+
+            .nav-links {
+                gap: 6px;
+                overflow-x: auto;
+                max-width: 100%;
+                padding-bottom: 4px;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .nav-links li a {
+                padding: 6px 12px;
+                font-size: 0.8rem;
+                white-space: nowrap;
+            }
+
+            .page-content {
+                padding: 24px 4%;
+                width: 100%;
+                max-width: 100%;
+                min-height: auto;
+            }
+
+            /* Container and card widths set to 92% or auto with proper padding */
+            .card, 
+            #registerBox, 
+            #loginBox, 
+            .admin-profile-card, 
+            .announcement-banner {
+                width: 92% !important;
+                max-width: 92% !important;
+                margin-left: auto !important;
+                margin-right: auto !important;
+                padding: 24px 18px !important;
+                border-radius: 16px;
+            }
+
+            .hero {
+                padding: 45px 20px;
+                border-radius: 20px;
+                margin-bottom: 25px;
+                width: 92%;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .hero h1 {
+                font-size: 2.3rem;
+            }
+
+            .hero p {
+                font-size: 1.05rem;
+            }
+
+            .submission-grid {
+                grid-template-columns: 1fr !important;
+                gap: 12px !important;
+            }
+
+            .portal-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+                width: 92%;
+                margin: 20px auto 0 auto;
+            }
+
+            .feed-box {
+                height: 430px;
+                padding: 20px 16px;
+                border-radius: 16px;
+            }
+
+            input, select, textarea {
+                padding: 12px 14px;
+                font-size: 16px;
+                margin-bottom: 14px;
+            }
+
+            .btn-submit {
+                padding: 13px 20px;
+                font-size: 0.98rem;
+            }
+
+            .contact-info-list {
+                padding: 16px;
+            }
+
+            .contact-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 4px;
+                padding: 10px 12px;
+            }
+
+            .contact-item a, 
+            .contact-item span:last-child {
+                margin-left: 0 !important;
+                word-break: break-all;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+                width: 92%;
+                margin: 20px auto 0 auto;
+            }
+
+            .ambient-orb {
+                opacity: 0.35;
+            }
+            .orb-1 { width: 280px; height: 280px; }
+            .orb-2 { width: 300px; height: 300px; }
+        }
+
+        /* ==========================================================================
+           RESPONSIVE MOBILE LANDSCAPE MODE (HORIZONTAL ORIENTATION - MAX HEIGHT 500PX)
+           ========================================================================== */
+        @media (orientation: landscape) and (max-height: 500px) {
+            nav {
+                padding: 0.45rem 4%;
+                position: relative; /* avoids eating 30% of viewport in landscape */
+            }
+
+            .college-logo-container {
+                width: 34px;
+                height: 34px;
+            }
+
+            .monor-highlight {
+                font-size: 1.35rem;
+            }
+
+            .brand-college-text {
+                font-size: 0.82rem;
+            }
+
+            .brand-college-sub {
+                font-size: 0.58rem;
+            }
+
+            .nav-links li a {
+                padding: 4px 10px;
+                font-size: 0.74rem;
+            }
+
+            .page-content {
+                padding: 16px 4%;
+            }
+
+            .hero {
+                padding: 24px 18px;
+                margin-bottom: 18px;
+                border-radius: 16px;
+                width: 92%;
+            }
+
+            .hero-badge-tag {
+                font-size: 0.7rem;
+                padding: 3px 12px;
+                margin-bottom: 8px;
+            }
+
+            .hero h1 {
+                font-size: 1.9rem;
+                margin-bottom: 6px;
+            }
+
+            .hero p {
+                font-size: 0.92rem;
+            }
+
+            .hero .btn-submit {
+                padding: 10px 24px !important;
+                font-size: 0.9rem;
+                margin-top: 6px !important;
+            }
+
+            .card, 
+            #registerBox, 
+            #loginBox, 
+            .admin-profile-card, 
+            .announcement-banner {
+                width: 92% !important;
+                max-width: 92% !important;
+                padding: 18px 18px !important;
+                margin-bottom: 16px;
+            }
+
+            .admin-profile-card {
+                padding: 20px 18px !important;
+            }
+
+            .admin-avatar-ring {
+                width: 60px;
+                height: 60px;
+                margin-bottom: 10px;
+            }
+
+            .admin-profile-card h1 {
+                font-size: 1.45rem !important;
+                margin-bottom: 6px !important;
+            }
+
+            .contact-info-list {
+                margin-top: 14px;
+                padding: 12px;
+            }
+
+            .contact-item {
+                flex-direction: row;
+                align-items: center;
+                padding: 6px 10px;
+                font-size: 0.88rem;
+                margin-bottom: 8px;
+            }
+
+            .contact-item a, 
+            .contact-item span:last-child {
+                margin-left: auto !important;
+            }
+
+            .submission-grid {
+                grid-template-columns: 1fr 2fr !important;
+                gap: 12px !important;
+            }
+
+            .portal-grid {
+                grid-template-columns: 1fr 1fr !important;
+                gap: 15px;
+                width: 92%;
+                margin-top: 15px;
+            }
+
+            .feed-box {
+                height: 280px;
+                padding: 15px 14px;
+            }
+
+            .feed-title {
+                font-size: 1.05rem;
+                margin-bottom: 10px;
+                padding-bottom: 8px;
+            }
+
+            .feed-card {
+                padding: 12px;
+                margin-bottom: 10px;
+            }
+
+            .announcement-banner {
+                padding: 14px 18px;
+                margin-bottom: 16px;
+            }
+
+            .features-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 12px;
+                width: 92%;
+            }
+
+            .feature-card {
+                padding: 14px;
+                border-radius: 14px;
+            }
+
+            .feature-icon {
+                width: 34px;
+                height: 34px;
+                font-size: 1.1rem;
+                margin-bottom: 8px;
+            }
+
+            .feature-title {
+                font-size: 0.95rem;
+            }
+
+            .feature-desc {
+                font-size: 0.8rem;
+            }
+
+            input, select, textarea {
+                padding: 9px 12px;
+                font-size: 15px;
+                margin-bottom: 10px;
+            }
+
+            textarea {
+                min-height: 70px;
+            }
+
+            footer {
+                padding: 20px 15px;
+                margin-top: 25px;
+            }
+        }
+
+        /* ==========================================================================
+           SMALL PHONE PORTRAIT (UNDER 480PX)
+           ========================================================================== */
+        @media (max-width: 480px) {
+            nav {
+                padding: 0.75rem 3%;
+            }
+
+            .brand-wrapper {
+                gap: 8px;
+            }
+
+            .college-logo-container {
+                width: 36px;
+                height: 36px;
+            }
+
+            .monor-highlight {
+                font-size: 1.4rem;
+                margin-right: 4px;
+            }
+
+            .brand-college-text {
+                font-size: 0.82rem;
+            }
+
+            .brand-college-sub {
+                display: none; /* Hide micro subtitle on narrow screens to prevent wrapping */
+            }
+
+            .card, 
+            #registerBox, 
+            #loginBox, 
+            .admin-profile-card, 
+            .announcement-banner, 
+            .portal-grid, 
+            .features-grid,
+            .hero {
+                width: 94% !important;
+                max-width: 94% !important;
+                padding: 18px 14px !important;
+            }
+
+            .hero {
+                padding: 35px 15px;
+            }
+
+            .hero h1 {
+                font-size: 2.05rem;
+            }
+
+            .feed-box {
+                height: 390px;
+                padding: 16px 12px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -940,7 +1335,7 @@
                 </p>
                 
                 <form id="submissionForm">
-                    <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 20px;">
+                    <div class="submission-grid">
                         <div>
                             <label>Category</label>
                             <select id="msgType">
