@@ -3,27 +3,23 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>মনৰ কথা | Tinsukia College Student Portal</title>
+  <title>মনৰ কথা | Tinsukia College</title>
   <style>
     :root {
-      --primary: #d97706;
-      --primary-hover: #b45309;
-      --bg-dark: #0f172a;
-      --card-bg: rgba(30, 41, 59, 0.7);
+      --primary: #f97316;
+      --primary-hover: #ea580c;
+      --bg-overlay: rgba(15, 23, 42, 0.75);
+      --glass-bg: rgba(255, 255, 255, 0.08);
+      --glass-border: rgba(255, 255, 255, 0.15);
       --text-main: #f8fafc;
-      --text-sub: #94a3b8;
-      --border: rgba(255, 255, 255, 0.1);
+      --text-sub: #cbd5e1;
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
 
     body {
-      background: var(--bg-dark);
+      background: linear-gradient(var(--bg-overlay), var(--bg-overlay)), url('campus-bg.jpg') no-repeat center center fixed;
+      background-size: cover;
       color: var(--text-main);
       min-height: 100vh;
       display: flex;
@@ -34,148 +30,62 @@
 
     header {
       width: 100%;
-      max-width: 800px;
+      max-width: 900px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 15px 0;
-      border-bottom: 1px solid var(--border);
-      margin-bottom: 30px;
+      padding: 15px 25px;
+      background: var(--glass-bg);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--glass-border);
+      border-radius: 16px;
+      margin-bottom: 25px;
     }
 
-    .logo-container {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
+    .logo-container { display: flex; align-items: center; gap: 14px; }
+    .logo-container img { width: 48px; height: 48px; border-radius: 50%; object-fit: cover; }
+    .portal-title { font-size: 1.3rem; font-weight: 700; color: var(--primary); }
 
-    .logo-container img {
-      width: 45px;
-      height: 45px;
-      border-radius: 50%;
-    }
+    .container { width: 100%; max-width: 900px; }
 
-    .portal-title {
-      font-size: 1.4rem;
-      font-weight: 700;
-      color: var(--primary);
+    .tabs { display: flex; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; }
+    .tab-btn {
+      flex: 1; min-width: 140px; padding: 12px;
+      background: var(--glass-bg); backdrop-filter: blur(8px);
+      border: 1px solid var(--glass-border); border-radius: 10px;
+      color: var(--text-sub); font-weight: 600; cursor: pointer; transition: all 0.3s ease;
     }
-
-    .container {
-      width: 100%;
-      max-width: 800px;
-    }
+    .tab-btn.active, .tab-btn:hover { background: var(--primary); color: white; border-color: var(--primary); }
 
     .card {
-      background: var(--card-bg);
-      backdrop-filter: blur(10px);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 24px;
-      margin-bottom: 24px;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+      background: var(--glass-bg); backdrop-filter: blur(16px);
+      border: 1px solid var(--glass-border); border-radius: 16px;
+      padding: 28px; margin-bottom: 24px; box-shadow: 0 8px 32px rgba(0,0,0,0.37);
     }
 
-    h2 {
-      margin-bottom: 16px;
-      font-size: 1.2rem;
-      color: var(--primary);
-    }
+    .hidden { display: none !important; }
 
-    .form-group {
-      margin-bottom: 16px;
-    }
-
-    label {
-      display: block;
-      margin-bottom: 6px;
-      font-size: 0.9rem;
-      color: var(--text-sub);
-    }
-
+    .form-group { margin-bottom: 18px; }
+    label { display: block; margin-bottom: 8px; font-size: 0.9rem; color: var(--text-sub); }
     input, select, textarea {
-      width: 100%;
-      padding: 10px 14px;
-      background: rgba(15, 23, 42, 0.6);
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      color: var(--text-main);
-      font-size: 0.95rem;
-      outline: none;
+      width: 100%; padding: 12px 16px; background: rgba(15, 23, 42, 0.6);
+      border: 1px solid var(--glass-border); border-radius: 8px; color: var(--text-main); font-size: 1rem; outline: none;
     }
+    input:focus, select:focus, textarea:focus { border-color: var(--primary); }
 
-    input:focus, select:focus, textarea:focus {
-      border-color: var(--primary);
+    button.submit-btn {
+      width: 100%; padding: 14px; background: var(--primary); color: white;
+      border: none; border-radius: 8px; font-weight: 700; font-size: 1rem; cursor: pointer; transition: 0.2s;
     }
+    button.submit-btn:hover { background: var(--primary-hover); }
 
-    button {
-      width: 100%;
-      padding: 12px;
-      background: var(--primary);
-      color: white;
-      border: none;
-      border-radius: 6px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: background 0.2s;
-    }
+    .admin-card { text-align: center; padding: 32px 20px; }
+    .badge { display: inline-block; background: rgba(249, 115, 22, 0.2); color: var(--primary); padding: 6px 16px; border-radius: 20px; font-size: 0.85rem; font-weight: 600; margin-bottom: 12px; }
+    .contact-details { margin-top: 16px; font-size: 0.95rem; color: var(--text-sub); display: flex; flex-direction: column; gap: 8px; align-items: center; }
 
-    button:hover {
-      background: var(--primary-hover);
-    }
-
-    .tabs {
-      display: flex;
-      gap: 10px;
-      margin-bottom: 20px;
-    }
-
-    .tab-btn {
-      flex: 1;
-      padding: 10px;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid var(--border);
-      color: var(--text-sub);
-    }
-
-    .tab-btn.active {
-      background: var(--primary);
-      color: white;
-      border-color: var(--primary);
-    }
-
-    .hidden {
-      display: none;
-    }
-
-    .feed-item {
-      padding: 14px;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .feed-item:last-child {
-      border-bottom: none;
-    }
-
-    .feed-header {
-      display: flex;
-      justify-content: space-between;
-      font-size: 0.85rem;
-      color: var(--text-sub);
-      margin-bottom: 6px;
-    }
-
-    .feed-body {
-      font-size: 0.95rem;
-      line-height: 1.4;
-    }
-
-    .status-badge {
-      font-size: 0.75rem;
-      padding: 2px 8px;
-      border-radius: 12px;
-      background: rgba(217, 119, 6, 0.2);
-      color: var(--primary);
+    @media screen and (max-width: 900px), screen and (orientation: landscape) and (max-height: 500px) {
+      body { background-attachment: scroll; padding: 10px; }
+      .container, header { width: 100% !important; padding: 15px !important; }
     }
   </style>
 </head>
@@ -186,21 +96,19 @@
       <img src="college-logo.png" alt="Tinsukia College Logo">
       <div class="portal-title">মনৰ কথা | Tinsukia College</div>
     </div>
-    <div id="userInfo" class="status-badge hidden">Logged In</div>
   </header>
 
   <div class="container">
 
-    <!-- NAVIGATION TABS -->
     <div class="tabs">
       <button class="tab-btn active" onclick="switchTab('submit')">Submit Message</button>
       <button class="tab-btn" onclick="switchTab('feed')">Announcements & Feed</button>
-      <button class="tab-btn" onclick="switchTab('auth')">Register / Login</button>
+      <button class="tab-btn" onclick="switchTab('about')">About Admin</button>
     </div>
 
-    <!-- TAB 1: SUBMISSION FORM -->
+    <!-- TAB 1: FORM -->
     <div id="tab-submit" class="card">
-      <h2>Submit Your Request / Feedback</h2>
+      <h2 style="margin-bottom: 16px; color: var(--primary);">Submit Your Request / Feedback</h2>
       <form id="msgForm" onsubmit="handleMessageSubmit(event)">
         <div class="form-group">
           <label for="msgType">Category</label>
@@ -210,70 +118,40 @@
             <option value="Idea">Idea</option>
           </select>
         </div>
-
         <div class="form-group">
           <label for="userMsg">Your Message (মনৰ কথা)</label>
           <textarea id="userMsg" rows="4" placeholder="Write your message here..." required></textarea>
         </div>
-
-        <button type="submit" id="submitBtn">Send Submission</button>
+        <button type="submit" id="submitBtn" class="submit-btn">Send Submission</button>
       </form>
     </div>
 
-    <!-- TAB 2: PUBLIC FEED & ANNOUNCEMENTS -->
+    <!-- TAB 2: FEED & ANNOUNCEMENTS -->
     <div id="tab-feed" class="card hidden">
-      <h2>Announcements & Public Messages</h2>
-      <div id="feedList">
-        <p style="color: var(--text-sub);">Loading data from Google Sheets...</p>
-      </div>
+      <h2 style="margin-bottom: 16px; color: var(--primary);">Official Announcements & Public Feed</h2>
+      <div id="announcementsArea" style="margin-bottom: 20px;"></div>
+      <hr style="border-color: var(--glass-border); margin-bottom: 20px;">
+      <div id="feedList"><p style="color: var(--text-sub);">Loading data...</p></div>
     </div>
 
-    <!-- TAB 3: AUTHENTICATION -->
-    <div id="tab-auth" class="card hidden">
-      <h2>Student Registration</h2>
-      <form id="regForm" onsubmit="handleRegister(event)" style="margin-bottom: 24px;">
-        <div class="form-group">
-          <label>Full Name</label>
-          <input type="text" id="regName" required>
-        </div>
-        <div class="form-group">
-          <label>Class / Semester</label>
-          <input type="text" id="regClass" placeholder="e.g., BSC 4TH" required>
-        </div>
-        <div class="form-group">
-          <label>Email or Phone</label>
-          <input type="text" id="regEmail" required>
-        </div>
-        <div class="form-group">
-          <label>Password</label>
-          <input type="password" id="regPass" required>
-        </div>
-        <button type="submit">Register Account</button>
-      </form>
-
-      <h2>Login</h2>
-      <form id="loginForm" onsubmit="handleLogin(event)">
-        <div class="form-group">
-          <label>Email / Phone</label>
-          <input type="text" id="loginEmail" required>
-        </div>
-        <div class="form-group">
-          <label>Password</label>
-          <input type="password" id="loginPass" required>
-        </div>
-        <button type="submit">Login</button>
-      </form>
+    <!-- TAB 3: ADMIN PROFILE -->
+    <div id="tab-about" class="card hidden admin-card">
+      <span id="adminRole" class="badge">SOCIAL SERVICE SECRETARY</span>
+      <h2 id="adminName" style="margin: 8px 0 12px 0; font-size: 1.8rem; color: var(--text-main);">Deep Hazarika</h2>
+      <p id="adminBio" style="color: var(--text-sub); max-width: 600px; margin: 0 auto 16px auto; line-height: 1.5;"></p>
+      
+      <div class="contact-details">
+        <p><strong>Email:</strong> <span id="adminEmail" style="color: var(--primary);"></span></p>
+        <p><strong>Phone:</strong> <span id="adminPhone" style="color: var(--primary);"></span></p>
+      </div>
     </div>
 
   </div>
 
   <script>
-    // ⚠️ REPLACE THIS WITH YOUR DEPLOYED GOOGLE APPS SCRIPT WEB APP URL
-    const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz-6_r5c0OFnpIbb1iBq4nk1fURpVct6yFp0VrpBzD5pUx2UZgoLZG1ndH5213HrXQD/exec";
+    // ⚠️ PASTE YOUR ACTIVE GOOGLE APPS SCRIPT WEB APP URL HERE
+    const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzuN3ET6RksBh32WEfUrYB_538-03ePbLMpaoXudu5DGsyQh5dosXFqSkHKpxM00wF2/exec";
 
-    let currentUser = null;
-
-    // SWITCH TAB NAVIGATION
     function switchTab(tabName) {
       document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
       document.querySelectorAll('.card').forEach(card => card.classList.add('hidden'));
@@ -285,34 +163,34 @@
         document.querySelectorAll('.tab-btn')[1].classList.add('active');
         document.getElementById('tab-feed').classList.remove('hidden');
         loadPortalData();
-      } else if (tabName === 'auth') {
+      } else if (tabName === 'about') {
         document.querySelectorAll('.tab-btn')[2].classList.add('active');
-        document.getElementById('tab-auth').classList.remove('hidden');
+        document.getElementById('tab-about').classList.remove('hidden');
+        loadPortalData();
       }
     }
 
-    // SUBMIT MESSAGE / GRIEVANCE
     async function handleMessageSubmit(e) {
       e.preventDefault();
       const submitBtn = document.getElementById('submitBtn');
-      submitBtn.disabled = true;
       submitBtn.innerText = "Sending...";
+      submitBtn.disabled = true;
 
       const payload = {
         action: "submit_msg",
-        authorName: currentUser ? currentUser.Name : "Anonymous Student",
-        authorClass: currentUser ? currentUser.Class : "N/A",
+        authorName: "Anonymous Student",
+        authorClass: "Student",
         category: document.getElementById('msgType').value,
         content: document.getElementById('userMsg').value
       };
 
       try {
-        const response = await fetch(GOOGLE_SCRIPT_URL, {
+        await fetch(GOOGLE_SCRIPT_URL, {
           method: "POST",
+          headers: { "Content-Type": "text/plain;charset=utf-8" },
           body: JSON.stringify(payload)
         });
-        
-        alert("Message submitted successfully! It is currently pending review.");
+        alert("Message submitted successfully! It is pending review.");
         document.getElementById('msgForm').reset();
       } catch (err) {
         console.error(err);
@@ -323,88 +201,49 @@
       }
     }
 
-    // REGISTER ACCOUNT
-    async function handleRegister(e) {
-      e.preventDefault();
-      const payload = {
-        action: "register",
-        name: document.getElementById('regName').value,
-        classVal: document.getElementById('regClass').value,
-        emailOrPhone: document.getElementById('regEmail').value,
-        password: document.getElementById('regPass').value
-      };
-
-      try {
-        await fetch(GOOGLE_SCRIPT_URL, {
-          method: "POST",
-          body: JSON.stringify(payload)
-        });
-        alert("Registration successful! You can now log in.");
-        document.getElementById('regForm').reset();
-      } catch (err) {
-        alert("Registration failed.");
-      }
-    }
-
-    // LOGIN USER
-    async function handleLogin(e) {
-      e.preventDefault();
-      const payload = {
-        action: "login",
-        emailOrPhone: document.getElementById('loginEmail').value,
-        password: document.getElementById('loginPass').value
-      };
-
-      try {
-        const res = await fetch(GOOGLE_SCRIPT_URL, {
-          method: "POST",
-          body: JSON.stringify(payload)
-        });
-        const data = await res.json();
-
-        if (data.status === "success") {
-          currentUser = data.user;
-          document.getElementById('userInfo').innerText = `Logged in: ${currentUser.Name}`;
-          document.getElementById('userInfo').classList.remove('hidden');
-          alert("Login successful!");
-          switchTab('submit');
-        } else {
-          alert("Invalid credentials.");
-        }
-      } catch (err) {
-        alert("Login failed.");
-      }
-    }
-
-    // FETCH FEED & ANNOUNCEMENTS FROM GOOGLE SHEETS
     async function loadPortalData() {
-      const feedList = document.getElementById('feedList');
-      feedList.innerHTML = "<p style='color: var(--text-sub);'>Loading data from Google Sheets...</p>";
-
       try {
         const res = await fetch(`${GOOGLE_SCRIPT_URL}?action=get_portal_data`);
         const data = await res.json();
 
-        if (data && data.submissions) {
+        // Populate Submissions
+        const feedList = document.getElementById('feedList');
+        if (data.submissions && data.submissions.length > 0) {
           feedList.innerHTML = "";
           data.submissions.forEach(item => {
-            const div = document.createElement('div');
-            div.className = 'feed-item';
-            div.innerHTML = `
-              <div class="feed-header">
-                <span><strong>${item.AuthorName}</strong> (${item.AuthorClass})</span>
-                <span class="status-badge">${item.Status || 'Pending'}</span>
-              </div>
-              <div class="feed-body">${item.Content}</div>
-            `;
-            feedList.appendChild(div);
+            feedList.innerHTML += `
+              <div style="padding: 12px; border-bottom: 1px solid var(--glass-border);">
+                <strong>${item.AuthorName}</strong> <span style="font-size:0.8rem; color:var(--primary);">[${item.Category}]</span>
+                <p style="margin-top: 6px;">${item.Content}</p>
+              </div>`;
           });
         } else {
-          feedList.innerHTML = "<p>No messages available yet.</p>";
+          feedList.innerHTML = "<p style='color: var(--text-sub);'>No approved submissions yet.</p>";
+        }
+
+        // Populate Announcements
+        const annArea = document.getElementById('announcementsArea');
+        if (data.announcements && data.announcements.length > 0) {
+          annArea.innerHTML = "";
+          data.announcements.forEach(ann => {
+            annArea.innerHTML += `
+              <div style="background: rgba(249,115,22,0.15); border-left: 4px solid var(--primary); padding: 10px 14px; border-radius: 6px; margin-bottom: 10px;">
+                <strong style="color: var(--primary);">${ann.Title}</strong>
+                <p style="font-size: 0.95rem; margin-top: 4px;">${ann.Message}</p>
+              </div>`;
+          });
+        }
+
+        // Populate Admin Profile
+        if (data.admin) {
+          document.getElementById('adminName').innerText = data.admin.Name || "Deep Hazarika";
+          document.getElementById('adminRole').innerText = data.admin.Role || "Social Service Secretary";
+          document.getElementById('adminBio').innerText = data.admin.Bio || "";
+          document.getElementById('adminEmail').innerText = data.admin.Email || "";
+          document.getElementById('adminPhone').innerText = data.admin.Phone || "";
         }
       } catch (err) {
         console.error(err);
-        feedList.innerHTML = "<p style='color: #ef4444;'>Failed to load feed data from Google Sheets.</p>";
       }
     }
   </script>
