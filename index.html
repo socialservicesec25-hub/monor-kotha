@@ -1,1646 +1,412 @@
-
-<!DOCTYPE html>
-<html lang="as">
+ <!DOCTYPE html>
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-    <title>মনৰ কথা | Tinsukia College Portal</title>
-    <!-- Google Fonts: Modern Latin + Assamese Glyphs -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Hind+Siliguri:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    
-    <style>
-        :root {
-            --navy-dark: #070d1e;
-            --navy: #0a1128;
-            --navy-card: #0f172a;
-            --highlight: #f97316;
-            --highlight-hover: #ea580c;
-            --highlight-light: #ffedd5;
-            --gold: #d97706;
-            --gold-light: #fef3c7;
-            --bg: #f8fafc;
-            --white: #ffffff;
-            --danger: #ef4444;
-            --danger-bg: #fef2f2;
-            --success: #10b981;
-            --success-bg: #ecfdf5;
-            --text-dark: #0f172a;
-            --text-muted: #475569;
-            --glass-bg: rgba(255, 255, 255, 0.88);
-            --glass-border: rgba(255, 255, 255, 0.65);
-            --glass-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(255, 255, 255, 0.4) inset;
-            --levitate-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35), 0 0 25px rgba(249, 115, 22, 0.22);
-            --radius-lg: 20px;
-            --radius-md: 14px;
-            --radius-sm: 8px;
-            --transition-smooth: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-        }
-
-        /* College Campus Full-Screen Background with Responsive Dark Overlay */
-        body {
-            background-color: var(--navy-dark);
-            background-image: 
-                linear-gradient(135deg, rgba(7, 13, 30, 0.88) 0%, rgba(15, 23, 42, 0.84) 100%),
-                url('campus-bg.jpg'),
-                url('campus.jpg'),
-                url('https://images.unsplash.com/photo-1541339907198-e08756ebafe3?auto=format&fit=crop&w=1920&q=85');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            background-repeat: no-repeat;
-            color: #1e293b;
-            line-height: 1.6;
-            min-height: 100vh;
-            min-height: 100dvh;
-            display: flex;
-            flex-direction: column;
-            position: relative;
-            overflow-x: hidden;
-            -webkit-text-size-adjust: 100%;
-        }
-
-        /* Optimize background rendering on mobile touch devices */
-        @media (max-width: 900px), (hover: none) and (pointer: coarse) {
-            body {
-                background-attachment: scroll;
-                background-size: cover;
-                background-position: center;
-            }
-        }
-
-        /* Ambient background glow orbs for authentic glass refraction */
-        .ambient-orb {
-            position: fixed;
-            border-radius: 50%;
-            filter: blur(90px);
-            z-index: 0;
-            pointer-events: none;
-            opacity: 0.55;
-            animation: pulseOrb 12s ease-in-out infinite alternate;
-        }
-        .orb-1 {
-            width: 450px;
-            height: 450px;
-            top: -100px;
-            right: -80px;
-            background: radial-gradient(circle, rgba(249, 115, 22, 0.28) 0%, transparent 70%);
-        }
-        .orb-2 {
-            width: 500px;
-            height: 500px;
-            bottom: -150px;
-            left: -100px;
-            background: radial-gradient(circle, rgba(14, 165, 233, 0.22) 0%, transparent 70%);
-            animation-duration: 16s;
-        }
-
-        @keyframes pulseOrb {
-            0% { transform: scale(1) translate(0, 0); opacity: 0.45; }
-            50% { transform: scale(1.1) translate(20px, -20px); opacity: 0.7; }
-            100% { transform: scale(0.95) translate(-20px, 20px); opacity: 0.5; }
-        }
-
-        /* NAVIGATION BAR - Frosted Glass */
-        nav {
-            background: rgba(10, 17, 40, 0.85);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.12);
-            padding: 0.95rem 7%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-            transition: var(--transition-smooth);
-        }
-
-        .brand-wrapper {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            text-decoration: none;
-            cursor: pointer;
-            flex-shrink: 0;
-        }
-
-        /* College Logo Circular Badge */
-        .college-logo-container {
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            background: #ffffff;
-            padding: 2px;
-            box-shadow: 0 0 18px rgba(249, 115, 22, 0.35), 0 4px 12px rgba(0, 0, 0, 0.3);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 2px solid rgba(249, 115, 22, 0.8);
-            transition: var(--transition-smooth);
-            overflow: hidden;
-            flex-shrink: 0;
-        }
-
-        .college-logo-container:hover {
-            transform: scale(1.1) rotate(4deg);
-            box-shadow: 0 0 25px rgba(249, 115, 22, 0.6);
-            border-color: #fb923c;
-        }
-
-        .college-logo-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 50%;
-            display: block;
-        }
-
-        .college-logo-svg {
-            width: 28px;
-            height: 28px;
-            fill: var(--highlight);
-        }
-
-        .brand {
-            color: #ffffff;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            flex-wrap: wrap;
-            letter-spacing: -0.01em;
-        }
-
-        .monor-highlight {
-            font-family: 'Hind Siliguri', 'Plus Jakarta Sans', sans-serif;
-            background: linear-gradient(135deg, #fb923c 0%, #f97316 50%, #ea580c 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-size: 1.85rem;
-            font-weight: 800;
-            margin-right: 10px;
-            letter-spacing: 0.5px;
-            text-shadow: 0 2px 10px rgba(249, 115, 22, 0.3);
-            filter: drop-shadow(0 2px 6px rgba(249, 115, 22, 0.25));
-        }
-
-        .brand-college-text {
-            display: inline-flex;
-            flex-direction: column;
-            justify-content: center;
-            font-size: 0.95rem;
-            color: #e2e8f0;
-            font-weight: 600;
-            line-height: 1.2;
-        }
-
-        .brand-college-sub {
-            font-size: 0.68rem;
-            color: #94a3b8;
-            font-weight: 500;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-        }
-
-        .nav-links {
-            list-style: none;
-            display: flex;
-            gap: 12px;
-            align-items: center;
-        }
-
-        .nav-links li a {
-            color: #cbd5e1;
-            text-decoration: none;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition-smooth);
-            font-size: 0.88rem;
-            text-transform: uppercase;
-            letter-spacing: 0.8px;
-            padding: 8px 16px;
-            border-radius: 30px;
-            position: relative;
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid transparent;
-            display: inline-block;
-        }
-
-        .nav-links li a:hover {
-            color: #ffffff;
-            background: rgba(249, 115, 22, 0.18);
-            border-color: rgba(249, 115, 22, 0.35);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(249, 115, 22, 0.2);
-        }
-
-        /* CONTENT CONTAINERS */
-        .page-content {
-            display: none;
-            padding: 40px 6%;
-            min-height: calc(100vh - 170px);
-            max-width: 1200px;
-            margin: 0 auto;
-            width: 100%;
-            position: relative;
-            z-index: 1;
-        }
-
-        .active-page {
-            display: block;
-            animation: fadeInPage 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
-
-        @keyframes fadeInPage {
-            from { opacity: 0; transform: translateY(14px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* GLASSMORPHISM CARD STYLING */
-        .card {
-            background: var(--glass-bg);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            padding: 35px;
-            border-radius: var(--radius-lg);
-            box-shadow: var(--glass-shadow);
-            border: 1px solid var(--glass-border);
-            margin-bottom: 30px;
-            transition: var(--transition-smooth);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, #f97316 0%, #fb923c 50%, #0a1128 100%);
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--levitate-shadow);
-            border-color: rgba(255, 255, 255, 0.85);
-        }
-
-        /* HERO SECTION */
-        .hero {
-            text-align: center;
-            background: linear-gradient(135deg, rgba(10, 17, 40, 0.90) 0%, rgba(15, 23, 42, 0.88) 100%);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            color: white;
-            padding: 75px 30px;
-            border-radius: 24px;
-            margin-bottom: 35px;
-            border: 1px solid rgba(255, 255, 255, 0.18);
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 30px rgba(249, 115, 22, 0.18);
-            position: relative;
-            overflow: hidden;
-            animation: floatHero 8s ease-in-out infinite alternate;
-        }
-
-        @keyframes floatHero {
-            0% { transform: translateY(0px); }
-            100% { transform: translateY(-6px); }
-        }
-
-        .hero::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 10%;
-            right: 10%;
-            height: 3px;
-            background: linear-gradient(90deg, transparent, var(--highlight), transparent);
-        }
-
-        .hero-badge-tag {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(249, 115, 22, 0.15);
-            border: 1px solid rgba(249, 115, 22, 0.4);
-            color: #fb923c;
-            padding: 6px 18px;
-            border-radius: 30px;
-            font-size: 0.8rem;
-            font-weight: 700;
-            letter-spacing: 1.2px;
-            text-transform: uppercase;
-            margin-bottom: 18px;
-        }
-
-        .hero h1 {
-            font-family: 'Hind Siliguri', 'Plus Jakarta Sans', sans-serif;
-            font-size: 3.6rem;
-            font-weight: 800;
-            line-height: 1.15;
-            letter-spacing: -0.02em;
-            margin-bottom: 12px;
-        }
-
-        .hero p {
-            font-size: 1.25rem;
-            color: #cbd5e1;
-            max-width: 650px;
-            margin: 0 auto;
-            font-weight: 400;
-        }
-
-        /* HIGHLIGHTED ANNOUNCEMENT BANNER */
-        .announcement-banner {
-            background: rgba(255, 247, 237, 0.92);
-            backdrop-filter: blur(14px);
-            -webkit-backdrop-filter: blur(14px);
-            border: 1.5px solid rgba(251, 146, 60, 0.4);
-            border-left: 6px solid var(--highlight);
-            padding: 22px 28px;
-            border-radius: var(--radius-md);
-            margin-bottom: 30px;
-            box-shadow: 0 12px 30px -8px rgba(249, 115, 22, 0.2);
-            transition: var(--transition-smooth);
-        }
-
-        .announcement-banner:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 16px 36px -8px rgba(249, 115, 22, 0.3);
-        }
-
-        .announcement-header {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            color: #c2410c;
-            font-weight: 800;
-            font-size: 1.05rem;
-            margin-bottom: 10px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .announcement-badge {
-            background: linear-gradient(135deg, #ea580c 0%, #c2410c 100%);
-            color: white;
-            padding: 3px 10px;
-            border-radius: 20px;
-            font-size: 0.72rem;
-            font-weight: 700;
-            letter-spacing: 0.5px;
-            display: inline-flex;
-            align-items: center;
-            box-shadow: 0 2px 8px rgba(194, 65, 12, 0.3);
-        }
-
-        /* SUBMISSION FORM GRID */
-        .submission-grid {
-            display: grid;
-            grid-template-columns: 1fr 2fr;
-            gap: 20px;
-        }
-
-        /* TWO-COLUMN FEED GRID */
-        .portal-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 25px;
-            margin-top: 25px;
-        }
-
-        /* FORM ELEMENTS */
-        label {
-            display: block;
-            font-weight: 700;
-            margin-bottom: 7px;
-            color: var(--navy-dark);
-            font-size: 0.92rem;
-            letter-spacing: -0.01em;
-        }
-
-        input, select, textarea {
-            width: 100%;
-            padding: 13px 16px;
-            background: rgba(255, 255, 255, 0.95);
-            border: 1.5px solid #cbd5e1;
-            border-radius: 12px;
-            margin-bottom: 18px;
-            font-size: 16px; /* 16px prevents iOS Safari auto-zoom */
-            color: #0f172a;
-            transition: var(--transition-smooth);
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04) inset;
-        }
-
-        input:focus, select:focus, textarea:focus {
-            outline: none;
-            border-color: var(--highlight);
-            background: #ffffff;
-            box-shadow: 0 0 0 4px rgba(249, 115, 22, 0.18), 0 4px 12px rgba(249, 115, 22, 0.1);
-        }
-
-        textarea {
-            resize: vertical;
-            min-height: 100px;
-        }
-
-        /* BUTTONS WITH LEVITATION & GLOW */
-        .btn-submit {
-            background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
-            color: #ffffff;
-            border: none;
-            padding: 14px 28px;
-            border-radius: 12px;
-            cursor: pointer;
-            font-weight: 800;
-            width: 100%;
-            font-size: 1.02rem;
-            letter-spacing: 0.4px;
-            transition: var(--transition-smooth);
-            box-shadow: 0 8px 20px -4px rgba(249, 115, 22, 0.45);
-            position: relative;
-            overflow: hidden;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
-
-        .btn-submit::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 60%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
-            transition: 0.5s;
-        }
-
-        .btn-submit:hover {
-            background: linear-gradient(135deg, #fb923c 0%, #f97316 100%);
-            transform: translateY(-3px);
-            box-shadow: 0 14px 28px -4px rgba(249, 115, 22, 0.55);
-        }
-
-        .btn-submit:hover::after {
-            left: 140%;
-        }
-
-        .btn-submit:active {
-            transform: translateY(-1px);
-        }
-
-        .btn-submit:disabled {
-            opacity: 0.65;
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: none;
-        }
-
-        /* FEED BOXES */
-        .feed-box {
-            background: var(--glass-bg);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border-radius: var(--radius-lg);
-            padding: 26px;
-            box-shadow: var(--glass-shadow);
-            border: 1px solid var(--glass-border);
-            height: 520px;
-            overflow-y: auto;
-            transition: var(--transition-smooth);
-        }
-
-        .feed-box:hover {
-            box-shadow: var(--levitate-shadow);
-        }
-
-        /* Custom Scrollbar */
-        .feed-box::-webkit-scrollbar {
-            width: 7px;
-        }
-        .feed-box::-webkit-scrollbar-track {
-            background: rgba(0, 0, 0, 0.04);
-            border-radius: 10px;
-        }
-        .feed-box::-webkit-scrollbar-thumb {
-            background: rgba(148, 163, 184, 0.5);
-            border-radius: 10px;
-        }
-        .feed-box::-webkit-scrollbar-thumb:hover {
-            background: var(--highlight);
-        }
-
-        .feed-title {
-            font-size: 1.22rem;
-            font-weight: 800;
-            color: var(--navy-dark);
-            margin-bottom: 18px;
-            padding-bottom: 12px;
-            border-bottom: 1.5px solid #e2e8f0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .feed-card {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: var(--radius-md);
-            padding: 18px;
-            margin-bottom: 16px;
-            border-left: 5px solid var(--navy-dark);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-            border-top: 1px solid rgba(226, 232, 240, 0.8);
-            border-right: 1px solid rgba(226, 232, 240, 0.8);
-            border-bottom: 1px solid rgba(226, 232, 240, 0.8);
-            transition: var(--transition-smooth);
-        }
-
-        .feed-card:hover {
-            transform: translateX(4px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-        }
-
-        .admin-reply {
-            background: var(--success-bg);
-            border: 1px solid #bbf7d0;
-            border-left: 4px solid var(--success);
-            padding: 12px 14px;
-            border-radius: 8px;
-            margin-top: 12px;
-            font-size: 0.9rem;
-            color: #166534;
-            line-height: 1.5;
-        }
-
-        /* ABOUT ADMIN STYLES */
-        .admin-profile-card {
-            background: var(--glass-bg);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border-radius: 24px;
-            padding: 45px 35px;
-            box-shadow: var(--glass-shadow);
-            border: 1px solid var(--glass-border);
-            max-width: 720px;
-            margin: 20px auto;
-            text-align: center;
-            transition: var(--transition-smooth);
-            position: relative;
-        }
-
-        .admin-profile-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 6px;
-            background: linear-gradient(90deg, #f97316, #fb923c, #10b981);
-            border-radius: 24px 24px 0 0;
-        }
-
-        .admin-profile-card:hover {
-            transform: translateY(-6px);
-            box-shadow: var(--levitate-shadow);
-        }
-
-        .admin-avatar-ring {
-            width: 90px;
-            height: 90px;
-            margin: 0 auto 18px;
-            border-radius: 50%;
-            background: #ffffff;
-            border: 2px solid var(--highlight);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 8px 24px rgba(249, 115, 22, 0.3);
-            animation: floatBadge 6s ease-in-out infinite alternate;
-            overflow: hidden;
-            padding: 3px;
-        }
-
-        @keyframes floatBadge {
-            0% { transform: translateY(0); }
-            100% { transform: translateY(-5px); }
-        }
-
-        .admin-badge-pill {
-            background: linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%);
-            color: #c2410c;
-            border: 1.5px solid var(--highlight);
-            padding: 7px 20px;
-            border-radius: 30px;
-            font-weight: 800;
-            font-size: 0.85rem;
-            display: inline-block;
-            margin-bottom: 16px;
-            text-transform: uppercase;
-            letter-spacing: 0.6px;
-            box-shadow: 0 2px 10px rgba(249, 115, 22, 0.15);
-        }
-
-        .contact-info-list {
-            margin-top: 30px;
-            text-align: left;
-            background: rgba(248, 250, 252, 0.9);
-            padding: 24px;
-            border-radius: 16px;
-            border: 1px solid #e2e8f0;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
-        }
-
-        .contact-item {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            margin-bottom: 14px;
-            font-size: 0.98rem;
-            padding: 10px 14px;
-            background: #ffffff;
-            border-radius: 10px;
-            border: 1px solid #f1f5f9;
-            transition: var(--transition-smooth);
-        }
-
-        .contact-item:hover {
-            transform: translateX(4px);
-            border-color: #cbd5e1;
-        }
-
-        .contact-item:last-child { margin-bottom: 0; }
-
-        /* BADGES */
-        .badge-pending {
-            background: #fef3c7;
-            color: #b45309;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.75rem;
-            font-weight: 800;
-            letter-spacing: 0.4px;
-            border: 1px solid #fde68a;
-        }
-
-        .badge-approved {
-            background: #dcfce7;
-            color: #15803d;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.75rem;
-            font-weight: 800;
-            letter-spacing: 0.4px;
-            border: 1px solid #bbf7d0;
-        }
-
-        /* FEATURE HIGHLIGHT TILES ON HOME */
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-            margin-top: 25px;
-        }
-
-        .feature-card {
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(14px);
-            -webkit-backdrop-filter: blur(14px);
-            padding: 24px;
-            border-radius: 18px;
-            border: 1px solid rgba(255, 255, 255, 0.6);
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.15);
-            transition: var(--transition-smooth);
-        }
-
-        .feature-card:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--levitate-shadow);
-            border-color: rgba(249, 115, 22, 0.4);
-        }
-
-        .feature-icon {
-            width: 44px;
-            height: 44px;
-            border-radius: 12px;
-            background: linear-gradient(135deg, #ffedd5, #fed7aa);
-            color: #ea580c;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.4rem;
-            margin-bottom: 14px;
-        }
-
-        .feature-title {
-            font-size: 1.1rem;
-            font-weight: 800;
-            color: var(--navy-dark);
-            margin-bottom: 6px;
-        }
-
-        .feature-desc {
-            font-size: 0.9rem;
-            color: var(--text-muted);
-            line-height: 1.5;
-        }
-
-        /* FOOTER */
-        footer {
-            background: rgba(10, 17, 40, 0.92);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            color: #94a3b8;
-            text-align: center;
-            padding: 35px 20px;
-            margin-top: auto;
-            position: relative;
-            z-index: 1;
-        }
-
-        .switch-link {
-            color: var(--highlight);
-            cursor: pointer;
-            font-weight: 700;
-            text-decoration: underline;
-            transition: var(--transition-smooth);
-        }
-        .switch-link:hover {
-            color: #ea580c;
-        }
-
-        /* ==========================================================================
-           RESPONSIVE MOBILE & TABLET MEDIA QUERIES (UNDER 900PX)
-           ========================================================================== */
-        @media (max-width: 900px) {
-            nav {
-                padding: 0.8rem 4%;
-                flex-wrap: wrap;
-                gap: 12px;
-            }
-
-            .brand-wrapper {
-                gap: 10px;
-            }
-
-            .college-logo-container {
-                width: 40px;
-                height: 40px;
-            }
-
-            .monor-highlight {
-                font-size: 1.55rem;
-                margin-right: 6px;
-            }
-
-            .brand-college-text {
-                font-size: 0.88rem;
-            }
-
-            .brand-college-sub {
-                font-size: 0.62rem;
-            }
-
-            .nav-links {
-                gap: 6px;
-                overflow-x: auto;
-                max-width: 100%;
-                padding-bottom: 4px;
-                -webkit-overflow-scrolling: touch;
-            }
-
-            .nav-links li a {
-                padding: 6px 12px;
-                font-size: 0.8rem;
-                white-space: nowrap;
-            }
-
-            .page-content {
-                padding: 24px 4%;
-                width: 100%;
-                max-width: 100%;
-                min-height: auto;
-            }
-
-            /* Container and card widths set to 92% or auto with proper padding */
-            .card, 
-            #registerBox, 
-            #loginBox, 
-            .admin-profile-card, 
-            .announcement-banner {
-                width: 92% !important;
-                max-width: 92% !important;
-                margin-left: auto !important;
-                margin-right: auto !important;
-                padding: 24px 18px !important;
-                border-radius: 16px;
-            }
-
-            .hero {
-                padding: 45px 20px;
-                border-radius: 20px;
-                margin-bottom: 25px;
-                width: 92%;
-                margin-left: auto;
-                margin-right: auto;
-            }
-
-            .hero h1 {
-                font-size: 2.3rem;
-            }
-
-            .hero p {
-                font-size: 1.05rem;
-            }
-
-            .submission-grid {
-                grid-template-columns: 1fr !important;
-                gap: 12px !important;
-            }
-
-            .portal-grid {
-                grid-template-columns: 1fr;
-                gap: 20px;
-                width: 92%;
-                margin: 20px auto 0 auto;
-            }
-
-            .feed-box {
-                height: 430px;
-                padding: 20px 16px;
-                border-radius: 16px;
-            }
-
-            input, select, textarea {
-                padding: 12px 14px;
-                font-size: 16px;
-                margin-bottom: 14px;
-            }
-
-            .btn-submit {
-                padding: 13px 20px;
-                font-size: 0.98rem;
-            }
-
-            .contact-info-list {
-                padding: 16px;
-            }
-
-            .contact-item {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 4px;
-                padding: 10px 12px;
-            }
-
-            .contact-item a, 
-            .contact-item span:last-child {
-                margin-left: 0 !important;
-                word-break: break-all;
-            }
-
-            .features-grid {
-                grid-template-columns: 1fr;
-                width: 92%;
-                margin: 20px auto 0 auto;
-            }
-
-            .ambient-orb {
-                opacity: 0.35;
-            }
-            .orb-1 { width: 280px; height: 280px; }
-            .orb-2 { width: 300px; height: 300px; }
-        }
-
-        /* ==========================================================================
-           RESPONSIVE MOBILE LANDSCAPE MODE (HORIZONTAL ORIENTATION - MAX HEIGHT 500PX)
-           ========================================================================== */
-        @media (orientation: landscape) and (max-height: 500px) {
-            nav {
-                padding: 0.45rem 4%;
-                position: relative; /* avoids eating 30% of viewport in landscape */
-            }
-
-            .college-logo-container {
-                width: 34px;
-                height: 34px;
-            }
-
-            .monor-highlight {
-                font-size: 1.35rem;
-            }
-
-            .brand-college-text {
-                font-size: 0.82rem;
-            }
-
-            .brand-college-sub {
-                font-size: 0.58rem;
-            }
-
-            .nav-links li a {
-                padding: 4px 10px;
-                font-size: 0.74rem;
-            }
-
-            .page-content {
-                padding: 16px 4%;
-            }
-
-            .hero {
-                padding: 24px 18px;
-                margin-bottom: 18px;
-                border-radius: 16px;
-                width: 92%;
-            }
-
-            .hero-badge-tag {
-                font-size: 0.7rem;
-                padding: 3px 12px;
-                margin-bottom: 8px;
-            }
-
-            .hero h1 {
-                font-size: 1.9rem;
-                margin-bottom: 6px;
-            }
-
-            .hero p {
-                font-size: 0.92rem;
-            }
-
-            .hero .btn-submit {
-                padding: 10px 24px !important;
-                font-size: 0.9rem;
-                margin-top: 6px !important;
-            }
-
-            .card, 
-            #registerBox, 
-            #loginBox, 
-            .admin-profile-card, 
-            .announcement-banner {
-                width: 92% !important;
-                max-width: 92% !important;
-                padding: 18px 18px !important;
-                margin-bottom: 16px;
-            }
-
-            .admin-profile-card {
-                padding: 20px 18px !important;
-            }
-
-            .admin-avatar-ring {
-                width: 60px;
-                height: 60px;
-                margin-bottom: 10px;
-            }
-
-            .admin-profile-card h1 {
-                font-size: 1.45rem !important;
-                margin-bottom: 6px !important;
-            }
-
-            .contact-info-list {
-                margin-top: 14px;
-                padding: 12px;
-            }
-
-            .contact-item {
-                flex-direction: row;
-                align-items: center;
-                padding: 6px 10px;
-                font-size: 0.88rem;
-                margin-bottom: 8px;
-            }
-
-            .contact-item a, 
-            .contact-item span:last-child {
-                margin-left: auto !important;
-            }
-
-            .submission-grid {
-                grid-template-columns: 1fr 2fr !important;
-                gap: 12px !important;
-            }
-
-            .portal-grid {
-                grid-template-columns: 1fr 1fr !important;
-                gap: 15px;
-                width: 92%;
-                margin-top: 15px;
-            }
-
-            .feed-box {
-                height: 280px;
-                padding: 15px 14px;
-            }
-
-            .feed-title {
-                font-size: 1.05rem;
-                margin-bottom: 10px;
-                padding-bottom: 8px;
-            }
-
-            .feed-card {
-                padding: 12px;
-                margin-bottom: 10px;
-            }
-
-            .announcement-banner {
-                padding: 14px 18px;
-                margin-bottom: 16px;
-            }
-
-            .features-grid {
-                grid-template-columns: repeat(3, 1fr);
-                gap: 12px;
-                width: 92%;
-            }
-
-            .feature-card {
-                padding: 14px;
-                border-radius: 14px;
-            }
-
-            .feature-icon {
-                width: 34px;
-                height: 34px;
-                font-size: 1.1rem;
-                margin-bottom: 8px;
-            }
-
-            .feature-title {
-                font-size: 0.95rem;
-            }
-
-            .feature-desc {
-                font-size: 0.8rem;
-            }
-
-            input, select, textarea {
-                padding: 9px 12px;
-                font-size: 15px;
-                margin-bottom: 10px;
-            }
-
-            textarea {
-                min-height: 70px;
-            }
-
-            footer {
-                padding: 20px 15px;
-                margin-top: 25px;
-            }
-        }
-
-        /* ==========================================================================
-           SMALL PHONE PORTRAIT (UNDER 480PX)
-           ========================================================================== */
-        @media (max-width: 480px) {
-            nav {
-                padding: 0.75rem 3%;
-            }
-
-            .brand-wrapper {
-                gap: 8px;
-            }
-
-            .college-logo-container {
-                width: 36px;
-                height: 36px;
-            }
-
-            .monor-highlight {
-                font-size: 1.4rem;
-                margin-right: 4px;
-            }
-
-            .brand-college-text {
-                font-size: 0.82rem;
-            }
-
-            .brand-college-sub {
-                display: none; /* Hide micro subtitle on narrow screens to prevent wrapping */
-            }
-
-            .card, 
-            #registerBox, 
-            #loginBox, 
-            .admin-profile-card, 
-            .announcement-banner, 
-            .portal-grid, 
-            .features-grid,
-            .hero {
-                width: 94% !important;
-                max-width: 94% !important;
-                padding: 18px 14px !important;
-            }
-
-            .hero {
-                padding: 35px 15px;
-            }
-
-            .hero h1 {
-                font-size: 2.05rem;
-            }
-
-            .feed-box {
-                height: 390px;
-                padding: 16px 12px;
-            }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>মনৰ কথা | Tinsukia College Student Portal</title>
+  <style>
+    :root {
+      --primary: #d97706;
+      --primary-hover: #b45309;
+      --bg-dark: #0f172a;
+      --card-bg: rgba(30, 41, 59, 0.7);
+      --text-main: #f8fafc;
+      --text-sub: #94a3b8;
+      --border: rgba(255, 255, 255, 0.1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background: var(--bg-dark);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+    }
+
+    header {
+      width: 100%;
+      max-width: 800px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 15px 0;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 30px;
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo-container img {
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+    }
+
+    .portal-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .container {
+      width: 100%;
+      max-width: 800px;
+    }
+
+    .card {
+      background: var(--card-bg);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 24px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    }
+
+    h2 {
+      margin-bottom: 16px;
+      font-size: 1.2rem;
+      color: var(--primary);
+    }
+
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 0.9rem;
+      color: var(--text-sub);
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 10px 14px;
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--text-main);
+      font-size: 0.95rem;
+      outline: none;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--primary);
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    button:hover {
+      background: var(--primary-hover);
+    }
+
+    .tabs {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .tab-btn {
+      flex: 1;
+      padding: 10px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border);
+      color: var(--text-sub);
+    }
+
+    .tab-btn.active {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .feed-item {
+      padding: 14px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .feed-item:last-child {
+      border-bottom: none;
+    }
+
+    .feed-header {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.85rem;
+      color: var(--text-sub);
+      margin-bottom: 6px;
+    }
+
+    .feed-body {
+      font-size: 0.95rem;
+      line-height: 1.4;
+    }
+
+    .status-badge {
+      font-size: 0.75rem;
+      padding: 2px 8px;
+      border-radius: 12px;
+      background: rgba(217, 119, 6, 0.2);
+      color: var(--primary);
+    }
+  </style>
 </head>
 <body>
 
-    <!-- Ambient Glowing Orbs for Frosted Glass Depth -->
-    <div class="ambient-orb orb-1"></div>
-    <div class="ambient-orb orb-2"></div>
+  <header>
+    <div class="logo-container">
+      <img src="college-logo.png" alt="Tinsukia College Logo">
+      <div class="portal-title">মনৰ কথা | Tinsukia College</div>
+    </div>
+    <div id="userInfo" class="status-badge hidden">Logged In</div>
+  </header>
 
-    <!-- NAVIGATION HEADER -->
-    <nav>
-        <div class="brand-wrapper" onclick="showPage('home')">
-            <!-- Official Tinsukia College Circular Logo -->
-            <div class="college-logo-container">
-                <img src="college-logo.png" alt="Tinsukia College Emblem" class="college-logo-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-                <!-- Fallback SVG if image is ever unavailable -->
-                <svg class="college-logo-svg" style="display:none;" viewBox="0 0 24 24">
-                    <path d="M12 3L1 9l4 2.18v6L12 21l7-3.82v-6l2-1.09V17h2V9L12 3zm6.82 6L12 12.72 5.18 9 12 5.28 18.82 9zM17 15.99l-5 2.73-5-2.73v-3.72L12 15l5-2.73v3.72z"/>
-                </svg>
-            </div>
-            <div class="brand">
-                <span class="monor-highlight">মনৰ কথা</span> 
-                <span style="opacity: 0.35; margin: 0 8px; font-weight: 300;">|</span>
-                <div class="brand-college-text">
-                    <span>Tinsukia College</span>
-                    <span class="brand-college-sub">Estd. 1956 • Assam</span>
-                </div>
-            </div>
-        </div>
+  <div class="container">
 
-        <ul class="nav-links">
-            <li><a onclick="showPage('home')">Home</a></li>
-            <li><a onclick="showPage('portal')">Portal</a></li>
-            <li><a onclick="showPage('aboutAdmin')">About Admin</a></li>
-            <li id="logoutNav" style="display:none;"><a onclick="logout()">Logout</a></li>
-        </ul>
-    </nav>
-
-    <!-- HOME PAGE -->
-    <div id="home" class="page-content active-page">
-        <div class="hero">
-            <span class="hero-badge-tag">🏛️ Tinsukia College Students' Union</span>
-            <h1><span style="color: var(--highlight);">মনৰ কথা</span></h1>
-            <p>Official Student Grievance & Ideas Redressal Portal</p>
-            <p style="font-size: 0.95rem; color: #94a3b8; margin-top: 6px;">Your direct, transparent, and responsive voice to college leadership.</p>
-            <br>
-            <button class="btn-submit" style="width: auto; padding: 14px 40px; margin-top: 10px;" onclick="showPage('portal')">
-                <span>Access Student Portal</span> ➔
-            </button>
-        </div>
-
-        <!-- PORTAL HIGHLIGHT PILLARS -->
-        <div class="features-grid">
-            <div class="feature-card">
-                <div class="feature-icon">🛡️</div>
-                <div class="feature-title">Direct & Transparent</div>
-                <div class="feature-desc">Submissions reach the Social Service Secretary without intermediaries or delays.</div>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">💡</div>
-                <div class="feature-title">Grievances & Ideas</div>
-                <div class="feature-desc">Share campus problems, constructive feedback, or innovative student project proposals.</div>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">⚡</div>
-                <div class="feature-title">Live Status Tracking</div>
-                <div class="feature-desc">Monitor your submission status in real-time and review verified campus announcements.</div>
-            </div>
-        </div>
+    <!-- NAVIGATION TABS -->
+    <div class="tabs">
+      <button class="tab-btn active" onclick="switchTab('submit')">Submit Message</button>
+      <button class="tab-btn" onclick="switchTab('feed')">Announcements & Feed</button>
+      <button class="tab-btn" onclick="switchTab('auth')">Register / Login</button>
     </div>
 
-    <!-- ABOUT ADMIN PAGE -->
-    <div id="aboutAdmin" class="page-content">
-        <div class="admin-profile-card">
-            <div class="admin-avatar-ring">
-                <img src="college-logo.png" alt="College Crest" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
-            </div>
-            <span class="admin-badge-pill" id="displayAdminTitle">Social Service Secretary</span>
-            <h1 id="displayAdminName" style="color: var(--navy-dark); font-size: 2.1rem; margin-bottom: 12px; font-weight: 800;">Loading Admin Profile...</h1>
-            <p id="displayAdminBio" style="color: var(--text-muted); font-size: 1.02rem; line-height: 1.7; max-width: 580px; margin: 0 auto;">
-                Please wait while profile information is loaded from the portal database.
-            </p>
-
-            <div class="contact-info-list">
-                <div class="contact-item">
-                    <span style="font-size: 1.2rem;">📧</span> <strong>Official Email:</strong> 
-                    <a id="displayAdminEmail" href="#" style="color: #2563eb; text-decoration: none; font-weight: 600; margin-left: auto;">-</a>
-                </div>
-                <div class="contact-item">
-                    <span style="font-size: 1.2rem;">📞</span> <strong>Official Contact:</strong> 
-                    <span id="displayAdminPhone" style="color: var(--navy-dark); font-weight: 700; margin-left: auto;">-</span>
-                </div>
-                <div class="contact-item">
-                    <span style="font-size: 1.2rem;">🏫</span> <strong>Institution:</strong> 
-                    <span style="color: var(--navy-dark); font-weight: 700; margin-left: auto;">Tinsukia College Students' Union</span>
-                </div>
-            </div>
+    <!-- TAB 1: SUBMISSION FORM -->
+    <div id="tab-submit" class="card">
+      <h2>Submit Your Request / Feedback</h2>
+      <form id="msgForm" onsubmit="handleMessageSubmit(event)">
+        <div class="form-group">
+          <label for="msgType">Category</label>
+          <select id="msgType" required>
+            <option value="Formal Grievance">Formal Grievance</option>
+            <option value="Complaint">Complaint</option>
+            <option value="Idea">Idea</option>
+          </select>
         </div>
+
+        <div class="form-group">
+          <label for="userMsg">Your Message (মনৰ কথা)</label>
+          <textarea id="userMsg" rows="4" placeholder="Write your message here..." required></textarea>
+        </div>
+
+        <button type="submit" id="submitBtn">Send Submission</button>
+      </form>
     </div>
 
-    <!-- PORTAL CONTAINER -->
-    <div id="portal" class="page-content">
-        
-        <!-- SECTION 1: REGISTRATION -->
-        <div id="registerBox" class="card" style="max-width: 560px; margin: 10px auto;">
-            <h2 style="font-size: 1.8rem; font-weight: 800; color: var(--navy-dark);">Register Account</h2>
-            <p style="margin-bottom: 24px; color: var(--text-muted); font-size: 0.95rem;">Create your login to post grievances, propose ideas, and track official replies.</p>
-            <form id="regForm">
-                <label>Full Name</label>
-                <input type="text" id="regName" placeholder="e.g. Deep Hazarika" required>
-                
-                <label>Class / Department</label>
-                <input type="text" id="regClass" placeholder="e.g. B.Sc 4th Sem" required>
-
-                <label>Email Address</label>
-                <input type="email" id="regEmail" placeholder="e.g. deep@gmail.com" required>
-
-                <label>Phone Number</label>
-                <input type="tel" id="regPhone" placeholder="10-digit mobile number" required>
-
-                <label>Create Password</label>
-                <input type="password" id="regPass" placeholder="Enter password" required>
-
-                <button type="submit" class="btn-submit">Register Account</button>
-            </form>
-            <p style="margin-top: 22px; text-align: center; font-size: 0.92rem; color: var(--text-muted);">
-                Already registered? <span class="switch-link" onclick="toggleAuth('login')">Login here</span>
-            </p>
-        </div>
-
-        <!-- SECTION 2: LOGIN -->
-        <div id="loginBox" class="card" style="display:none; max-width: 560px; margin: 10px auto;">
-            <h2 style="font-size: 1.8rem; font-weight: 800; color: var(--navy-dark);">Student Login</h2>
-            <p style="margin-bottom: 24px; color: var(--text-muted); font-size: 0.95rem;">Enter your credentials to manage your submissions and track status.</p>
-            <form id="loginForm">
-                <label>Email Address</label>
-                <input type="email" id="loginEmail" placeholder="Enter registered email" required>
-
-                <label>Password</label>
-                <input type="password" id="loginPass" placeholder="Enter password" required>
-
-                <button type="submit" class="btn-submit">Login to Portal</button>
-            </form>
-            <p style="margin-top: 22px; text-align: center; font-size: 0.92rem; color: var(--text-muted);">
-                New student? <span class="switch-link" onclick="toggleAuth('register')">Register here</span>
-            </p>
-        </div>
-
-        <!-- SECTION 3: DASHBOARD (AFTER LOGIN) -->
-        <div id="submissionBox" style="display:none;">
-            
-            <!-- HIGHLIGHTED ADMIN ANNOUNCEMENT SECTION -->
-            <div class="announcement-banner">
-                <div class="announcement-header">
-                    <span>📢 Official Notice</span>
-                    <span class="announcement-badge">Admin Broadcast</span>
-                </div>
-                <div id="announcementText" style="font-size: 1rem; color: #431407; font-weight: 600; line-height: 1.5;">
-                    Loading official announcements...
-                </div>
-            </div>
-
-            <!-- SUBMISSION FORM -->
-            <div class="card">
-                <h2 style="font-size: 1.7rem; font-weight: 800; color: var(--navy-dark); margin-bottom: 6px;">Submit Your Request / Feedback</h2>
-                <p style="margin-bottom: 20px; color: var(--text-muted); font-size: 0.92rem;">
-                    Logged in as: <strong id="userDisplayName" style="color: var(--navy-dark); font-weight: 700;"></strong> (<span id="userDisplayClass" style="color: var(--highlight); font-weight: 600;"></span>)
-                </p>
-                
-                <form id="submissionForm">
-                    <div class="submission-grid">
-                        <div>
-                            <label>Category</label>
-                            <select id="msgType">
-                                <option value="Complaint">Formal Grievance</option>
-                                <option value="Idea">Creative Idea</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label>Your Message (মনৰ কথা)</label>
-                            <textarea id="userMsg" rows="3" placeholder="Write your grievance or idea here..." required></textarea>
-                        </div>
-                    </div>
-                    <button type="submit" class="btn-submit">Submit to Social Service Secretary</button>
-                </form>
-            </div>
-
-            <!-- TWO BOXES FOR FEED FEEDS -->
-            <div class="portal-grid">
-                
-                <!-- BOX 1: STUDENT'S PERSONAL SUBMISSIONS -->
-                <div class="feed-box">
-                    <div class="feed-title">
-                        <span>📋 Your Submissions</span>
-                        <small style="font-size: 0.78rem; color: var(--text-muted); font-weight: 600; background: #f1f5f9; padding: 4px 10px; border-radius: 20px;">Personal History</small>
-                    </div>
-                    <div id="personalFeed">
-                        <p style="text-align: center; color: #94a3b8; font-size: 0.95rem; margin-top: 50px;">No personal submissions yet.</p>
-                    </div>
-                </div>
-
-                <!-- BOX 2: APPROVED PUBLIC CAMPUS FEED -->
-                <div class="feed-box">
-                    <div class="feed-title">
-                        <span>🏛️ Approved Campus Feed</span>
-                        <small style="font-size: 0.78rem; color: #15803d; font-weight: 700; background: #dcfce7; padding: 4px 10px; border-radius: 20px;">Verified by Admin</small>
-                    </div>
-                    <div id="publicFeed">
-                        <p style="text-align: center; color: #94a3b8; font-size: 0.95rem; margin-top: 50px;">Loading public notices...</p>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
+    <!-- TAB 2: PUBLIC FEED & ANNOUNCEMENTS -->
+    <div id="tab-feed" class="card hidden">
+      <h2>Announcements & Public Messages</h2>
+      <div id="feedList">
+        <p style="color: var(--text-sub);">Loading data from Google Sheets...</p>
+      </div>
     </div>
 
-    <!-- FOOTER -->
-    <footer>
-        <div style="margin-bottom: 8px;">
-            <span style="color: var(--highlight); font-weight: 800; font-size: 1.5rem; letter-spacing: 0.5px;">মনৰ কথা</span>
+    <!-- TAB 3: AUTHENTICATION -->
+    <div id="tab-auth" class="card hidden">
+      <h2>Student Registration</h2>
+      <form id="regForm" onsubmit="handleRegister(event)" style="margin-bottom: 24px;">
+        <div class="form-group">
+          <label>Full Name</label>
+          <input type="text" id="regName" required>
         </div>
-        <p style="font-size: 0.88rem; color: #cbd5e1;">Official Student Portal | Tinsukia College, Assam</p>
-        <p style="font-size: 0.78rem; color: #64748b; margin-top: 6px;">Empowering Students & Fostering Transparent Governance</p>
-    </footer>
+        <div class="form-group">
+          <label>Class / Semester</label>
+          <input type="text" id="regClass" placeholder="e.g., BSC 4TH" required>
+        </div>
+        <div class="form-group">
+          <label>Email or Phone</label>
+          <input type="text" id="regEmail" required>
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" id="regPass" required>
+        </div>
+        <button type="submit">Register Account</button>
+      </form>
 
-    <!-- LOGIC & SCRIPTS (STRICTLY PRESERVED) -->
-    <script>
-        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzr1MZqso50kMfPmP1BUA3L04O33RZKlgAZfY7zd8teqHBp_FUAw0L7Onwb71vnHlss/exec';
+      <h2>Login</h2>
+      <form id="loginForm" onsubmit="handleLogin(event)">
+        <div class="form-group">
+          <label>Email / Phone</label>
+          <input type="text" id="loginEmail" required>
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" id="loginPass" required>
+        </div>
+        <button type="submit">Login</button>
+      </form>
+    </div>
 
-        document.addEventListener('DOMContentLoaded', () => {
-            fetchPortalData();
+  </div>
+
+  <script>
+    // ⚠️ REPLACE THIS WITH YOUR DEPLOYED GOOGLE APPS SCRIPT WEB APP URL
+    const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz-6_r5c0OFnpIbb1iBq4nk1fURpVct6yFp0VrpBzD5pUx2UZgoLZG1ndH5213HrXQD/exec";
+
+    let currentUser = null;
+
+    // SWITCH TAB NAVIGATION
+    function switchTab(tabName) {
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+      document.querySelectorAll('.card').forEach(card => card.classList.add('hidden'));
+
+      if (tabName === 'submit') {
+        document.querySelectorAll('.tab-btn')[0].classList.add('active');
+        document.getElementById('tab-submit').classList.remove('hidden');
+      } else if (tabName === 'feed') {
+        document.querySelectorAll('.tab-btn')[1].classList.add('active');
+        document.getElementById('tab-feed').classList.remove('hidden');
+        loadPortalData();
+      } else if (tabName === 'auth') {
+        document.querySelectorAll('.tab-btn')[2].classList.add('active');
+        document.getElementById('tab-auth').classList.remove('hidden');
+      }
+    }
+
+    // SUBMIT MESSAGE / GRIEVANCE
+    async function handleMessageSubmit(e) {
+      e.preventDefault();
+      const submitBtn = document.getElementById('submitBtn');
+      submitBtn.disabled = true;
+      submitBtn.innerText = "Sending...";
+
+      const payload = {
+        action: "submit_msg",
+        authorName: currentUser ? currentUser.Name : "Anonymous Student",
+        authorClass: currentUser ? currentUser.Class : "N/A",
+        category: document.getElementById('msgType').value,
+        content: document.getElementById('userMsg').value
+      };
+
+      try {
+        const response = await fetch(GOOGLE_SCRIPT_URL, {
+          method: "POST",
+          body: JSON.stringify(payload)
         });
+        
+        alert("Message submitted successfully! It is currently pending review.");
+        document.getElementById('msgForm').reset();
+      } catch (err) {
+        console.error(err);
+        alert("Error sending message.");
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerText = "Send Submission";
+      }
+    }
 
-        function showPage(pageId) {
-            document.querySelectorAll('.page-content').forEach(p => p.classList.remove('active-page'));
-            document.getElementById(pageId).classList.add('active-page');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-            if (pageId === 'portal') checkSession();
+    // REGISTER ACCOUNT
+    async function handleRegister(e) {
+      e.preventDefault();
+      const payload = {
+        action: "register",
+        name: document.getElementById('regName').value,
+        classVal: document.getElementById('regClass').value,
+        emailOrPhone: document.getElementById('regEmail').value,
+        password: document.getElementById('regPass').value
+      };
+
+      try {
+        await fetch(GOOGLE_SCRIPT_URL, {
+          method: "POST",
+          body: JSON.stringify(payload)
+        });
+        alert("Registration successful! You can now log in.");
+        document.getElementById('regForm').reset();
+      } catch (err) {
+        alert("Registration failed.");
+      }
+    }
+
+    // LOGIN USER
+    async function handleLogin(e) {
+      e.preventDefault();
+      const payload = {
+        action: "login",
+        emailOrPhone: document.getElementById('loginEmail').value,
+        password: document.getElementById('loginPass').value
+      };
+
+      try {
+        const res = await fetch(GOOGLE_SCRIPT_URL, {
+          method: "POST",
+          body: JSON.stringify(payload)
+        });
+        const data = await res.json();
+
+        if (data.status === "success") {
+          currentUser = data.user;
+          document.getElementById('userInfo').innerText = `Logged in: ${currentUser.Name}`;
+          document.getElementById('userInfo').classList.remove('hidden');
+          alert("Login successful!");
+          switchTab('submit');
+        } else {
+          alert("Invalid credentials.");
         }
+      } catch (err) {
+        alert("Login failed.");
+      }
+    }
 
-        function toggleAuth(view) {
-            if (view === 'login') {
-                document.getElementById('registerBox').style.display = 'none';
-                document.getElementById('loginBox').style.display = 'block';
-            } else {
-                document.getElementById('loginBox').style.display = 'none';
-                document.getElementById('registerBox').style.display = 'block';
-            }
+    // FETCH FEED & ANNOUNCEMENTS FROM GOOGLE SHEETS
+    async function loadPortalData() {
+      const feedList = document.getElementById('feedList');
+      feedList.innerHTML = "<p style='color: var(--text-sub);'>Loading data from Google Sheets...</p>";
+
+      try {
+        const res = await fetch(`${GOOGLE_SCRIPT_URL}?action=get_portal_data`);
+        const data = await res.json();
+
+        if (data && data.submissions) {
+          feedList.innerHTML = "";
+          data.submissions.forEach(item => {
+            const div = document.createElement('div');
+            div.className = 'feed-item';
+            div.innerHTML = `
+              <div class="feed-header">
+                <span><strong>${item.AuthorName}</strong> (${item.AuthorClass})</span>
+                <span class="status-badge">${item.Status || 'Pending'}</span>
+              </div>
+              <div class="feed-body">${item.Content}</div>
+            `;
+            feedList.appendChild(div);
+          });
+        } else {
+          feedList.innerHTML = "<p>No messages available yet.</p>";
         }
-
-        function checkSession() {
-            const user = JSON.parse(localStorage.getItem('monorKathaUser'));
-            if (user) {
-                document.getElementById('registerBox').style.display = 'none';
-                document.getElementById('loginBox').style.display = 'none';
-                document.getElementById('submissionBox').style.display = 'block';
-                document.getElementById('logoutNav').style.display = 'inline-block';
-                document.getElementById('userDisplayName').innerText = user.name;
-                document.getElementById('userDisplayClass').innerText = user.uClass;
-                
-                loadPersonalHistory();
-            } else {
-                document.getElementById('submissionBox').style.display = 'none';
-                document.getElementById('logoutNav').style.display = 'none';
-                toggleAuth('register');
-            }
-        }
-
-        // REGISTER
-        document.getElementById('regForm').onsubmit = async function(e) {
-            e.preventDefault();
-            const btn = this.querySelector('button');
-            btn.disabled = true; btn.innerText = "Registering...";
-
-            const payload = {
-                action: 'register',
-                name: document.getElementById('regName').value.trim(),
-                uClass: document.getElementById('regClass').value.trim(),
-                email: document.getElementById('regEmail').value.trim(),
-                phone: document.getElementById('regPhone').value.trim(),
-                password: document.getElementById('regPass').value.trim()
-            };
-
-            try {
-                await fetch(GOOGLE_SCRIPT_URL, {
-                    method: 'POST',
-                    mode: 'no-cors',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                });
-                alert("Account registered successfully! Please login.");
-                this.reset();
-                toggleAuth('login');
-            } catch (err) {
-                alert("Registration failed. Please try again.");
-            } finally {
-                btn.disabled = false; btn.innerText = "Register Account";
-            }
-        };
-
-        // LOGIN
-        document.getElementById('loginForm').onsubmit = async function(e) {
-            e.preventDefault();
-            const btn = this.querySelector('button');
-            btn.disabled = true; btn.innerText = "Verifying...";
-
-            const payload = {
-                action: 'login',
-                email: document.getElementById('loginEmail').value.trim(),
-                password: document.getElementById('loginPass').value.trim()
-            };
-
-            try {
-                const res = await fetch(GOOGLE_SCRIPT_URL, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-                    body: JSON.stringify(payload)
-                });
-                
-                const data = await res.json();
-                
-                if (data.result === "login_success") {
-                    localStorage.setItem('monorKathaUser', JSON.stringify({
-                        email: payload.email,
-                        name: data.userName,
-                        uClass: data.uClass
-                    }));
-                    checkSession();
-                } else {
-                    alert("Invalid Email or Password. Please try again.");
-                }
-            } catch (err) {
-                alert("Error connecting to database.");
-            } finally {
-                btn.disabled = false; btn.innerText = "Login to Portal";
-            }
-        };
-
-        // SUBMIT FORM
-        document.getElementById('submissionForm').onsubmit = async function(e) {
-            e.preventDefault();
-            const btn = this.querySelector('button');
-            btn.disabled = true; btn.innerText = "Sending...";
-
-            const user = JSON.parse(localStorage.getItem('monorKathaUser'));
-            const type = document.getElementById('msgType').value;
-            const msg = document.getElementById('userMsg').value.trim();
-
-            const payload = {
-                action: 'submit_msg',
-                name: user.name,
-                uClass: user.uClass,
-                email: user.email,
-                type: type,
-                msg: msg
-            };
-
-            try {
-                await fetch(GOOGLE_SCRIPT_URL, {
-                    method: 'POST',
-                    mode: 'no-cors',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                });
-
-                savePersonalEntry(type, msg);
-                this.reset();
-                alert("Your message has been sent to the Secretary for approval!");
-            } catch (err) {
-                alert("Error sending message.");
-            } finally {
-                btn.disabled = false; btn.innerText = "Submit to Social Service Secretary";
-            }
-        };
-
-        // SAVE & RENDER PERSONAL HISTORY
-        function savePersonalEntry(type, msg) {
-            const user = JSON.parse(localStorage.getItem('monorKathaUser'));
-            const key = 'userFeed_' + user.email;
-            let list = JSON.parse(localStorage.getItem(key)) || [];
-            
-            list.unshift({
-                type: type,
-                msg: msg,
-                date: new Date().toLocaleDateString(),
-                status: 'Pending'
-            });
-
-            localStorage.setItem(key, JSON.stringify(list));
-            loadPersonalHistory();
-        }
-
-        function loadPersonalHistory() {
-            const user = JSON.parse(localStorage.getItem('monorKathaUser'));
-            const key = 'userFeed_' + user.email;
-            const list = JSON.parse(localStorage.getItem(key)) || [];
-            const container = document.getElementById('personalFeed');
-
-            if (list.length === 0) {
-                container.innerHTML = '<p style="text-align: center; color: #94a3b8; font-size: 0.95rem; margin-top: 50px;">No personal submissions yet.</p>';
-                return;
-            }
-
-            container.innerHTML = list.map(item => `
-                <div class="feed-card" style="border-left-color: ${item.type === 'Complaint' ? 'var(--danger)' : 'var(--gold)'};">
-                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
-                        <strong style="font-size:0.88rem; text-transform:uppercase; color: ${item.type === 'Complaint' ? 'var(--danger)' : 'var(--gold)'};">[${item.type}]</strong>
-                        <span class="badge-pending">STATUS: ${item.status}</span>
-                    </div>
-                    <p style="font-size:0.95rem; color:#1e293b; line-height: 1.5;">${item.msg}</p>
-                    <small style="color:#94a3b8; font-size:0.75rem; display:block; margin-top:8px;">Submitted: ${item.date}</small>
-                </div>
-            `).join('');
-        }
-
-        // FETCH ALL PORTAL DATA (ANNOUNCEMENTS, PUBLIC FEED, ADMIN INFO)
-        async function fetchPortalData() {
-            try {
-                const res = await fetch(GOOGLE_SCRIPT_URL, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-                    body: JSON.stringify({ action: 'get_portal_data' })
-                });
-
-                const data = await res.json();
-
-                // 1. Populate Admin Profile Page
-                if (data.adminInfo && data.adminInfo.name) {
-                    document.getElementById('displayAdminName').innerText = data.adminInfo.name;
-                    document.getElementById('displayAdminTitle').innerText = data.adminInfo.title || "Social Service Secretary";
-                    document.getElementById('displayAdminBio').innerText = data.adminInfo.bio || "";
-                    
-                    const emailElem = document.getElementById('displayAdminEmail');
-                    emailElem.innerText = data.adminInfo.email;
-                    emailElem.href = "mailto:" + data.adminInfo.email;
-                    
-                    document.getElementById('displayAdminPhone').innerText = data.adminInfo.phone;
-                }
-
-                // 2. Render Announcements
-                if (data.announcements && data.announcements.length > 0) {
-                    const latest = data.announcements[data.announcements.length - 1];
-                    document.getElementById('announcementText').innerText = latest.message;
-                } else {
-                    document.getElementById('announcementText').innerText = "Welcome to the Monor Katha portal. Submit your genuine concerns directly to the college administration.";
-                }
-
-                // 3. Render Approved Public Feed
-                const publicContainer = document.getElementById('publicFeed');
-                if (data.publicFeed && data.publicFeed.length > 0) {
-                    publicContainer.innerHTML = data.publicFeed.map(item => `
-                        <div class="feed-card" style="border-left-color: var(--navy-dark);">
-                            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
-                                <strong style="font-size:0.88rem; color: var(--navy-dark);">${item.name} (${item.uClass})</strong>
-                                <span class="badge-approved">${item.category}</span>
-                            </div>
-                            <p style="font-size:0.95rem; color:#334155; line-height: 1.5;">"${item.message}"</p>
-                            ${item.adminComment ? `
-                                <div class="admin-reply">
-                                    <strong>💬 Secretary Reply:</strong> ${item.adminComment}
-                                </div>
-                            ` : ''}
-                        </div>
-                    `).join('');
-                } else {
-                    publicContainer.innerHTML = '<p style="text-align: center; color: #94a3b8; font-size: 0.95rem; margin-top: 50px;">No public grievances approved yet.</p>';
-                }
-
-            } catch (err) {
-                console.error("Portal Data Fetch Error:", err);
-            }
-        }
-
-        function logout() {
-            localStorage.removeItem('monorKathaUser');
-            checkSession();
-        }
-    </script>
+      } catch (err) {
+        console.error(err);
+        feedList.innerHTML = "<p style='color: #ef4444;'>Failed to load feed data from Google Sheets.</p>";
+      }
+    }
+  </script>
 </body>
 </html>
