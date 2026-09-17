@@ -27,6 +27,8 @@
     button.btn-action { width: 100%; padding: 12px; background: #d97706; color: white; border: none; border-radius: 4px; font-weight: bold; font-size: 1rem; cursor: pointer; }
     button.btn-action:hover { background: #b45309; }
 
+    .toggle-link { margin-top: 15px; font-size: 0.9rem; text-align: center; color: #2563eb; cursor: pointer; text-decoration: underline; }
+
     /* Feed & Status Styling */
     .notice-box { background: #fef3c7; border-left: 4px solid #d97706; padding: 12px; margin-bottom: 12px; border-radius: 4px; }
     .feed-item { padding: 12px; border: 1px solid #e5e7eb; border-radius: 6px; margin-bottom: 12px; background: #fafafa; }
@@ -48,54 +50,62 @@
 
   <div class="container">
 
-    <!-- TABS -->
+    <!-- NAVIGATION TABS -->
     <div class="tabs">
-      <button id="btn-auth" class="tab-btn active" onclick="switchTab('auth')">1. Register / Login</button>
-      <button id="btn-submit" class="tab-btn" onclick="switchTab('submit')">2. Submit Grievance</button>
+      <button id="btn-auth" class="tab-btn active" onclick="switchTab('auth')">Account Access</button>
+      <button id="btn-submit" class="tab-btn" onclick="switchTab('submit')">Submit Grievance</button>
       <button id="btn-feed" class="tab-btn" onclick="switchTab('feed')">Announcements & Feed</button>
       <button id="btn-about" class="tab-btn" onclick="switchTab('about')">About Admin</button>
     </div>
 
-    <!-- TAB 1: AUTH -->
+    <!-- TAB 1: AUTHENTICATION (REGISTER & LOGIN SWITCHING) -->
     <div id="tab-auth" class="card">
-      <h2 style="margin-bottom: 15px;">Student Login</h2>
-      <form onsubmit="handleLogin(event)">
-        <div class="form-group">
-          <label>Email or Phone Number</label>
-          <input type="text" id="loginEmail" required placeholder="Enter registered email or phone">
-        </div>
-        <div class="form-group">
-          <label>Password</label>
-          <input type="password" id="loginPass" required placeholder="Enter password">
-        </div>
-        <button type="submit" class="btn-action">Login</button>
-      </form>
+      
+      <!-- 1A. NEW STUDENT REGISTRATION (DEFAULT FIRST VIEW) -->
+      <div id="view-register">
+        <h2 style="margin-bottom: 15px;">New Student Registration</h2>
+        <form onsubmit="handleRegister(event)">
+          <div class="form-group">
+            <label>Full Name</label>
+            <input type="text" id="regName" required placeholder="e.g., Deep Hazarika">
+          </div>
+          <div class="form-group">
+            <label>Class / Semester</label>
+            <input type="text" id="regClass" required placeholder="e.g., BSc 4th Sem">
+          </div>
+          <div class="form-group">
+            <label>Email or Phone</label>
+            <input type="text" id="regEmail" required placeholder="Enter email or phone">
+          </div>
+          <div class="form-group">
+            <label>Set Password</label>
+            <input type="password" id="regPass" required placeholder="Create password">
+          </div>
+          <button type="submit" class="btn-action">Register Account</button>
+        </form>
+        <div class="toggle-link" onclick="toggleAuthView('login')">Already registered? Click here to Login</div>
+      </div>
 
-      <hr style="margin: 25px 0; border: 0; border-top: 1px solid #ccc;">
+      <!-- 1B. STUDENT LOGIN -->
+      <div id="view-login" class="hidden">
+        <h2 style="margin-bottom: 15px;">Student Login</h2>
+        <form onsubmit="handleLogin(event)">
+          <div class="form-group">
+            <label>Email or Phone Number</label>
+            <input type="text" id="loginEmail" required placeholder="Enter registered email or phone">
+          </div>
+          <div class="form-group">
+            <label>Password</label>
+            <input type="password" id="loginPass" required placeholder="Enter password">
+          </div>
+          <button type="submit" class="btn-action">Login to Portal</button>
+        </form>
+        <div class="toggle-link" onclick="toggleAuthView('register')">Need a new account? Click here to Register</div>
+      </div>
 
-      <h2 style="margin-bottom: 15px;">New Student Registration</h2>
-      <form onsubmit="handleRegister(event)">
-        <div class="form-group">
-          <label>Full Name</label>
-          <input type="text" id="regName" required placeholder="e.g., Deep Hazarika">
-        </div>
-        <div class="form-group">
-          <label>Class / Semester</label>
-          <input type="text" id="regClass" required placeholder="e.g., BSc 4th Sem">
-        </div>
-        <div class="form-group">
-          <label>Email or Phone</label>
-          <input type="text" id="regEmail" required placeholder="Enter email or phone">
-        </div>
-        <div class="form-group">
-          <label>Set Password</label>
-          <input type="password" id="regPass" required placeholder="Create password">
-        </div>
-        <button type="submit" class="btn-action" style="background: #4b5563;">Register Account</button>
-      </form>
     </div>
 
-    <!-- TAB 2: SUBMIT MESSAGE -->
+    <!-- TAB 2: SUBMIT GRIEVANCE -->
     <div id="tab-submit" class="card hidden">
       <h2 style="margin-bottom: 15px;">Submit Your Grievance / Feedback</h2>
       <form onsubmit="handleMessageSubmit(event)">
@@ -122,9 +132,9 @@
 
       <hr style="margin: 25px 0; border: 0; border-top: 1px solid #eee;">
 
-      <!-- BOX 1: MY MESSAGES & STATUS TRACKER -->
+      <!-- BOX 1: PERSONAL SUBMISSIONS & STATUS TRACKER -->
       <h2 style="margin-bottom: 15px;">1. My Submissions & Status Tracker</h2>
-      <div id="myStatusList"><p style="color: #666;">Login to view your message status.</p></div>
+      <div id="myStatusList"><p style="color: #666;">Log in to view your message status.</p></div>
 
       <hr style="margin: 25px 0; border: 0; border-top: 1px solid #eee;">
 
@@ -145,9 +155,23 @@
   </div>
 
   <script>
-    const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzIDBz5YPAdc69ysGT4ZuByXIYg4nm5UwcMfTdCQjfq9yMvfsUvQId6TQ9gymv39EL9/exec";
+    // ⚠️ REPLACE WITH YOUR DEPLOYED GOOGLE APPS SCRIPT WEB APP URL
+    const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxYvHW54FvF1lF5IMGFwivZaOFjbIf6FsqkXQ923PoEkUBX7m-DhTkxGnqm8ib_Jd0/exec";
+
     let currentUser = null;
 
+    // TOGGLE BETWEEN REGISTER AND LOGIN VIEWS
+    function toggleAuthView(view) {
+      if (view === 'login') {
+        document.getElementById('view-register').classList.add('hidden');
+        document.getElementById('view-login').classList.remove('hidden');
+      } else {
+        document.getElementById('view-login').classList.add('hidden');
+        document.getElementById('view-register').classList.remove('hidden');
+      }
+    }
+
+    // SWITCH TAB NAVIGATION WITH ACCESS CONTROL
     function switchTab(tabName) {
       if (tabName === 'submit' && !currentUser) {
         alert("Access Denied: Please Login or Register first!");
@@ -174,6 +198,7 @@
       }
     }
 
+    // HANDLE REGISTRATION & REDIRECT TO LOGIN
     async function handleRegister(e) {
       e.preventDefault();
       const payload = {
@@ -190,12 +215,20 @@
           headers: { "Content-Type": "text/plain;charset=utf-8" },
           body: JSON.stringify(payload)
         });
-        alert("Registration Successful! Please log in.");
+
+        alert("Registration Successful! Redirecting you to the Login page...");
+        
+        // Auto-fill login email/phone field
+        document.getElementById('loginEmail').value = document.getElementById('regEmail').value;
+        
+        // Redirect to Login view
+        toggleAuthView('login');
       } catch (err) {
-        alert("Registration failed.");
+        alert("Registration failed. Please try again.");
       }
     }
 
+    // HANDLE LOGIN & REDIRECT TO SUBMIT FORM
     async function handleLogin(e) {
       e.preventDefault();
       const payload = {
@@ -210,21 +243,25 @@
           headers: { "Content-Type": "text/plain;charset=utf-8" },
           body: JSON.stringify(payload)
         });
-        const data = await res.json();
+        
+        const textData = await res.text();
+        const data = JSON.parse(textData);
 
         if (data.status === "success") {
           currentUser = data.user;
           document.getElementById('userStatus').innerText = `Logged in as: ${currentUser.Name}`;
-          alert(`Welcome ${currentUser.Name}!`);
+          alert(`Welcome ${currentUser.Name}! Opening Grievance portal...`);
           switchTab('submit');
         } else {
           alert("Invalid Login Credentials!");
         }
       } catch (err) {
-        alert("Login request failed.");
+        console.error(err);
+        alert("Login request failed. Please check credentials.");
       }
     }
 
+    // HANDLE GRIEVANCE SUBMISSION
     async function handleMessageSubmit(e) {
       e.preventDefault();
       if (!currentUser) {
@@ -261,12 +298,13 @@
       }
     }
 
+    // FETCH & RENDER DUAL FEED DATA
     async function loadPortalData() {
       try {
         const res = await fetch(`${GOOGLE_SCRIPT_URL}?action=get_portal_data`);
         const data = await res.json();
 
-        // 1. POPULATE USER STATUS TRACKER (MY MESSAGES)
+        // 1. MY SUBMISSIONS & STATUS TRACKER
         const myStatusList = document.getElementById('myStatusList');
         if (currentUser && data.userSubmissions) {
           const myMsgs = data.userSubmissions.filter(m => m.AuthorName === currentUser.Name);
@@ -283,7 +321,7 @@
 
               myStatusList.innerHTML += `
                 <div class="feed-item">
-                  <div style="display:flex; justify-size:space-between; justify-content:space-between; margin-bottom:6px;">
+                  <div style="display:flex; justify-content:space-between; margin-bottom:6px;">
                     <strong>${item.Category}</strong>
                     ${statusBadge}
                   </div>
@@ -298,7 +336,7 @@
           myStatusList.innerHTML = "<p style='color:#666;'>Log in to view your message status.</p>";
         }
 
-        // 2. POPULATE PUBLIC APPROVED FEED & ADMIN REPLIES
+        // 2. PUBLIC APPROVED FEED & ADMIN REPLIES
         const publicFeedList = document.getElementById('publicFeedList');
         if (data.publicFeed && data.publicFeed.length > 0) {
           publicFeedList.innerHTML = "";
@@ -318,7 +356,7 @@
           publicFeedList.innerHTML = "<p style='color:#666;'>No public approved messages yet.</p>";
         }
 
-        // 3. POPULATE ANNOUNCEMENTS
+        // 3. ANNOUNCEMENTS
         const annArea = document.getElementById('announcementsArea');
         if (data.announcements && data.announcements.length > 0) {
           annArea.innerHTML = "";
@@ -331,7 +369,7 @@
           });
         }
 
-        // 4. POPULATE ADMIN PROFILE
+        // 4. ADMIN PROFILE
         if (data.admin) {
           document.getElementById('adminName').innerText = data.admin.Name || "Deep Hazarika";
           document.getElementById('adminRole').innerText = data.admin.Role || "Social Service Secretary";
