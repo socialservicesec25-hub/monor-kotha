@@ -1,144 +1,42 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>মনৰ কথা | Tinsukia College</title>
   <style>
-    /* Clean, Simple & Direct Styling */
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: Arial, sans-serif;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: Arial, sans-serif; }
+    body { background-color: #f4f6f9; color: #333; padding: 20px; display: flex; flex-direction: column; align-items: center; }
 
-    body {
-      background-color: #f4f6f9;
-      color: #333;
-      padding: 20px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
+    header { width: 100%; max-width: 800px; background: #ffffff; padding: 15px 20px; border: 1px solid #ddd; border-radius: 8px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; }
+    .portal-title { font-size: 1.4rem; font-weight: bold; color: #d97706; }
+    .user-status { font-size: 0.9rem; font-weight: bold; color: #059669; }
 
-    header {
-      width: 100%;
-      max-width: 800px;
-      background: #ffffff;
-      padding: 15px 20px;
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      margin-bottom: 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
+    .container { width: 100%; max-width: 800px; }
+    .tabs { display: flex; gap: 10px; margin-bottom: 20px; }
+    .tab-btn { flex: 1; padding: 12px; background: #e5e7eb; border: 1px solid #ccc; border-radius: 6px; font-weight: bold; cursor: pointer; }
+    .tab-btn.active { background: #d97706; color: #ffffff; border-color: #d97706; }
 
-    .portal-title {
-      font-size: 1.4rem;
-      font-weight: bold;
-      color: #d97706;
-    }
+    .card { background: #ffffff; border: 1px solid #ddd; border-radius: 8px; padding: 25px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); margin-bottom: 20px; }
+    .hidden { display: none !important; }
 
-    .user-status {
-      font-size: 0.9rem;
-      font-weight: bold;
-      color: #059669;
-    }
+    .form-group { margin-bottom: 15px; }
+    label { display: block; margin-bottom: 5px; font-weight: bold; font-size: 0.9rem; }
+    input, select, textarea { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 1rem; }
 
-    .container {
-      width: 100%;
-      max-width: 800px;
-    }
+    button.btn-action { width: 100%; padding: 12px; background: #d97706; color: white; border: none; border-radius: 4px; font-weight: bold; font-size: 1rem; cursor: pointer; }
+    button.btn-action:hover { background: #b45309; }
 
-    .tabs {
-      display: flex;
-      gap: 10px;
-      margin-bottom: 20px;
-    }
+    /* Feed & Status Styling */
+    .notice-box { background: #fef3c7; border-left: 4px solid #d97706; padding: 12px; margin-bottom: 12px; border-radius: 4px; }
+    .feed-item { padding: 12px; border: 1px solid #e5e7eb; border-radius: 6px; margin-bottom: 12px; background: #fafafa; }
+    
+    .badge-pending { background: #fef3c7; color: #d97706; padding: 2px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: bold; }
+    .badge-approved { background: #d1fae5; color: #059669; padding: 2px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: bold; }
 
-    .tab-btn {
-      flex: 1;
-      padding: 12px;
-      background: #e5e7eb;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      font-weight: bold;
-      cursor: pointer;
-    }
+    .admin-reply-box { margin-top: 8px; padding: 10px; background: #eff6ff; border-left: 3px solid #2563eb; font-size: 0.9rem; border-radius: 4px; }
 
-    .tab-btn.active {
-      background: #d97706;
-      color: #ffffff;
-      border-color: #d97706;
-    }
-
-    .card {
-      background: #ffffff;
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      padding: 25px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-    }
-
-    .hidden {
-      display: none !important;
-    }
-
-    .form-group {
-      margin-bottom: 15px;
-    }
-
-    label {
-      display: block;
-      margin-bottom: 5px;
-      font-weight: bold;
-      font-size: 0.9rem;
-    }
-
-    input, select, textarea {
-      width: 100%;
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      font-size: 1rem;
-    }
-
-    button.btn-action {
-      width: 100%;
-      padding: 12px;
-      background: #d97706;
-      color: white;
-      border: none;
-      border-radius: 4px;
-      font-weight: bold;
-      font-size: 1rem;
-      cursor: pointer;
-    }
-
-    button.btn-action:hover {
-      background: #b45309;
-    }
-
-    .notice-box {
-      background: #fef3c7;
-      border-left: 4px solid #d97706;
-      padding: 12px;
-      margin-bottom: 15px;
-      border-radius: 4px;
-    }
-
-    .feed-item {
-      padding: 12px 0;
-      border-bottom: 1px solid #eee;
-    }
-
-    @media screen and (max-width: 600px) {
-      .tabs {
-        flex-direction: column;
-      }
-    }
+    @media screen and (max-width: 600px) { .tabs { flex-direction: column; } }
   </style>
 </head>
 <body>
@@ -150,7 +48,7 @@
 
   <div class="container">
 
-    <!-- NAVIGATION TABS -->
+    <!-- TABS -->
     <div class="tabs">
       <button id="btn-auth" class="tab-btn active" onclick="switchTab('auth')">1. Register / Login</button>
       <button id="btn-submit" class="tab-btn" onclick="switchTab('submit')">2. Submit Grievance</button>
@@ -158,7 +56,7 @@
       <button id="btn-about" class="tab-btn" onclick="switchTab('about')">About Admin</button>
     </div>
 
-    <!-- TAB 1: AUTHENTICATION (DEFAULT HOME PAGE) -->
+    <!-- TAB 1: AUTH -->
     <div id="tab-auth" class="card">
       <h2 style="margin-bottom: 15px;">Student Login</h2>
       <form onsubmit="handleLogin(event)">
@@ -197,7 +95,7 @@
       </form>
     </div>
 
-    <!-- TAB 2: SUBMIT MESSAGE (LOCKED UNTIL LOGIN) -->
+    <!-- TAB 2: SUBMIT MESSAGE -->
     <div id="tab-submit" class="card hidden">
       <h2 style="margin-bottom: 15px;">Submit Your Grievance / Feedback</h2>
       <form onsubmit="handleMessageSubmit(event)">
@@ -217,13 +115,22 @@
       </form>
     </div>
 
-    <!-- TAB 3: FEED & ANNOUNCEMENTS -->
+    <!-- TAB 3: ANNOUNCEMENTS & DUAL FEEDS -->
     <div id="tab-feed" class="card hidden">
-      <h2 style="margin-bottom: 15px;">Official Announcements</h2>
+      <h2 style="margin-bottom: 15px; color: #d97706;">Official Announcements</h2>
       <div id="announcementsArea"></div>
 
-      <h2 style="margin: 20px 0 15px 0;">Public Approved Feed</h2>
-      <div id="feedList"><p>Loading messages...</p></div>
+      <hr style="margin: 25px 0; border: 0; border-top: 1px solid #eee;">
+
+      <!-- BOX 1: MY MESSAGES & STATUS TRACKER -->
+      <h2 style="margin-bottom: 15px;">1. My Submissions & Status Tracker</h2>
+      <div id="myStatusList"><p style="color: #666;">Login to view your message status.</p></div>
+
+      <hr style="margin: 25px 0; border: 0; border-top: 1px solid #eee;">
+
+      <!-- BOX 2: PUBLIC APPROVED FEED & ADMIN REPLIES -->
+      <h2 style="margin-bottom: 15px;">2. Public Approved Feed & Responses</h2>
+      <div id="publicFeedList"><p style="color: #666;">Loading messages...</p></div>
     </div>
 
     <!-- TAB 4: ABOUT ADMIN -->
@@ -238,12 +145,9 @@
   </div>
 
   <script>
-    // ⚠️ REPLACE THIS WITH YOUR EXACT APPS SCRIPT WEB APP URL
-    const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycby3BETPx8pXiHMy_BDgmxwdEPSDWP4lDzIDyVEZTJdCEk179u8gbDI2vlqCibzxt3Ly/exec";
-
+    const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzIDBz5YPAdc69ysGT4ZuByXIYg4nm5UwcMfTdCQjfq9yMvfsUvQId6TQ9gymv39EL9/exec";
     let currentUser = null;
 
-    // FORCE TAB SWITCHING RULES
     function switchTab(tabName) {
       if (tabName === 'submit' && !currentUser) {
         alert("Access Denied: Please Login or Register first!");
@@ -270,7 +174,6 @@
       }
     }
 
-    // USER REGISTRATION
     async function handleRegister(e) {
       e.preventDefault();
       const payload = {
@@ -287,13 +190,12 @@
           headers: { "Content-Type": "text/plain;charset=utf-8" },
           body: JSON.stringify(payload)
         });
-        alert("Registration Successful! Now enter your credentials in the Login form above.");
+        alert("Registration Successful! Please log in.");
       } catch (err) {
-        alert("Registration failed. Try again.");
+        alert("Registration failed.");
       }
     }
 
-    // USER LOGIN
     async function handleLogin(e) {
       e.preventDefault();
       const payload = {
@@ -313,7 +215,7 @@
         if (data.status === "success") {
           currentUser = data.user;
           document.getElementById('userStatus').innerText = `Logged in as: ${currentUser.Name}`;
-          alert(`Welcome ${currentUser.Name}! Opening Grievance form...`);
+          alert(`Welcome ${currentUser.Name}!`);
           switchTab('submit');
         } else {
           alert("Invalid Login Credentials!");
@@ -323,7 +225,6 @@
       }
     }
 
-    // SUBMIT GRIEVANCE
     async function handleMessageSubmit(e) {
       e.preventDefault();
       if (!currentUser) {
@@ -360,26 +261,64 @@
       }
     }
 
-    // FETCH DATA
     async function loadPortalData() {
       try {
         const res = await fetch(`${GOOGLE_SCRIPT_URL}?action=get_portal_data`);
         const data = await res.json();
 
-        const feedList = document.getElementById('feedList');
-        if (data.submissions && data.submissions.length > 0) {
-          feedList.innerHTML = "";
-          data.submissions.forEach(item => {
-            feedList.innerHTML += `
+        // 1. POPULATE USER STATUS TRACKER (MY MESSAGES)
+        const myStatusList = document.getElementById('myStatusList');
+        if (currentUser && data.userSubmissions) {
+          const myMsgs = data.userSubmissions.filter(m => m.AuthorName === currentUser.Name);
+          if (myMsgs.length > 0) {
+            myStatusList.innerHTML = "";
+            myMsgs.forEach(item => {
+              const statusBadge = item.Status === "Approved" 
+                ? `<span class="badge-approved">Approved</span>` 
+                : `<span class="badge-pending">Pending Approval</span>`;
+              
+              let replyHtml = item.AdminReply 
+                ? `<div class="admin-reply-box"><strong>Admin Response:</strong> ${item.AdminReply}</div>` 
+                : "";
+
+              myStatusList.innerHTML += `
+                <div class="feed-item">
+                  <div style="display:flex; justify-size:space-between; justify-content:space-between; margin-bottom:6px;">
+                    <strong>${item.Category}</strong>
+                    ${statusBadge}
+                  </div>
+                  <p>${item.Content}</p>
+                  ${replyHtml}
+                </div>`;
+            });
+          } else {
+            myStatusList.innerHTML = "<p style='color:#666;'>You have not submitted any messages yet.</p>";
+          }
+        } else {
+          myStatusList.innerHTML = "<p style='color:#666;'>Log in to view your message status.</p>";
+        }
+
+        // 2. POPULATE PUBLIC APPROVED FEED & ADMIN REPLIES
+        const publicFeedList = document.getElementById('publicFeedList');
+        if (data.publicFeed && data.publicFeed.length > 0) {
+          publicFeedList.innerHTML = "";
+          data.publicFeed.forEach(item => {
+            let replyHtml = item.AdminReply 
+              ? `<div class="admin-reply-box"><strong>Admin Reply:</strong> ${item.AdminReply}</div>` 
+              : "";
+
+            publicFeedList.innerHTML += `
               <div class="feed-item">
                 <strong>${item.AuthorName} (${item.AuthorClass})</strong> - <span style="color:#d97706;">[${item.Category}]</span>
                 <p style="margin-top: 5px;">${item.Content}</p>
+                ${replyHtml}
               </div>`;
           });
         } else {
-          feedList.innerHTML = "<p>No approved messages yet.</p>";
+          publicFeedList.innerHTML = "<p style='color:#666;'>No public approved messages yet.</p>";
         }
 
+        // 3. POPULATE ANNOUNCEMENTS
         const annArea = document.getElementById('announcementsArea');
         if (data.announcements && data.announcements.length > 0) {
           annArea.innerHTML = "";
@@ -392,6 +331,7 @@
           });
         }
 
+        // 4. POPULATE ADMIN PROFILE
         if (data.admin) {
           document.getElementById('adminName').innerText = data.admin.Name || "Deep Hazarika";
           document.getElementById('adminRole').innerText = data.admin.Role || "Social Service Secretary";
