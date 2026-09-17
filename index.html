@@ -1,155 +1,208 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>মনৰ কথা | Tinsukia College</title>
   <style>
-    :root {
-      --primary: #f97316;
-      --primary-hover: #ea580c;
-      --bg-overlay: rgba(15, 23, 42, 0.75);
-      --glass-bg: rgba(255, 255, 255, 0.08);
-      --glass-border: rgba(255, 255, 255, 0.15);
-      --text-main: #f8fafc;
-      --text-sub: #cbd5e1;
+    /* Clean, Simple & Direct Styling */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-
     body {
-      background: linear-gradient(var(--bg-overlay), var(--bg-overlay)), url('campus-bg.jpg') no-repeat center center fixed;
-      background-size: cover;
-      color: var(--text-main);
-      min-height: 100vh;
+      background-color: #f4f6f9;
+      color: #333;
+      padding: 20px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 20px;
     }
 
     header {
-      width: 100%; max-width: 900px;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 15px 25px; background: var(--glass-bg); backdrop-filter: blur(12px);
-      border: 1px solid var(--glass-border); border-radius: 16px; margin-bottom: 25px;
+      width: 100%;
+      max-width: 800px;
+      background: #ffffff;
+      padding: 15px 20px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
 
-    .logo-container { display: flex; align-items: center; gap: 14px; }
-    .logo-container img { width: 48px; height: 48px; border-radius: 50%; object-fit: cover; }
-    .portal-title { font-size: 1.3rem; font-weight: 700; color: var(--primary); }
-
-    .user-badge {
-      font-size: 0.85rem; padding: 6px 12px; background: rgba(249, 115, 22, 0.2);
-      color: var(--primary); border-radius: 20px; border: 1px solid var(--primary); font-weight: 600;
+    .portal-title {
+      font-size: 1.4rem;
+      font-weight: bold;
+      color: #d97706;
     }
 
-    .container { width: 100%; max-width: 900px; }
+    .user-status {
+      font-size: 0.9rem;
+      font-weight: bold;
+      color: #059669;
+    }
 
-    .tabs { display: flex; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; }
+    .container {
+      width: 100%;
+      max-width: 800px;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
     .tab-btn {
-      flex: 1; min-width: 140px; padding: 12px;
-      background: var(--glass-bg); backdrop-filter: blur(8px);
-      border: 1px solid var(--glass-border); border-radius: 10px;
-      color: var(--text-sub); font-weight: 600; cursor: pointer; transition: all 0.3s ease;
+      flex: 1;
+      padding: 12px;
+      background: #e5e7eb;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
     }
-    .tab-btn.active, .tab-btn:hover { background: var(--primary); color: white; border-color: var(--primary); }
+
+    .tab-btn.active {
+      background: #d97706;
+      color: #ffffff;
+      border-color: #d97706;
+    }
 
     .card {
-      background: var(--glass-bg); backdrop-filter: blur(16px);
-      border: 1px solid var(--glass-border); border-radius: 16px;
-      padding: 28px; margin-bottom: 24px; box-shadow: 0 8px 32px rgba(0,0,0,0.37);
+      background: #ffffff;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 25px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
     }
 
-    .hidden { display: none !important; }
+    .hidden {
+      display: none !important;
+    }
 
-    .form-group { margin-bottom: 18px; }
-    label { display: block; margin-bottom: 8px; font-size: 0.9rem; color: var(--text-sub); }
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+      font-size: 0.9rem;
+    }
+
     input, select, textarea {
-      width: 100%; padding: 12px 16px; background: rgba(15, 23, 42, 0.6);
-      border: 1px solid var(--glass-border); border-radius: 8px; color: var(--text-main); font-size: 1rem; outline: none;
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 1rem;
     }
-    input:focus, select:focus, textarea:focus { border-color: var(--primary); }
 
-    button.submit-btn {
-      width: 100%; padding: 14px; background: var(--primary); color: white;
-      border: none; border-radius: 8px; font-weight: 700; font-size: 1rem; cursor: pointer; transition: 0.2s;
+    button.btn-action {
+      width: 100%;
+      padding: 12px;
+      background: #d97706;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-weight: bold;
+      font-size: 1rem;
+      cursor: pointer;
     }
-    button.submit-btn:hover { background: var(--primary-hover); }
 
-    .admin-card { text-align: center; padding: 32px 20px; }
-    .badge { display: inline-block; background: rgba(249, 115, 22, 0.2); color: var(--primary); padding: 6px 16px; border-radius: 20px; font-size: 0.85rem; font-weight: 600; margin-bottom: 12px; }
+    button.btn-action:hover {
+      background: #b45309;
+    }
 
-    @media screen and (max-width: 900px), screen and (orientation: landscape) and (max-height: 500px) {
-      body { background-attachment: scroll; padding: 10px; }
-      .container, header { width: 100% !important; padding: 15px !important; }
+    .notice-box {
+      background: #fef3c7;
+      border-left: 4px solid #d97706;
+      padding: 12px;
+      margin-bottom: 15px;
+      border-radius: 4px;
+    }
+
+    .feed-item {
+      padding: 12px 0;
+      border-bottom: 1px solid #eee;
+    }
+
+    @media screen and (max-width: 600px) {
+      .tabs {
+        flex-direction: column;
+      }
     }
   </style>
 </head>
 <body>
 
   <header>
-    <div class="logo-container">
-      <img src="college-logo.png" alt="Tinsukia College Logo">
-      <div class="portal-title">মনৰ কথা | Tinsukia College</div>
-    </div>
-    <div id="userBadge" class="user-badge hidden">Not Logged In</div>
+    <div class="portal-title">মনৰ কথা | Tinsukia College</div>
+    <div id="userStatus" class="user-status">Not Logged In</div>
   </header>
 
   <div class="container">
 
+    <!-- NAVIGATION TABS -->
     <div class="tabs">
-      <button class="tab-btn active" onclick="switchTab('auth')">Register / Login</button>
-      <button class="tab-btn" onclick="switchTab('submit')">Submit Message</button>
-      <button class="tab-btn" onclick="switchTab('feed')">Announcements & Feed</button>
-      <button class="tab-btn" onclick="switchTab('about')">About Admin</button>
+      <button id="btn-auth" class="tab-btn active" onclick="switchTab('auth')">1. Register / Login</button>
+      <button id="btn-submit" class="tab-btn" onclick="switchTab('submit')">2. Submit Grievance</button>
+      <button id="btn-feed" class="tab-btn" onclick="switchTab('feed')">Announcements & Feed</button>
+      <button id="btn-about" class="tab-btn" onclick="switchTab('about')">About Admin</button>
     </div>
 
-    <!-- TAB 1: AUTHENTICATION (DEFAULT FIRST PAGE) -->
+    <!-- TAB 1: AUTHENTICATION (DEFAULT HOME PAGE) -->
     <div id="tab-auth" class="card">
-      <h2 style="margin-bottom: 16px; color: var(--primary);">Student Login</h2>
-      <form id="loginForm" onsubmit="handleLogin(event)" style="margin-bottom: 30px;">
+      <h2 style="margin-bottom: 15px;">Student Login</h2>
+      <form onsubmit="handleLogin(event)">
         <div class="form-group">
           <label>Email or Phone Number</label>
-          <input type="text" id="loginEmail" placeholder="Enter your email/phone" required>
+          <input type="text" id="loginEmail" required placeholder="Enter registered email or phone">
         </div>
         <div class="form-group">
           <label>Password</label>
-          <input type="password" id="loginPass" placeholder="Enter password" required>
+          <input type="password" id="loginPass" required placeholder="Enter password">
         </div>
-        <button type="submit" class="submit-btn">Login to Portal</button>
+        <button type="submit" class="btn-action">Login</button>
       </form>
 
-      <hr style="border-color: var(--glass-border); margin-bottom: 24px;">
+      <hr style="margin: 25px 0; border: 0; border-top: 1px solid #ccc;">
 
-      <h2 style="margin-bottom: 16px; color: var(--primary);">New Student? Register Here</h2>
-      <form id="regForm" onsubmit="handleRegister(event)">
+      <h2 style="margin-bottom: 15px;">New Student Registration</h2>
+      <form onsubmit="handleRegister(event)">
         <div class="form-group">
           <label>Full Name</label>
-          <input type="text" id="regName" placeholder="e.g., Deep Hazarika" required>
+          <input type="text" id="regName" required placeholder="e.g., Deep Hazarika">
         </div>
         <div class="form-group">
           <label>Class / Semester</label>
-          <input type="text" id="regClass" placeholder="e.g., BSc 4th Sem" required>
+          <input type="text" id="regClass" required placeholder="e.g., BSc 4th Sem">
         </div>
         <div class="form-group">
           <label>Email or Phone</label>
-          <input type="text" id="regEmail" placeholder="Email or Phone" required>
+          <input type="text" id="regEmail" required placeholder="Enter email or phone">
         </div>
         <div class="form-group">
-          <label>Password</label>
-          <input type="password" id="regPass" placeholder="Set a password" required>
+          <label>Set Password</label>
+          <input type="password" id="regPass" required placeholder="Create password">
         </div>
-        <button type="submit" class="submit-btn" style="background: transparent; border: 1px solid var(--primary); color: var(--primary);">Register Account</button>
+        <button type="submit" class="btn-action" style="background: #4b5563;">Register Account</button>
       </form>
     </div>
 
-    <!-- TAB 2: SUBMIT MESSAGE -->
+    <!-- TAB 2: SUBMIT MESSAGE (LOCKED UNTIL LOGIN) -->
     <div id="tab-submit" class="card hidden">
-      <h2 style="margin-bottom: 16px; color: var(--primary);">Submit Your Request / Feedback</h2>
-      <form id="msgForm" onsubmit="handleMessageSubmit(event)">
+      <h2 style="margin-bottom: 15px;">Submit Your Grievance / Feedback</h2>
+      <form onsubmit="handleMessageSubmit(event)">
         <div class="form-group">
-          <label for="msgType">Category</label>
+          <label>Category</label>
           <select id="msgType" required>
             <option value="Formal Grievance">Formal Grievance</option>
             <option value="Complaint">Complaint</option>
@@ -157,45 +210,43 @@
           </select>
         </div>
         <div class="form-group">
-          <label for="userMsg">Your Message (মনৰ কথা)</label>
-          <textarea id="userMsg" rows="4" placeholder="Write your message here..." required></textarea>
+          <label>Your Message (মনৰ কথা)</label>
+          <textarea id="userMsg" rows="5" required placeholder="Write your details clearly..."></textarea>
         </div>
-        <button type="submit" id="submitBtn" class="submit-btn">Send Submission</button>
+        <button type="submit" id="submitBtn" class="btn-action">Send Submission</button>
       </form>
     </div>
 
     <!-- TAB 3: FEED & ANNOUNCEMENTS -->
     <div id="tab-feed" class="card hidden">
-      <h2 style="margin-bottom: 16px; color: var(--primary);">Official Announcements & Public Feed</h2>
-      <div id="announcementsArea" style="margin-bottom: 20px;"></div>
-      <hr style="border-color: var(--glass-border); margin-bottom: 20px;">
-      <div id="feedList"><p style="color: var(--text-sub);">Loading data...</p></div>
+      <h2 style="margin-bottom: 15px;">Official Announcements</h2>
+      <div id="announcementsArea"></div>
+
+      <h2 style="margin: 20px 0 15px 0;">Public Approved Feed</h2>
+      <div id="feedList"><p>Loading messages...</p></div>
     </div>
 
     <!-- TAB 4: ABOUT ADMIN -->
-    <div id="tab-about" class="card hidden admin-card">
-      <span id="adminRole" class="badge">SOCIAL SERVICE SECRETARY</span>
-      <h2 id="adminName" style="margin: 8px 0 12px 0; font-size: 1.8rem; color: var(--text-main);">Deep Hazarika</h2>
-      <p id="adminBio" style="color: var(--text-sub); max-width: 600px; margin: 0 auto 16px auto; line-height: 1.5;"></p>
-      
-      <div style="margin-top: 16px; font-size: 0.95rem; color: var(--text-sub);">
-        <p><strong>Email:</strong> <span id="adminEmail" style="color: var(--primary);"></span></p>
-        <p style="margin-top: 6px;"><strong>Phone:</strong> <span id="adminPhone" style="color: var(--primary);"></span></p>
-      </div>
+    <div id="tab-about" class="card hidden">
+      <h2 id="adminName">Deep Hazarika</h2>
+      <p id="adminRole" style="color: #d97706; font-weight: bold; margin-bottom: 10px;">Social Service Secretary</p>
+      <p id="adminBio" style="margin-bottom: 15px; color: #555;"></p>
+      <p><strong>Email:</strong> <span id="adminEmail"></span></p>
+      <p style="margin-top: 5px;"><strong>Phone:</strong> <span id="adminPhone"></span></p>
     </div>
 
   </div>
 
   <script>
-    // ⚠️ REPLACE WITH YOUR DEPLOYED GOOGLE APPS SCRIPT WEB APP URL
+    // ⚠️ REPLACE THIS WITH YOUR EXACT APPS SCRIPT WEB APP URL
     const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycby3BETPx8pXiHMy_BDgmxwdEPSDWP4lDzIDyVEZTJdCEk179u8gbDI2vlqCibzxt3Ly/exec";
 
     let currentUser = null;
 
+    // FORCE TAB SWITCHING RULES
     function switchTab(tabName) {
-      // Protect submission tab if not logged in
       if (tabName === 'submit' && !currentUser) {
-        alert("Please login or register first before submitting a message!");
+        alert("Access Denied: Please Login or Register first!");
         tabName = 'auth';
       }
 
@@ -203,22 +254,23 @@
       document.querySelectorAll('.card').forEach(card => card.classList.add('hidden'));
 
       if (tabName === 'auth') {
-        document.querySelectorAll('.tab-btn')[0].classList.add('active');
+        document.getElementById('btn-auth').classList.add('active');
         document.getElementById('tab-auth').classList.remove('hidden');
       } else if (tabName === 'submit') {
-        document.querySelectorAll('.tab-btn')[1].classList.add('active');
+        document.getElementById('btn-submit').classList.add('active');
         document.getElementById('tab-submit').classList.remove('hidden');
       } else if (tabName === 'feed') {
-        document.querySelectorAll('.tab-btn')[2].classList.add('active');
+        document.getElementById('btn-feed').classList.add('active');
         document.getElementById('tab-feed').classList.remove('hidden');
         loadPortalData();
       } else if (tabName === 'about') {
-        document.querySelectorAll('.tab-btn')[3].classList.add('active');
+        document.getElementById('btn-about').classList.add('active');
         document.getElementById('tab-about').classList.remove('hidden');
         loadPortalData();
       }
     }
 
+    // USER REGISTRATION
     async function handleRegister(e) {
       e.preventDefault();
       const payload = {
@@ -235,13 +287,13 @@
           headers: { "Content-Type": "text/plain;charset=utf-8" },
           body: JSON.stringify(payload)
         });
-        alert("Registration successful! Please login with your details.");
-        document.getElementById('regForm').reset();
+        alert("Registration Successful! Now enter your credentials in the Login form above.");
       } catch (err) {
-        alert("Registration failed.");
+        alert("Registration failed. Try again.");
       }
     }
 
+    // USER LOGIN
     async function handleLogin(e) {
       e.preventDefault();
       const payload = {
@@ -260,19 +312,18 @@
 
         if (data.status === "success") {
           currentUser = data.user;
-          const userBadge = document.getElementById('userBadge');
-          userBadge.innerText = `Logged in: ${currentUser.Name}`;
-          userBadge.classList.remove('hidden');
-          alert(`Welcome, ${currentUser.Name}! You can now submit your feedback.`);
+          document.getElementById('userStatus').innerText = `Logged in as: ${currentUser.Name}`;
+          alert(`Welcome ${currentUser.Name}! Opening Grievance form...`);
           switchTab('submit');
         } else {
-          alert("Invalid email/phone or password.");
+          alert("Invalid Login Credentials!");
         }
       } catch (err) {
         alert("Login request failed.");
       }
     }
 
+    // SUBMIT GRIEVANCE
     async function handleMessageSubmit(e) {
       e.preventDefault();
       if (!currentUser) {
@@ -299,51 +350,48 @@
           headers: { "Content-Type": "text/plain;charset=utf-8" },
           body: JSON.stringify(payload)
         });
-        alert("Message submitted successfully! It is pending review.");
-        document.getElementById('msgForm').reset();
+        alert("Grievance submitted successfully!");
+        document.getElementById('userMsg').value = "";
       } catch (err) {
-        console.error(err);
-        alert("Error sending message.");
+        alert("Error sending grievance.");
       } finally {
         submitBtn.disabled = false;
         submitBtn.innerText = "Send Submission";
       }
     }
 
+    // FETCH DATA
     async function loadPortalData() {
       try {
         const res = await fetch(`${GOOGLE_SCRIPT_URL}?action=get_portal_data`);
         const data = await res.json();
 
-        // Submissions
         const feedList = document.getElementById('feedList');
         if (data.submissions && data.submissions.length > 0) {
           feedList.innerHTML = "";
           data.submissions.forEach(item => {
             feedList.innerHTML += `
-              <div style="padding: 12px; border-bottom: 1px solid var(--glass-border);">
-                <strong>${item.AuthorName}</strong> <span style="font-size:0.8rem; color:var(--primary);">[${item.Category}]</span>
-                <p style="margin-top: 6px;">${item.Content}</p>
+              <div class="feed-item">
+                <strong>${item.AuthorName} (${item.AuthorClass})</strong> - <span style="color:#d97706;">[${item.Category}]</span>
+                <p style="margin-top: 5px;">${item.Content}</p>
               </div>`;
           });
         } else {
-          feedList.innerHTML = "<p style='color: var(--text-sub);'>No approved submissions yet.</p>";
+          feedList.innerHTML = "<p>No approved messages yet.</p>";
         }
 
-        // Announcements
         const annArea = document.getElementById('announcementsArea');
         if (data.announcements && data.announcements.length > 0) {
           annArea.innerHTML = "";
           data.announcements.forEach(ann => {
             annArea.innerHTML += `
-              <div style="background: rgba(249,115,22,0.15); border-left: 4px solid var(--primary); padding: 10px 14px; border-radius: 6px; margin-bottom: 10px;">
-                <strong style="color: var(--primary);">${ann.Title}</strong>
-                <p style="font-size: 0.95rem; margin-top: 4px;">${ann.Message}</p>
+              <div class="notice-box">
+                <strong>${ann.Title}</strong>
+                <p style="margin-top: 5px;">${ann.Message}</p>
               </div>`;
           });
         }
 
-        // Admin Profile
         if (data.admin) {
           document.getElementById('adminName').innerText = data.admin.Name || "Deep Hazarika";
           document.getElementById('adminRole').innerText = data.admin.Role || "Social Service Secretary";
