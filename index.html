@@ -14,8 +14,8 @@
     .btn-logout { padding: 6px 12px; background: #ef4444; color: white; border: none; border-radius: 4px; font-size: 0.85rem; font-weight: bold; cursor: pointer; }
     .btn-logout:hover { background: #dc2626; }
     .container { width: 100%; max-width: 800px; }
-    .tabs { display: flex; gap: 10px; margin-bottom: 20px; }
-    .tab-btn { flex: 1; padding: 12px; background: #e5e7eb; border: 1px solid #ccc; border-radius: 6px; font-weight: bold; cursor: pointer; }
+    .tabs { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
+    .tab-btn { flex: 1; min-width: 120px; padding: 12px; background: #e5e7eb; border: 1px solid #ccc; border-radius: 6px; font-weight: bold; cursor: pointer; text-align: center; }
     .tab-btn.active { background: #d97706; color: #ffffff; border-color: #d97706; }
     .card { background: #ffffff; border: 1px solid #ddd; border-radius: 8px; padding: 25px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); margin-bottom: 20px; }
     .hidden { display: none !important; }
@@ -31,7 +31,14 @@
     .badge-pending { background: #fef3c7; color: #d97706; padding: 2px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: bold; }
     .badge-approved { background: #d1fae5; color: #059669; padding: 2px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: bold; }
     .admin-reply-box { margin-top: 8px; padding: 10px; background: #eff6ff; border-left: 3px solid #2563eb; font-size: 0.9rem; border-radius: 4px; }
-    @media screen and (max-width: 600px) { .tabs { flex-direction: column; } .header-controls { flex-direction: column; align-items: flex-end; gap: 5px; } }
+    
+    /* Content styling for History section */
+    .content-paragraph { margin-bottom: 15px; line-height: 1.6; color: #4b5563; }
+    .content-heading { margin-bottom: 12px; color: #d97706; font-size: 1.2rem; margin-top: 25px; }
+    .guidelines-list { margin-bottom: 15px; line-height: 1.6; color: #4b5563; padding-left: 20px; }
+    .guidelines-list li { margin-bottom: 10px; }
+
+    @media screen and (max-width: 600px) { .header-controls { flex-direction: column; align-items: flex-end; gap: 5px; } }
   </style>
 </head>
 <body>
@@ -49,6 +56,7 @@
       <button id="btn-auth" class="tab-btn active" onclick="switchTab('auth')">Account Access</button>
       <button id="btn-submit" class="tab-btn" onclick="switchTab('submit')">Submit Grievance</button>
       <button id="btn-feed" class="tab-btn" onclick="switchTab('feed')">Announcements & Feed</button>
+      <button id="btn-history" class="tab-btn" onclick="switchTab('history')">History & Vision</button>
       <button id="btn-about" class="tab-btn" onclick="switchTab('about')">About Admin</button>
     </div>
 
@@ -108,6 +116,25 @@
       <div id="publicFeedList"><p style="color: #666;">Loading messages...</p></div>
     </div>
 
+    <!-- HISTORY & VISION TAB -->
+    <div id="tab-history" class="card hidden">
+      <h2 class="content-heading" style="margin-top: 0;">The Origin of মনৰ কথা (Monor Kotha)</h2>
+      <p class="content-paragraph">The portal was officially initiated in 2026 by <strong>Deep Hazarika</strong>, Social Service Secretary, in collaboration with the <strong>Tinsukia College Student Union 2026-2027</strong>. It was established to bridge the communication gap between the student body and the college administration, replacing traditional paperwork with a modern, digital platform for transparent and immediate dialogue.</p>
+
+      <h2 class="content-heading">Our Vision for the Future</h2>
+      <p class="content-paragraph">This initiative was born from the core belief that every student deserves to be heard without administrative friction. By digitizing the feedback process, the portal ensures that no genuine concern is ignored or misplaced. In the near future, this platform will serve as a permanent structural foundation for a more responsive campus. It will allow future student unions and college authorities to quickly identify campus needs, efficiently resolve recurring issues, and continuously upgrade the college environment based on direct student input.</p>
+
+      <h2 class="content-heading">Platform Guidelines (Dos & Don'ts)</h2>
+      <ul class="guidelines-list">
+        <li><strong>Do be specific:</strong> Clearly state the details of your issue, including relevant dates, departments, or locations, so immediate action can be taken.</li>
+        <li><strong>Do offer solutions:</strong> Whenever sharing a complaint, try to suggest a constructive idea on how the union or administration can fix it.</li>
+        <li><strong>Do track your status:</strong> Use your personal dashboard to check if your grievance is pending or approved before asking for updates.</li>
+        <li><strong>Don't use unprofessional language:</strong> Abusive, discriminatory, or highly aggressive language will result in the immediate rejection of the submission.</li>
+        <li><strong>Don't spam the system:</strong> Submitting the exact same grievance multiple times slows down the review process for everyone else.</li>
+        <li><strong>Don't target individuals:</strong> The platform is for institutional improvements and structural grievances, not for personal attacks or private disputes between students.</li>
+      </ul>
+    </div>
+
     <!-- ABOUT TAB -->
     <div id="tab-about" class="card hidden">
       <h2 id="adminName">Loading...</h2>
@@ -151,6 +178,8 @@
         document.getElementById('btn-submit').classList.add('active'); document.getElementById('tab-submit').classList.remove('hidden');
       } else if (tabName === 'feed') {
         document.getElementById('btn-feed').classList.add('active'); document.getElementById('tab-feed').classList.remove('hidden'); loadPortalData();
+      } else if (tabName === 'history') {
+        document.getElementById('btn-history').classList.add('active'); document.getElementById('tab-history').classList.remove('hidden');
       } else if (tabName === 'about') {
         document.getElementById('btn-about').classList.add('active'); document.getElementById('tab-about').classList.remove('hidden'); loadPortalData();
       }
@@ -229,7 +258,6 @@
 
     async function loadPortalData() {
       try {
-        // Appending Date.now() ensures the browser doesn't load a cached, outdated version of the feed
         const res = await fetch(`${GOOGLE_SCRIPT_URL}?action=get_portal_data&t=${Date.now()}`);
         const data = await res.json();
 
