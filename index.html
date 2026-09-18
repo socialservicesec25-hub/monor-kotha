@@ -1,195 +1,509 @@
  <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>মনৰ কথা | Tinsukia College</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['DM Sans', 'sans-serif'],
+            display: ['Playfair Display', 'Georgia', 'serif'],
+          },
+          colors: {
+            brand: {
+              50: '#fffbeb', 100: '#fef3c7', 200: '#fde68a', 300: '#fcd34d',
+              400: '#fbbf24', 500: '#f59e0b', 600: '#d97706', 700: '#b45309',
+              800: '#92400e', 900: '#78350f',
+            },
+          },
+          boxShadow: {
+            soft: '0 20px 70px -35px rgba(15,23,42,0.28)',
+          },
+        },
+      },
+    };
+  </script>
+
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: Arial, sans-serif; }
-    body { background-color: #f4f6f9; color: #333; padding: 20px; display: flex; flex-direction: column; align-items: center; }
-    header { width: 100%; max-width: 800px; background: #ffffff; padding: 15px 20px; border: 1px solid #ddd; border-radius: 8px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; }
-    .portal-title { font-size: 1.4rem; font-weight: bold; color: #d97706; }
-    .header-controls { display: flex; align-items: center; gap: 15px; }
-    .user-status { font-size: 0.9rem; font-weight: bold; color: #059669; }
-    .btn-logout { padding: 6px 12px; background: #ef4444; color: white; border: none; border-radius: 4px; font-size: 0.85rem; font-weight: bold; cursor: pointer; }
-    .btn-logout:hover { background: #dc2626; }
-    .container { width: 100%; max-width: 800px; }
-    .tabs { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
-    .tab-btn { flex: 1; min-width: 120px; padding: 12px; background: #e5e7eb; border: 1px solid #ccc; border-radius: 6px; font-weight: bold; cursor: pointer; text-align: center; }
-    .tab-btn.active { background: #d97706; color: #ffffff; border-color: #d97706; }
-    .card { background: #ffffff; border: 1px solid #ddd; border-radius: 8px; padding: 25px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); margin-bottom: 20px; }
-    .hidden { display: none !important; }
-    .form-group { margin-bottom: 15px; }
-    label { display: block; margin-bottom: 5px; font-weight: bold; font-size: 0.9rem; }
-    input, select, textarea { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 1rem; }
-    button.btn-action { width: 100%; padding: 12px; background: #d97706; color: white; border: none; border-radius: 4px; font-weight: bold; font-size: 1rem; cursor: pointer; }
-    button.btn-action:hover { background: #b45309; }
-    button:disabled { background: #9ca3af !important; cursor: not-allowed; }
-    .toggle-link { margin-top: 15px; font-size: 0.9rem; text-align: center; color: #2563eb; cursor: pointer; text-decoration: underline; }
-    .notice-box { background: #fef3c7; border-left: 4px solid #d97706; padding: 12px; margin-bottom: 12px; border-radius: 4px; }
-    .feed-item { padding: 12px; border: 1px solid #e5e7eb; border-radius: 6px; margin-bottom: 12px; background: #fafafa; }
-    .badge-pending { background: #fef3c7; color: #d97706; padding: 2px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: bold; }
-    .badge-approved { background: #d1fae5; color: #059669; padding: 2px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: bold; }
-    .admin-reply-box { margin-top: 8px; padding: 10px; background: #eff6ff; border-left: 3px solid #2563eb; font-size: 0.9rem; border-radius: 4px; }
-    
-    /* Content styling for History section */
-    .content-paragraph { margin-bottom: 15px; line-height: 1.6; color: #4b5563; }
-    .content-heading { margin-bottom: 12px; color: #d97706; font-size: 1.2rem; margin-top: 25px; }
-    .guidelines-list { margin-bottom: 15px; line-height: 1.6; color: #4b5563; padding-left: 20px; }
-    .guidelines-list li { margin-bottom: 10px; }
-
-    @media screen and (max-width: 600px) { .header-controls { flex-direction: column; align-items: flex-end; gap: 5px; } }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; }
+    .font-display { font-family: 'Playfair Display', Georgia, serif; }
+   
+    /* nice focus rings */
+    input:focus, select:focus, textarea:focus { outline: none; }
   </style>
+  <meta property="og:image" content="https://bolt.new/static/og_default.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://bolt.new/static/og_default.png">
 </head>
-<body>
 
-  <header>
-    <div class="portal-title">মনৰ কথা | Tinsukia College</div>
-    <div class="header-controls">
-      <div id="userStatus" class="user-status">Not Logged In</div>
-      <button id="logoutBtn" class="btn-logout hidden" onclick="logout()">Logout</button>
+<body class="min-h-screen bg-[#fbfaf7] text-slate-900 overflow-x-hidden">
+
+  <!-- ambient background blobs -->
+  <div class="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
+    <div class="absolute -left-32 top-24 h-72 w-72 rounded-full bg-amber-100/50 blur-3xl"></div>
+    <div class="absolute right-0 top-[42rem] h-96 w-96 rounded-full bg-orange-100/60 blur-3xl"></div>
+  </div>
+
+  <!-- STICKY HEADER -->
+  <header class="sticky top-0 z-40 border-b border-slate-200/80 bg-[#fbfaf7]/90 backdrop-blur-xl">
+    <div class="mx-auto flex w-full max-w-7xl items-center justify-between gap-4 px-4 py-3 sm:px-6 lg:px-8">
+      <button onclick="switchTab('auth')" class="group flex min-w-0 items-center gap-3 text-left">
+        <span class="flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden rounded-xl border border-amber-200 bg-white shadow-sm transition-transform group-hover:scale-105 sm:h-12 sm:w-12">
+          <img src="logo.jpg" alt="Tinsukia College logo" class="h-full w-full object-contain" />
+        </span>
+        <span class="min-w-0">
+          <span class="block truncate font-display text-base font-bold tracking-tight text-slate-900 sm:text-lg">মনৰ কথা</span>
+          <span class="block truncate text-[10px] font-semibold uppercase tracking-[0.18em] text-amber-700 sm:text-[11px]">Tinsukia College</span>
+        </span>
+      </button>
+
+      <div class="hidden items-center gap-3 md:flex">
+        <span id="userStatus" class="text-sm font-medium text-slate-500">Your voice matters here</span>
+        <button id="logoutBtn" onclick="logout()" class="hidden flex min-h-10 items-center gap-2 rounded-lg px-3 text-sm font-semibold text-slate-600 transition hover:bg-red-50 hover:text-red-600">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+          Sign out
+        </button>
+      </div>
+
+      <button id="menuBtn" onclick="toggleMobileMenu()" class="flex h-11 w-11 items-center justify-center rounded-xl border border-slate-200 bg-white text-slate-700 md:hidden">
+        <svg id="menuIcon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/></svg>
+      </button>
+    </div>
+
+    <div id="mobileMenu" class="hidden border-t border-slate-200 bg-white px-4 py-3 md:hidden">
+      <div class="flex items-center justify-between gap-3">
+        <span id="userStatusMobile" class="text-sm text-slate-500">Your voice matters here</span>
+        <button id="logoutBtnMobile" onclick="logout()" class="hidden flex min-h-10 items-center gap-2 rounded-lg px-3 text-sm font-semibold text-red-600">Sign out</button>
+      </div>
     </div>
   </header>
 
-  <div class="container">
-    <div class="tabs">
-      <button id="btn-auth" class="tab-btn active" onclick="switchTab('auth')">Account Access</button>
-      <button id="btn-submit" class="tab-btn" onclick="switchTab('submit')">Submit Grievance</button>
-      <button id="btn-feed" class="tab-btn" onclick="switchTab('feed')">Announcements & Feed</button>
-      <button id="btn-history" class="tab-btn" onclick="switchTab('history')">History & Vision</button>
-      <button id="btn-about" class="tab-btn" onclick="switchTab('about')">About Admin</button>
-    </div>
+  <main class="mx-auto w-full max-w-7xl px-4 pb-16 pt-7 sm:px-6 sm:pt-10 lg:px-8">
 
-    <!-- AUTH TAB -->
-    <div id="tab-auth" class="card">
-      <div id="view-register">
-        <h2 style="margin-bottom: 15px;">New Student Registration</h2>
-        <form onsubmit="handleRegister(event)">
-          <div class="form-group"><label>Full Name</label><input type="text" id="regName" required></div>
-          <div class="form-group"><label>Class / Semester</label><input type="text" id="regClass" required></div>
-          <div class="form-group"><label>Email or Phone</label><input type="text" id="regEmail" required></div>
-          <div class="form-group"><label>Set Password</label><input type="password" id="regPass" required></div>
-          <button type="submit" class="btn-action">Register Account</button>
-        </form>
-        <div class="toggle-link" onclick="toggleAuthView('login')">Already registered? Click here to Login</div>
-      </div>
-      <div id="view-login" class="hidden">
-        <h2 style="margin-bottom: 15px;">Student Login</h2>
-        <form onsubmit="handleLogin(event)">
-          <div class="form-group"><label>Email or Phone Number</label><input type="text" id="loginEmail" required></div>
-          <div class="form-group"><label>Password</label><input type="password" id="loginPass" required></div>
-          <button type="submit" class="btn-action">Login to Portal</button>
-        </form>
-        <div class="toggle-link" onclick="toggleAuthView('register')">Need a new account? Click here to Register</div>
-      </div>
-    </div>
-
-    <!-- SUBMIT TAB -->
-    <div id="tab-submit" class="card hidden">
-      <h2 style="margin-bottom: 15px;">Submit Your Grievance / Feedback</h2>
-      <form onsubmit="handleMessageSubmit(event)">
-        <div class="form-group">
-          <label>Category</label>
-          <select id="msgType" required>
-            <option value="Formal Grievance">Formal Grievance</option>
-            <option value="Complaint">Complaint</option>
-            <option value="Idea">Idea</option>
-          </select>
+    <!-- HERO -->
+    <section class="mb-8 grid gap-7 lg:grid-cols-[1.12fr_0.88fr] lg:items-end">
+      <div class="max-w-3xl">
+        <div class="mb-5 inline-flex items-center gap-2 rounded-full border border-amber-200 bg-amber-50 px-3 py-1.5 text-xs font-bold uppercase tracking-[0.16em] text-amber-800">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.8h6.1l-4.9 3.6 1.9 5.8L12 14.6l-4.9 3.6 1.9-5.8L4 8.8h6.1z"/></svg>
+          A better campus begins with listening
         </div>
-        <div class="form-group">
-          <label>Your Message (মনৰ কথা)</label>
-          <textarea id="userMsg" rows="5" required></textarea>
+        <h1 class="max-w-2xl font-display text-4xl font-bold leading-[1.08] tracking-tight text-slate-950 sm:text-5xl lg:text-6xl">
+          Speak freely. <span class="text-amber-600">Shape together.</span>
+        </h1>
+        <p class="mt-5 max-w-xl text-base leading-7 text-slate-600 sm:text-lg">
+          A thoughtful space for Tinsukia College students to share concerns, ideas, and feedback with clarity.
+        </p>
+      </div>
+      <div class="hidden justify-end lg:flex">
+        <div class="max-w-xs border-l-2 border-amber-300 pl-5 text-sm leading-6 text-slate-500">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="mb-2 text-amber-500"><path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z"/><path d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3c0 1 0 1 1 1z"/></svg>
+          <p>Every genuine concern deserves a clear path forward.</p>
         </div>
-        <button type="submit" id="submitBtn" class="btn-action">Send Submission</button>
-      </form>
+      </div>
+    </section>
+
+    <!-- TABS -->
+    <nav class="mb-7 rounded-2xl border border-slate-200 bg-white/80 p-1.5 shadow-sm backdrop-blur sm:p-2">
+      <div class="grid grid-cols-2 gap-1.5 sm:grid-cols-3 lg:grid-cols-5">
+        <button id="btn-auth" onclick="switchTab('auth')" class="tab-btn flex min-h-12 items-center justify-center gap-2 rounded-xl px-2 py-2.5 text-xs font-bold transition sm:text-sm">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          <span class="hidden sm:inline">Account access</span><span class="sm:hidden">Account</span>
+        </button>
+        <button id="btn-submit" onclick="switchTab('submit')" class="tab-btn flex min-h-12 items-center justify-center gap-2 rounded-xl px-2 py-2.5 text-xs font-bold transition sm:text-sm">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+          <span class="hidden sm:inline">Submit feedback</span><span class="sm:hidden">Submit</span>
+        </button>
+        <button id="btn-feed" onclick="switchTab('feed')" class="tab-btn flex min-h-12 items-center justify-center gap-2 rounded-xl px-2 py-2.5 text-xs font-bold transition sm:text-sm">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          <span class="hidden sm:inline">Community feed</span><span class="sm:hidden">Feed</span>
+        </button>
+        <button id="btn-history" onclick="switchTab('history')" class="tab-btn flex min-h-12 items-center justify-center gap-2 rounded-xl px-2 py-2.5 text-xs font-bold transition sm:text-sm">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+          <span class="hidden sm:inline">History &amp; vision</span><span class="sm:hidden">Our story</span>
+        </button>
+        <button id="btn-about" onclick="switchTab('about')" class="tab-btn flex min-h-12 items-center justify-center gap-2 rounded-xl px-2 py-2.5 text-xs font-bold transition sm:text-sm">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <span class="hidden sm:inline">About admin</span><span class="sm:hidden">Admin</span>
+        </button>
+      </div>
+    </nav>
+
+    <!-- NOTICE -->
+    <div id="notice" class="hidden mb-6 flex items-start gap-3 rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm font-medium text-emerald-800 shadow-sm">
+      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="mt-0.5 shrink-0"><polyline points="20 6 9 17 4 12"/></svg>
+      <span id="noticeText"></span>
     </div>
 
-    <!-- FEED TAB -->
-    <div id="tab-feed" class="card hidden">
-      <h2 style="margin-bottom: 15px; color: #d97706;">Official Announcements</h2>
-      <div id="announcementsArea"></div>
-      <hr style="margin: 25px 0; border: 0; border-top: 1px solid #eee;">
-      <h2 style="margin-bottom: 15px;">1. My Submissions & Status Tracker</h2>
-      <div id="myStatusList"><p style="color: #666;">Log in to view your message status.</p></div>
-      <hr style="margin: 25px 0; border: 0; border-top: 1px solid #eee;">
-      <h2 style="margin-bottom: 15px;">2. Public Approved Feed & Responses</h2>
-      <div id="publicFeedList"><p style="color: #666;">Loading messages...</p></div>
+    <!-- =================== TAB: AUTH =================== -->
+    <section id="tab-auth" class="grid gap-6 lg:grid-cols-[1fr_0.8fr]">
+      <div class="rounded-3xl border border-slate-200 bg-white p-6 shadow-soft sm:p-9">
+        <div class="mb-8 flex items-start justify-between gap-5">
+          <div>
+            <p id="authEyebrow" class="mb-2 text-xs font-bold uppercase tracking-[0.17em] text-amber-700">Start here</p>
+            <h2 id="authTitle" class="font-display text-2xl font-bold tracking-tight sm:text-3xl">Create your student account</h2>
+            <p id="authSub" class="mt-2 text-sm leading-6 text-slate-500">Share your voice with confidence and follow every update in one place.</p>
+          </div>
+          <span class="hidden rounded-2xl bg-amber-50 p-3 text-amber-700 sm:block">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
+          </span>
+        </div>
+
+        <!-- REGISTER -->
+        <form id="view-register" onsubmit="handleRegister(event)">
+          <div class="space-y-5">
+            <label class="block">
+              <span class="mb-2 block text-sm font-bold text-slate-700">Full name</span>
+              <span class="relative block">
+                <span class="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400"><svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span>
+                <input required id="regName" type="text" placeholder="e.g. Priyanka Das" class="min-h-12 w-full rounded-xl border border-slate-200 bg-slate-50 pl-11 pr-4 text-sm text-slate-900 transition placeholder:text-slate-400 focus:border-amber-500 focus:bg-white focus:ring-4 focus:ring-amber-500/10" />
+              </span>
+            </label>
+            <label class="block">
+              <span class="mb-2 block text-sm font-bold text-slate-700">Class / semester</span>
+              <span class="relative block">
+                <span class="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400"><svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></span>
+                <input required id="regClass" type="text" placeholder="e.g. BA 4th Semester" class="min-h-12 w-full rounded-xl border border-slate-200 bg-slate-50 pl-11 pr-4 text-sm text-slate-900 transition placeholder:text-slate-400 focus:border-amber-500 focus:bg-white focus:ring-4 focus:ring-amber-500/10" />
+              </span>
+            </label>
+            <label class="block">
+              <span class="mb-2 block text-sm font-bold text-slate-700">Email or phone number</span>
+              <span class="relative block">
+                <span class="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400"><svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></span>
+                <input required id="regEmail" type="text" placeholder="you@example.com" class="min-h-12 w-full rounded-xl border border-slate-200 bg-slate-50 pl-11 pr-4 text-sm text-slate-900 transition placeholder:text-slate-400 focus:border-amber-500 focus:bg-white focus:ring-4 focus:ring-amber-500/10" />
+              </span>
+            </label>
+            <label class="block">
+              <span class="mb-2 block text-sm font-bold text-slate-700">Password</span>
+              <input required id="regPass" type="password" placeholder="Set a password" class="min-h-12 w-full rounded-xl border border-slate-200 bg-slate-50 px-4 text-sm text-slate-900 transition placeholder:text-slate-400 focus:border-amber-500 focus:bg-white focus:ring-4 focus:ring-amber-500/10" />
+            </label>
+            <button type="submit" class="group flex min-h-12 w-full items-center justify-center gap-2 rounded-xl bg-amber-600 px-5 text-sm font-bold text-white shadow-lg shadow-amber-600/20 transition hover:bg-amber-700">
+              Create account
+              <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="transition-transform group-hover:translate-x-1"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </button>
+          </div>
+          <button type="button" onclick="toggleAuthView('login')" class="mt-6 flex min-h-11 w-full items-center justify-center text-sm font-semibold text-slate-500 transition hover:text-amber-700">Already have an account? Sign in</button>
+        </form>
+
+        <!-- LOGIN -->
+        <form id="view-login" class="hidden" onsubmit="handleLogin(event)">
+          <div class="space-y-5">
+            <label class="block">
+              <span class="mb-2 block text-sm font-bold text-slate-700">Email or phone number</span>
+              <span class="relative block">
+                <span class="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400"><svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></span>
+                <input required id="loginEmail" type="text" placeholder="you@example.com" class="min-h-12 w-full rounded-xl border border-slate-200 bg-slate-50 pl-11 pr-4 text-sm text-slate-900 transition placeholder:text-slate-400 focus:border-amber-500 focus:bg-white focus:ring-4 focus:ring-amber-500/10" />
+              </span>
+            </label>
+            <label class="block">
+              <span class="mb-2 block text-sm font-bold text-slate-700">Password</span>
+              <input required id="loginPass" type="password" placeholder="Enter your password" class="min-h-12 w-full rounded-xl border border-slate-200 bg-slate-50 px-4 text-sm text-slate-900 transition placeholder:text-slate-400 focus:border-amber-500 focus:bg-white focus:ring-4 focus:ring-amber-500/10" />
+            </label>
+            <button type="submit" class="group flex min-h-12 w-full items-center justify-center gap-2 rounded-xl bg-amber-600 px-5 text-sm font-bold text-white shadow-lg shadow-amber-600/20 transition hover:bg-amber-700">
+              Sign in
+              <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="transition-transform group-hover:translate-x-1"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </button>
+          </div>
+          <button type="button" onclick="toggleAuthView('register')" class="mt-6 flex min-h-11 w-full items-center justify-center text-sm font-semibold text-slate-500 transition hover:text-amber-700">New to the portal? Create an account</button>
+        </form>
+      </div>
+
+      <div class="relative overflow-hidden rounded-3xl bg-slate-900 p-7 text-white sm:p-9">
+        <div class="absolute -right-16 -top-16 h-48 w-48 rounded-full bg-amber-400/20 blur-2xl"></div>
+        <div class="relative">
+          <div class="mb-12 flex h-12 w-12 items-center justify-center rounded-2xl bg-amber-500 text-slate-950">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <h3 class="max-w-xs font-display text-2xl font-bold leading-tight">A safe channel for honest conversations.</h3>
+          <p class="mt-4 text-sm leading-7 text-slate-300">The portal helps the student union understand what matters most, track genuine concerns, and create a stronger campus together.</p>
+          <div class="mt-10 space-y-4">
+            <div class="flex items-center gap-3 text-sm font-medium text-slate-200"><span class="flex h-6 w-6 items-center justify-center rounded-full bg-white/10 text-amber-400"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Private account access</div>
+            <div class="flex items-center gap-3 text-sm font-medium text-slate-200"><span class="flex h-6 w-6 items-center justify-center rounded-full bg-white/10 text-amber-400"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Clear status updates</div>
+            <div class="flex items-center gap-3 text-sm font-medium text-slate-200"><span class="flex h-6 w-6 items-center justify-center rounded-full bg-white/10 text-amber-400"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Constructive campus dialogue</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =================== TAB: SUBMIT =================== -->
+    <section id="tab-submit" class="hidden grid gap-6 lg:grid-cols-[1fr_0.75fr]">
+      <div class="rounded-3xl border border-slate-200 bg-white p-6 shadow-soft sm:p-9">
+        <div class="mb-8">
+          <p class="mb-2 text-xs font-bold uppercase tracking-[0.17em] text-amber-700">Your message</p>
+          <h2 class="font-display text-2xl font-bold tracking-tight sm:text-3xl">What's on your mind?</h2>
+          <p class="mt-2 text-sm leading-6 text-slate-500">Be specific, constructive, and kind. Your message will be reviewed before it appears in the community feed.</p>
+        </div>
+        <form onsubmit="handleMessageSubmit(event)">
+          <div class="space-y-5">
+            <label class="block">
+              <span class="mb-2 block text-sm font-bold text-slate-700">Category</span>
+              <select id="msgType" class="min-h-12 w-full rounded-xl border border-slate-200 bg-slate-50 px-4 text-sm outline-none transition focus:border-amber-500 focus:bg-white focus:ring-4 focus:ring-amber-500/10">
+                <option>Formal Grievance</option>
+                <option>Complaint</option>
+                <option>Idea</option>
+                <option>Appreciation</option>
+              </select>
+            </label>
+            <label class="block">
+              <span class="mb-2 flex items-center justify-between text-sm font-bold text-slate-700"><span>Your message</span><span class="font-normal text-slate-400">মনৰ কথা</span></span>
+              <textarea required id="userMsg" rows="7" placeholder="Tell us what you would like the college to know..." class="w-full resize-y rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm leading-6 transition placeholder:text-slate-400 focus:border-amber-500 focus:bg-white focus:ring-4 focus:ring-amber-500/10"></textarea>
+            </label>
+            <div class="flex flex-col-reverse gap-3 pt-2 sm:flex-row sm:items-center sm:justify-between">
+              <p id="submitAs" class="text-xs leading-5 text-slate-400">Submitting as <strong class="text-slate-600">Student</strong></p>
+              <button type="submit" id="submitBtn" class="group flex min-h-12 items-center justify-center gap-2 rounded-xl bg-amber-600 px-6 text-sm font-bold text-white shadow-lg shadow-amber-600/20 transition hover:bg-amber-700">
+                Send for review
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="transition-transform group-hover:translate-x-1"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <div class="rounded-3xl border border-amber-200 bg-amber-50/70 p-7 sm:p-9">
+        <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-white text-amber-700 shadow-sm">
+          <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 0 1 8.91 14"/></svg>
+        </div>
+        <h3 class="mt-7 font-display text-2xl font-bold text-slate-900">Make your feedback count</h3>
+        <ul class="mt-5 space-y-5 text-sm leading-6 text-slate-600">
+          <li class="flex gap-3"><span class="font-display text-lg font-bold text-amber-600">01</span><span>Mention relevant dates, places, departments, or details.</span></li>
+          <li class="flex gap-3"><span class="font-display text-lg font-bold text-amber-600">02</span><span>Share a possible solution when you can.</span></li>
+          <li class="flex gap-3"><span class="font-display text-lg font-bold text-amber-600">03</span><span>Avoid personal attacks or repeated submissions.</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- =================== TAB: FEED =================== -->
+    <section id="tab-feed" class="hidden space-y-6">
+      <!-- stats -->
+      <div id="statsRow" class="grid gap-4 sm:grid-cols-3"></div>
+
+      <div class="grid gap-6 lg:grid-cols-2">
+        <!-- announcements -->
+        <div class="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm sm:p-7">
+          <div class="flex items-center gap-3">
+            <span class="flex h-10 w-10 items-center justify-center rounded-xl bg-slate-900 text-amber-400"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg></span>
+            <div><p class="text-[10px] font-bold uppercase tracking-[0.16em] text-amber-700">Stay informed</p><h2 class="font-display text-xl font-bold tracking-tight text-slate-900">Latest announcements</h2></div>
+          </div>
+          <div id="announcementsArea" class="mt-6 space-y-3"></div>
+        </div>
+
+        <!-- my submissions -->
+        <div class="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm sm:p-7">
+          <div class="flex items-center gap-3">
+            <span class="flex h-10 w-10 items-center justify-center rounded-xl bg-slate-900 text-amber-400"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></span>
+            <div><p class="text-[10px] font-bold uppercase tracking-[0.16em] text-amber-700">Your dashboard</p><h2 class="font-display text-xl font-bold tracking-tight text-slate-900">My submissions</h2></div>
+          </div>
+          <div id="myStatusList" class="mt-6 space-y-3"><p class="text-sm text-slate-500">Log in to view your message status.</p></div>
+        </div>
+      </div>
+
+      <!-- public feed -->
+      <div class="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm sm:p-7">
+        <div class="flex items-center gap-3">
+          <span class="flex h-10 w-10 items-center justify-center rounded-xl bg-slate-900 text-amber-400"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
+          <div><p class="text-[10px] font-bold uppercase tracking-[0.16em] text-amber-700">Shared with care</p><h2 class="font-display text-xl font-bold tracking-tight text-slate-900">Public approved feed</h2></div>
+        </div>
+        <p class="mt-2 text-sm text-slate-500">Ideas and concerns that can help the wider college community.</p>
+        <div id="publicFeedList" class="mt-6 grid gap-3 md:grid-cols-2"><p class="text-sm text-slate-500">Loading messages...</p></div>
+      </div>
+    </section>
+
+    <!-- =================== TAB: HISTORY =================== -->
+    <section id="tab-history" class="hidden overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-soft">
+      <div class="relative h-64 sm:h-80 lg:h-[25rem]">
+        <img src="gate.jpg" alt="Tinsukia College gate" class="h-full w-full object-cover" />
+        <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-transparent"></div>
+        <div class="absolute bottom-6 left-5 right-5 text-white sm:bottom-9 sm:left-9">
+          <p class="mb-2 text-xs font-bold uppercase tracking-[0.17em] text-amber-300">Our story</p>
+          <h2 class="max-w-2xl font-display text-3xl font-bold leading-tight sm:text-5xl">A campus that listens is a campus that grows.</h2>
+        </div>
+      </div>
+
+      <div class="grid gap-8 p-6 sm:p-9 lg:grid-cols-[1.2fr_0.8fr] lg:p-12">
+        <div>
+          <p class="text-sm font-bold uppercase tracking-[0.15em] text-amber-700">The origin of মনৰ কথা</p>
+          <p class="mt-4 text-base leading-8 text-slate-600">The portal was officially initiated in 2026 by <strong class="text-slate-900">Deep Hazarika</strong>, Social Service Secretary, in collaboration with the <strong class="text-slate-900">Tinsukia College Student Union 2026-2027</strong>. It was established to bridge the communication gap between the student body and the college administration, replacing traditional paperwork with a modern, digital platform for transparent and immediate dialogue.</p>
+          <p class="mt-5 text-base leading-8 text-slate-600">Every student deserves to be heard without administrative friction. By digitizing the feedback process, the portal ensures that no genuine concern is ignored or misplaced — and helps future student unions and college authorities quickly identify campus needs, resolve recurring issues, and continuously upgrade the college environment based on direct student input.</p>
+        </div>
+        <div class="rounded-2xl bg-slate-50 p-6">
+          <p class="text-sm font-bold uppercase tracking-[0.15em] text-amber-700">Our vision</p>
+          <p class="mt-3 font-display text-xl font-bold leading-8 text-slate-900">A more responsive campus, shaped by direct student input.</p>
+          <div class="mt-6 space-y-4 text-sm text-slate-600">
+            <div class="flex gap-3"><svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" class="mt-0.5 shrink-0 text-emerald-600"><polyline points="20 6 9 17 4 12"/></svg> No genuine concern ignored or misplaced.</div>
+            <div class="flex gap-3"><svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" class="mt-0.5 shrink-0 text-emerald-600"><polyline points="20 6 9 17 4 12"/></svg> Clearer paths from feedback to action.</div>
+            <div class="flex gap-3"><svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" class="mt-0.5 shrink-0 text-emerald-600"><polyline points="20 6 9 17 4 12"/></svg> Future-ready student leadership.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="border-t border-slate-200 p-6 sm:p-9 lg:px-12">
+        <h2 class="font-display text-2xl font-bold text-slate-900">Platform guidelines</h2>
+        <div id="guidelinesGrid" class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3"></div>
+      </div>
+    </section>
+
+    <!-- =================== TAB: ABOUT =================== -->
+    <section id="tab-about" class="hidden grid gap-6 lg:grid-cols-[0.7fr_1.3fr]">
+      <div class="rounded-3xl bg-slate-900 p-7 text-white sm:p-10">
+        <div class="flex h-16 w-16 items-center justify-center rounded-2xl bg-amber-500 text-slate-950"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+        <p class="mt-10 text-xs font-bold uppercase tracking-[0.17em] text-amber-300">Portal administrator</p>
+        <h2 id="adminName" class="mt-3 font-display text-3xl font-bold">Loading...</h2>
+        <p id="adminRole" class="mt-2 text-sm font-semibold text-slate-300"></p>
+        <p id="adminBio" class="mt-10 border-t border-white/10 pt-6 text-sm leading-7 text-slate-300"></p>
+        <div class="mt-8 space-y-3 text-sm text-slate-300">
+          <p><strong class="text-white">Email:</strong> <span id="adminEmail"></span></p>
+          <p><strong class="text-white">Phone:</strong> <span id="adminPhone"></span></p>
+        </div>
+      </div>
+
+      <div class="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm sm:p-10">
+        <p class="text-xs font-bold uppercase tracking-[0.17em] text-amber-700">How this space works</p>
+        <h2 class="mt-2 font-display text-2xl font-bold text-slate-900 sm:text-3xl">Here to help your message move forward.</h2>
+        <div class="mt-8 grid gap-6 sm:grid-cols-2">
+          <div class="flex gap-4"><span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-amber-50 text-amber-700"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span><div><h3 class="font-bold text-slate-900">Listen first</h3><p class="mt-1 text-sm leading-6 text-slate-500">Every message is read with attention and context.</p></div></div>
+          <div class="flex gap-4"><span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-amber-50 text-amber-700"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2h6a1 1 0 0 1 1 1v1h3a1 1 0 0 1 1 1v15a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h3V3a1 1 0 0 1 1-1z"/></svg></span><div><h3 class="font-bold text-slate-900">Review fairly</h3><p class="mt-1 text-sm leading-6 text-slate-500">Submissions are reviewed before being shared publicly.</p></div></div>
+          <div class="flex gap-4"><span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-amber-50 text-amber-700"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span><div><h3 class="font-bold text-slate-900">Respond clearly</h3><p class="mt-1 text-sm leading-6 text-slate-500">Approved messages can receive a visible administration response.</p></div></div>
+          <div class="flex gap-4"><span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-amber-50 text-amber-700"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg></span><div><h3 class="font-bold text-slate-900">Build together</h3><p class="mt-1 text-sm leading-6 text-slate-500">Constructive feedback helps create meaningful change.</p></div></div>
+        </div>
+        <div class="mt-10 rounded-2xl bg-amber-50 p-5"><p class="text-sm leading-6 text-slate-700">For a faster resolution, include the relevant department, location, and a clear description of what happened.</p></div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="border-t border-slate-200 bg-white/60">
+    <div class="mx-auto flex w-full max-w-7xl flex-col gap-2 px-4 py-6 text-xs text-slate-500 sm:flex-row sm:items-center sm:justify-between sm:px-6 lg:px-8">
+      <span>মনৰ কথা · Student grievance &amp; feedback portal</span>
+      <span class="flex items-center gap-1.5"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="text-amber-600"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg> Built for a more responsive campus</span>
     </div>
-
-    <!-- HISTORY & VISION TAB -->
-    <div id="tab-history" class="card hidden">
-      <h2 class="content-heading" style="margin-top: 0;">The Origin of মনৰ কথা (Monor Kotha)</h2>
-      <p class="content-paragraph">The portal was officially initiated in 2026 by <strong>Deep Hazarika</strong>, Social Service Secretary, in collaboration with the <strong>Tinsukia College Student Union 2026-2027</strong>. It was established to bridge the communication gap between the student body and the college administration, replacing traditional paperwork with a modern, digital platform for transparent and immediate dialogue.</p>
-
-      <h2 class="content-heading">Our Vision for the Future</h2>
-      <p class="content-paragraph">This initiative was born from the core belief that every student deserves to be heard without administrative friction. By digitizing the feedback process, the portal ensures that no genuine concern is ignored or misplaced. In the near future, this platform will serve as a permanent structural foundation for a more responsive campus. It will allow future student unions and college authorities to quickly identify campus needs, efficiently resolve recurring issues, and continuously upgrade the college environment based on direct student input.</p>
-
-      <h2 class="content-heading">Platform Guidelines (Dos & Don'ts)</h2>
-      <ul class="guidelines-list">
-        <li><strong>Do be specific:</strong> Clearly state the details of your issue, including relevant dates, departments, or locations, so immediate action can be taken.</li>
-        <li><strong>Do offer solutions:</strong> Whenever sharing a complaint, try to suggest a constructive idea on how the union or administration can fix it.</li>
-        <li><strong>Do track your status:</strong> Use your personal dashboard to check if your grievance is pending or approved before asking for updates.</li>
-        <li><strong>Don't use unprofessional language:</strong> Abusive, discriminatory, or highly aggressive language will result in the immediate rejection of the submission.</li>
-        <li><strong>Don't spam the system:</strong> Submitting the exact same grievance multiple times slows down the review process for everyone else.</li>
-        <li><strong>Don't target individuals:</strong> The platform is for institutional improvements and structural grievances, not for personal attacks or private disputes between students.</li>
-      </ul>
-    </div>
-
-    <!-- ABOUT TAB -->
-    <div id="tab-about" class="card hidden">
-      <h2 id="adminName">Loading...</h2>
-      <p id="adminRole" style="color: #d97706; font-weight: bold; margin-bottom: 10px;"></p>
-      <p id="adminBio" style="margin-bottom: 15px; color: #555;"></p>
-      <p><strong>Email:</strong> <span id="adminEmail"></span></p>
-      <p style="margin-top: 5px;"><strong>Phone:</strong> <span id="adminPhone"></span></p>
-    </div>
-  </div>
+  </footer>
 
   <script>
     // ⚠️ PASTE YOUR NEW DEPLOYED GOOGLE APPS SCRIPT WEB APP URL HERE
-    const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyJligFj6o5Nku3vbDRcuZCJEKL36XlYLvPpWHbP-St-gjE3WY7fdSUAnEquWU20hE8/exec";
+    const GOOGLE_SCRIPT_URL = "YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE";
 
     let currentUser = null;
-    const savedUser = sessionStorage.getItem("collegeUser");
-    if (savedUser) {
-      currentUser = JSON.parse(savedUser);
-      document.getElementById('userStatus').innerText = `Logged in as: ${currentUser.Name}`;
-      document.getElementById('logoutBtn').classList.remove('hidden');
+    let noticeTimer = null;
+
+    const guidelines = [
+      "Be specific about dates, departments, and locations.",
+      "Offer a constructive solution whenever possible.",
+      "Track your status before asking for updates.",
+      "Use respectful language; personal attacks are not accepted.",
+      "Avoid duplicate submissions so every message gets attention.",
+      "Focus on institutional improvements, not private disputes."
+    ];
+
+    function esc(str) {
+      const div = document.createElement('div');
+      div.textContent = str == null ? '' : String(str);
+      return div.innerHTML;
+    }
+
+    function showNotice(text) {
+      const notice = document.getElementById('notice');
+      document.getElementById('noticeText').textContent = text;
+      notice.classList.remove('hidden');
+      if (noticeTimer) clearTimeout(noticeTimer);
+      noticeTimer = setTimeout(() => notice.classList.add('hidden'), 4200);
+    }
+
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobileMenu');
+      const icon = document.getElementById('menuIcon');
+      const open = menu.classList.contains('hidden');
+      menu.classList.toggle('hidden');
+      icon.innerHTML = open
+        ? '<line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>'
+        : '<line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/>';
+    }
+
+    function refreshUserUI() {
+      const status = document.getElementById('userStatus');
+      const statusMobile = document.getElementById('userStatusMobile');
+      const logoutBtn = document.getElementById('logoutBtn');
+      const logoutBtnMobile = document.getElementById('logoutBtnMobile');
+      const submitAs = document.getElementById('submitAs');
+
+      if (currentUser) {
+        const pill = '<span class="flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-3 py-2 text-xs font-semibold text-emerald-700"><span class="h-2 w-2 rounded-full bg-emerald-500"></span>' + esc(currentUser.Name) + '</span>';
+        status.innerHTML = pill;
+        statusMobile.innerHTML = '<span class="text-sm font-semibold text-emerald-700">Signed in as ' + esc(currentUser.Name) + '</span>';
+        logoutBtn.classList.remove('hidden');
+        logoutBtnMobile.classList.remove('hidden');
+        if (submitAs) submitAs.innerHTML = 'Submitting as <strong class="text-slate-600">' + esc(currentUser.Name) + '</strong>';
+      } else {
+        status.innerHTML = '<span class="text-sm font-medium text-slate-500">Your voice matters here</span>';
+        statusMobile.innerHTML = '<span class="text-sm text-slate-500">Your voice matters here</span>';
+        logoutBtn.classList.add('hidden');
+        logoutBtnMobile.classList.add('hidden');
+        if (submitAs) submitAs.innerHTML = 'Submitting as <strong class="text-slate-600">Student</strong>';
+      }
     }
 
     function toggleAuthView(view) {
+      const reg = document.getElementById('view-register');
+      const login = document.getElementById('view-login');
+      const eyebrow = document.getElementById('authEyebrow');
+      const title = document.getElementById('authTitle');
+      const sub = document.getElementById('authSub');
       if (view === 'login') {
-        document.getElementById('view-register').classList.add('hidden');
-        document.getElementById('view-login').classList.remove('hidden');
+        reg.classList.add('hidden');
+        login.classList.remove('hidden');
+        eyebrow.textContent = 'Welcome back';
+        title.textContent = 'Sign in to your portal';
+        sub.textContent = 'Continue your conversation with the college community.';
       } else {
-        document.getElementById('view-login').classList.add('hidden');
-        document.getElementById('view-register').classList.remove('hidden');
+        login.classList.add('hidden');
+        reg.classList.remove('hidden');
+        eyebrow.textContent = 'Start here';
+        title.textContent = 'Create your student account';
+        sub.textContent = 'Share your voice with confidence and follow every update in one place.';
       }
     }
 
     function switchTab(tabName) {
-      if (tabName === 'submit' && !currentUser) { alert("Access Denied: Please Login first!"); tabName = 'auth'; }
-      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-      document.querySelectorAll('.card').forEach(card => card.classList.add('hidden'));
-
-      if (tabName === 'auth') {
-        document.getElementById('btn-auth').classList.add('active'); document.getElementById('tab-auth').classList.remove('hidden');
-      } else if (tabName === 'submit') {
-        document.getElementById('btn-submit').classList.add('active'); document.getElementById('tab-submit').classList.remove('hidden');
-      } else if (tabName === 'feed') {
-        document.getElementById('btn-feed').classList.add('active'); document.getElementById('tab-feed').classList.remove('hidden'); loadPortalData();
-      } else if (tabName === 'history') {
-        document.getElementById('btn-history').classList.add('active'); document.getElementById('tab-history').classList.remove('hidden');
-      } else if (tabName === 'about') {
-        document.getElementById('btn-about').classList.add('active'); document.getElementById('tab-about').classList.remove('hidden'); loadPortalData();
+      if (tabName === 'submit' && !currentUser) {
+        showNotice('Please sign in to submit a grievance or feedback.');
+        toggleAuthView('login');
+        tabName = 'auth';
       }
+
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('bg-slate-900', 'text-white', 'shadow-lg', 'shadow-slate-900/15');
+        btn.classList.add('text-slate-500');
+      });
+      document.querySelectorAll('main > section').forEach(card => card.classList.add('hidden'));
+
+      const tabMap = { auth: 'tab-auth', submit: 'tab-submit', feed: 'tab-feed', history: 'tab-history', about: 'tab-about' };
+      const btnMap = { auth: 'btn-auth', submit: 'btn-submit', feed: 'btn-feed', history: 'btn-history', about: 'btn-about' };
+
+      const btn = document.getElementById(btnMap[tabName]);
+      btn.classList.remove('text-slate-500');
+      btn.classList.add('bg-slate-900', 'text-white', 'shadow-lg', 'shadow-slate-900/15');
+      document.getElementById(tabMap[tabName]).classList.remove('hidden');
+
+      if (tabName === 'feed') loadPortalData();
+      if (tabName === 'about') loadPortalData();
+
+      document.getElementById('mobileMenu').classList.add('hidden');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     function logout() {
       currentUser = null;
-      sessionStorage.removeItem("collegeUser");
-      document.getElementById('userStatus').innerText = "Not Logged In";
-      document.getElementById('logoutBtn').classList.add('hidden');
+      sessionStorage.removeItem('collegeUser');
+      refreshUserUI();
+      showNotice('You have been signed out safely.');
       switchTab('auth');
     }
 
@@ -203,15 +517,18 @@
       try {
         const res = await fetch(url);
         const data = await res.json();
-        if(data.status === "success") {
-          alert("Registration Successful! Redirecting you to Login...");
+        if (data.status === "success") {
+          showNotice("Registration successful! Please sign in to continue.");
           document.getElementById('loginEmail').value = document.getElementById('regEmail').value;
           toggleAuthView('login');
         } else {
-          alert("Registration Failed on the server. Please try again.");
+          showNotice("Registration failed on the server. Please try again.");
         }
-      } catch (err) { alert("Network error during registration."); } 
-      finally { btn.disabled = false; btn.innerText = "Register Account"; }
+      } catch (err) {
+        showNotice("Network error during registration.");
+      } finally {
+        btn.disabled = false; btn.innerText = "Create account";
+      }
     }
 
     async function handleLogin(e) {
@@ -227,15 +544,17 @@
         if (data.status === "success") {
           currentUser = data.user;
           sessionStorage.setItem("collegeUser", JSON.stringify(currentUser));
-          document.getElementById('userStatus').innerText = `Logged in as: ${currentUser.Name}`;
-          document.getElementById('logoutBtn').classList.remove('hidden');
-          alert(`Welcome ${currentUser.Name}! Opening Grievance portal...`);
+          refreshUserUI();
+          showNotice(`Welcome ${currentUser.Name}! Opening the grievance portal...`);
           switchTab('submit');
         } else {
-          alert("Invalid Login Credentials!");
+          showNotice("Invalid login credentials. Please try again.");
         }
-      } catch (err) { alert("Login failed. Check your connection."); } 
-      finally { btn.disabled = false; btn.innerText = "Login to Portal"; }
+      } catch (err) {
+        showNotice("Login failed. Check your connection.");
+      } finally {
+        btn.disabled = false; btn.innerText = "Sign in";
+      }
     }
 
     async function handleMessageSubmit(e) {
@@ -248,49 +567,108 @@
       try {
         const res = await fetch(url);
         const data = await res.json();
-        if(data.status === "success") {
-          alert("Grievance submitted successfully!");
+        if (data.status === "success") {
+          showNotice("Your message has been submitted for review.");
           document.getElementById('userMsg').value = "";
+          switchTab('feed');
         }
-      } catch (err) { alert("Error sending grievance."); } 
-      finally { btn.disabled = false; btn.innerText = "Send Submission"; }
+      } catch (err) {
+        showNotice("Error sending grievance. Please try again.");
+      } finally {
+        btn.disabled = false; btn.innerText = "Send for review";
+      }
+    }
+
+    function renderStats(total, approved, annCount) {
+      const icons = {
+        list: '<path d="M9 2h6a1 1 0 0 1 1 1v1h3a1 1 0 0 1 1 1v15a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h3V3a1 1 0 0 1 1-1z"/>',
+        check: '<polyline points="20 6 9 17 4 12"/>',
+        bell: '<path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/>'
+      };
+      const stats = [
+        { icon: icons.list, label: 'Total messages', value: total },
+        { icon: icons.check, label: 'Approved ideas', value: approved },
+        { icon: icons.bell, label: 'Announcements', value: annCount }
+      ];
+      document.getElementById('statsRow').innerHTML = stats.map(s => `
+        <div class="flex items-center gap-3 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
+          <span class="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-50 text-amber-700"><svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">${s.icon}</svg></span>
+          <span><span class="block text-2xl font-bold text-slate-900">${s.value}</span><span class="text-xs font-semibold text-slate-500">${s.label}</span></span>
+        </div>`).join('');
+    }
+
+    function submissionCard(item, own) {
+      const statusBadge = item.Status === "Approved"
+        ? '<span class="rounded-full bg-emerald-100 px-2.5 py-1 text-[11px] font-bold text-emerald-700">Approved</span>'
+        : '<span class="rounded-full bg-amber-100 px-2.5 py-1 text-[11px] font-bold text-amber-800">Pending</span>';
+      const meta = own ? 'Submitted by you' : `${esc(item.AuthorName)} · ${esc(item.AuthorClass)}`;
+      const reply = item.AdminReply
+        ? `<div class="mt-4 rounded-xl border-l-2 border-blue-400 bg-blue-50 px-3 py-2.5 text-xs leading-5 text-blue-900"><strong>Admin response</strong><br>${esc(item.AdminReply)}</div>`
+        : '';
+      return `<article class="rounded-2xl border border-slate-200 bg-slate-50/70 p-4 transition hover:border-amber-200 hover:bg-amber-50/30">
+        <div class="flex flex-wrap items-start justify-between gap-2">
+          <div><h3 class="font-bold text-slate-900">${esc(item.Category)}</h3><p class="mt-1 text-xs text-slate-500">${meta}</p></div>
+          ${statusBadge}
+        </div>
+        <p class="mt-4 text-sm leading-6 text-slate-600">${esc(item.Content)}</p>
+        ${reply}
+      </article>`;
     }
 
     async function loadPortalData() {
+      // Render guidelines (static)
+      document.getElementById('guidelinesGrid').innerHTML = guidelines.map((g, i) => `
+        <div class="flex gap-3 rounded-xl border border-slate-200 p-4">
+          <span class="font-display font-bold text-amber-600">${String(i + 1).padStart(2, '0')}</span>
+          <p class="text-sm leading-6 text-slate-600">${esc(g)}</p>
+        </div>`).join('');
+
       try {
         const res = await fetch(`${GOOGLE_SCRIPT_URL}?action=get_portal_data&t=${Date.now()}`);
         const data = await res.json();
 
+        const total = (data.userSubmissions || []).length + (data.publicFeed || []).length;
+        const approved = (data.publicFeed || []).length;
+        const annCount = (data.announcements || []).length;
+        renderStats(total, approved, annCount);
+
+        // Announcements
+        const annArea = document.getElementById('announcementsArea');
+        if (data.announcements && data.announcements.length > 0) {
+          annArea.innerHTML = data.announcements.map(ann => `
+            <div class="rounded-2xl border border-amber-100 bg-amber-50/60 p-4">
+              <div class="flex flex-wrap items-start justify-between gap-2">
+                <h3 class="font-bold text-slate-900">${esc(ann.Title)}</h3>
+                <span class="text-[11px] font-semibold text-amber-700">${esc(ann.Date || '')}</span>
+              </div>
+              <p class="mt-2 text-sm leading-6 text-slate-600">${esc(ann.Message)}</p>
+            </div>`).join('');
+        } else {
+          annArea.innerHTML = '<p class="text-sm text-slate-500">No announcements yet.</p>';
+        }
+
+        // My submissions
         const myStatusList = document.getElementById('myStatusList');
         if (currentUser && data.userSubmissions) {
           const myMsgs = data.userSubmissions.filter(m => m.AuthorName === currentUser.Name);
           if (myMsgs.length > 0) {
-            myStatusList.innerHTML = "";
-            myMsgs.forEach(item => {
-              const statusBadge = item.Status === "Approved" ? `<span class="badge-approved">Approved</span>` : `<span class="badge-pending">Pending</span>`;
-              let replyHtml = item.AdminReply ? `<div class="admin-reply-box"><strong>Admin Response:</strong> ${item.AdminReply}</div>` : "";
-              myStatusList.innerHTML += `<div class="feed-item"><div style="display:flex; justify-content:space-between; margin-bottom:6px;"><strong>${item.Category}</strong>${statusBadge}</div><p>${item.Content}</p>${replyHtml}</div>`;
-            });
-          } else { myStatusList.innerHTML = "<p style='color:#666;'>No submissions yet.</p>"; }
-        } else { myStatusList.innerHTML = "<p style='color:#666;'>Log in to view your message status.</p>"; }
-
-        const publicFeedList = document.getElementById('publicFeedList');
-        if (data.publicFeed && data.publicFeed.length > 0) {
-          publicFeedList.innerHTML = "";
-          data.publicFeed.forEach(item => {
-            let replyHtml = item.AdminReply ? `<div class="admin-reply-box"><strong>Admin Reply:</strong> ${item.AdminReply}</div>` : "";
-            publicFeedList.innerHTML += `<div class="feed-item"><strong>${item.AuthorName} (${item.AuthorClass})</strong> - <span style="color:#d97706;">[${item.Category}]</span><p style="margin-top: 5px;">${item.Content}</p>${replyHtml}</div>`;
-          });
-        } else { publicFeedList.innerHTML = "<p style='color:#666;'>No public approved messages yet.</p>"; }
-
-        const annArea = document.getElementById('announcementsArea');
-        if (data.announcements && data.announcements.length > 0) {
-          annArea.innerHTML = "";
-          data.announcements.forEach(ann => {
-            annArea.innerHTML += `<div class="notice-box"><strong>${ann.Title}</strong><p style="margin-top: 5px;">${ann.Message}</p></div>`;
-          });
+            myStatusList.innerHTML = myMsgs.map(item => submissionCard(item, true)).join('');
+          } else {
+            myStatusList.innerHTML = '<div class="rounded-2xl border border-dashed border-slate-300 bg-slate-50 px-5 py-8 text-center"><p class="text-sm text-slate-500">You have not submitted anything yet.</p></div>';
+          }
+        } else {
+          myStatusList.innerHTML = '<div class="rounded-2xl border border-dashed border-slate-300 bg-slate-50 px-5 py-8 text-center"><p class="text-sm text-slate-500">Sign in to view your message history and status.</p></div>';
         }
 
+        // Public feed
+        const publicFeedList = document.getElementById('publicFeedList');
+        if (data.publicFeed && data.publicFeed.length > 0) {
+          publicFeedList.innerHTML = data.publicFeed.map(item => submissionCard(item, false)).join('');
+        } else {
+          publicFeedList.innerHTML = '<p class="text-sm text-slate-500">No public approved messages yet.</p>';
+        }
+
+        // Admin
         if (data.admin) {
           document.getElementById('adminName').innerText = data.admin.Name || "Deep Hazarika";
           document.getElementById('adminRole').innerText = data.admin.Role || "Social Service Secretary";
@@ -298,8 +676,26 @@
           document.getElementById('adminEmail').innerText = data.admin.Email || "";
           document.getElementById('adminPhone').innerText = data.admin.Phone || "";
         }
-      } catch (err) { console.error(err); }
+      } catch (err) {
+        console.error(err);
+      }
     }
+
+    // ---- init ----
+    (function init() {
+      const savedUser = sessionStorage.getItem("collegeUser");
+      if (savedUser) {
+        currentUser = JSON.parse(savedUser);
+        refreshUserUI();
+      }
+      // render guidelines right away so the History tab is populated even before the feed loads
+      document.getElementById('guidelinesGrid').innerHTML = guidelines.map((g, i) => `
+        <div class="flex gap-3 rounded-xl border border-slate-200 p-4">
+          <span class="font-display font-bold text-amber-600">${String(i + 1).padStart(2, '0')}</span>
+          <p class="text-sm leading-6 text-slate-600">${esc(g)}</p>
+        </div>`).join('');
+      switchTab('auth');
+    })();
   </script>
 </body>
 </html>
