@@ -10,7 +10,10 @@
 
     header { width: 100%; max-width: 800px; background: #ffffff; padding: 15px 20px; border: 1px solid #ddd; border-radius: 8px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; }
     .portal-title { font-size: 1.4rem; font-weight: bold; color: #d97706; }
+    .header-controls { display: flex; align-items: center; gap: 15px; }
     .user-status { font-size: 0.9rem; font-weight: bold; color: #059669; }
+    .btn-logout { padding: 6px 12px; background: #ef4444; color: white; border: none; border-radius: 4px; font-size: 0.85rem; font-weight: bold; cursor: pointer; }
+    .btn-logout:hover { background: #dc2626; }
 
     .container { width: 100%; max-width: 800px; }
     .tabs { display: flex; gap: 10px; margin-bottom: 20px; }
@@ -29,28 +32,28 @@
 
     .toggle-link { margin-top: 15px; font-size: 0.9rem; text-align: center; color: #2563eb; cursor: pointer; text-decoration: underline; }
 
-    /* Feed & Status Styling */
     .notice-box { background: #fef3c7; border-left: 4px solid #d97706; padding: 12px; margin-bottom: 12px; border-radius: 4px; }
     .feed-item { padding: 12px; border: 1px solid #e5e7eb; border-radius: 6px; margin-bottom: 12px; background: #fafafa; }
     
     .badge-pending { background: #fef3c7; color: #d97706; padding: 2px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: bold; }
     .badge-approved { background: #d1fae5; color: #059669; padding: 2px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: bold; }
-
     .admin-reply-box { margin-top: 8px; padding: 10px; background: #eff6ff; border-left: 3px solid #2563eb; font-size: 0.9rem; border-radius: 4px; }
 
-    @media screen and (max-width: 600px) { .tabs { flex-direction: column; } }
+    @media screen and (max-width: 600px) { .tabs { flex-direction: column; } .header-controls { flex-direction: column; align-items: flex-end; gap: 5px; } }
   </style>
 </head>
 <body>
 
   <header>
     <div class="portal-title">মনৰ কথা | Tinsukia College</div>
-    <div id="userStatus" class="user-status">Not Logged In</div>
+    <div class="header-controls">
+      <div id="userStatus" class="user-status">Not Logged In</div>
+      <button id="logoutBtn" class="btn-logout hidden" onclick="logout()">Logout</button>
+    </div>
   </header>
 
   <div class="container">
 
-    <!-- NAVIGATION TABS -->
     <div class="tabs">
       <button id="btn-auth" class="tab-btn active" onclick="switchTab('auth')">Account Access</button>
       <button id="btn-submit" class="tab-btn" onclick="switchTab('submit')">Submit Grievance</button>
@@ -58,51 +61,32 @@
       <button id="btn-about" class="tab-btn" onclick="switchTab('about')">About Admin</button>
     </div>
 
-    <!-- TAB 1: AUTHENTICATION (REGISTER & LOGIN SWITCHING) -->
+    <!-- TAB 1: AUTHENTICATION -->
     <div id="tab-auth" class="card">
       
-      <!-- 1A. NEW STUDENT REGISTRATION (DEFAULT FIRST VIEW) -->
+      <!-- REGISTER -->
       <div id="view-register">
         <h2 style="margin-bottom: 15px;">New Student Registration</h2>
         <form onsubmit="handleRegister(event)">
-          <div class="form-group">
-            <label>Full Name</label>
-            <input type="text" id="regName" required placeholder="e.g., Deep Hazarika">
-          </div>
-          <div class="form-group">
-            <label>Class / Semester</label>
-            <input type="text" id="regClass" required placeholder="e.g., BSc 4th Sem">
-          </div>
-          <div class="form-group">
-            <label>Email or Phone</label>
-            <input type="text" id="regEmail" required placeholder="Enter email or phone">
-          </div>
-          <div class="form-group">
-            <label>Set Password</label>
-            <input type="password" id="regPass" required placeholder="Create password">
-          </div>
+          <div class="form-group"><label>Full Name</label><input type="text" id="regName" required placeholder="e.g., Deep Hazarika"></div>
+          <div class="form-group"><label>Class / Semester</label><input type="text" id="regClass" required placeholder="e.g., BSc 4th Sem"></div>
+          <div class="form-group"><label>Email or Phone</label><input type="text" id="regEmail" required placeholder="Enter email or phone"></div>
+          <div class="form-group"><label>Set Password</label><input type="password" id="regPass" required placeholder="Create password"></div>
           <button type="submit" class="btn-action">Register Account</button>
         </form>
         <div class="toggle-link" onclick="toggleAuthView('login')">Already registered? Click here to Login</div>
       </div>
 
-      <!-- 1B. STUDENT LOGIN -->
+      <!-- LOGIN -->
       <div id="view-login" class="hidden">
         <h2 style="margin-bottom: 15px;">Student Login</h2>
         <form onsubmit="handleLogin(event)">
-          <div class="form-group">
-            <label>Email or Phone Number</label>
-            <input type="text" id="loginEmail" required placeholder="Enter registered email or phone">
-          </div>
-          <div class="form-group">
-            <label>Password</label>
-            <input type="password" id="loginPass" required placeholder="Enter password">
-          </div>
+          <div class="form-group"><label>Email or Phone Number</label><input type="text" id="loginEmail" required placeholder="Enter registered email or phone"></div>
+          <div class="form-group"><label>Password</label><input type="password" id="loginPass" required placeholder="Enter password"></div>
           <button type="submit" class="btn-action">Login to Portal</button>
         </form>
         <div class="toggle-link" onclick="toggleAuthView('register')">Need a new account? Click here to Register</div>
       </div>
-
     </div>
 
     <!-- TAB 2: SUBMIT GRIEVANCE -->
@@ -125,20 +109,16 @@
       </form>
     </div>
 
-    <!-- TAB 3: ANNOUNCEMENTS & DUAL FEEDS -->
+    <!-- TAB 3: FEED -->
     <div id="tab-feed" class="card hidden">
       <h2 style="margin-bottom: 15px; color: #d97706;">Official Announcements</h2>
       <div id="announcementsArea"></div>
-
       <hr style="margin: 25px 0; border: 0; border-top: 1px solid #eee;">
-
-      <!-- BOX 1: PERSONAL SUBMISSIONS & STATUS TRACKER -->
+      
       <h2 style="margin-bottom: 15px;">1. My Submissions & Status Tracker</h2>
       <div id="myStatusList"><p style="color: #666;">Log in to view your message status.</p></div>
-
       <hr style="margin: 25px 0; border: 0; border-top: 1px solid #eee;">
-
-      <!-- BOX 2: PUBLIC APPROVED FEED & ADMIN REPLIES -->
+      
       <h2 style="margin-bottom: 15px;">2. Public Approved Feed & Responses</h2>
       <div id="publicFeedList"><p style="color: #666;">Loading messages...</p></div>
     </div>
@@ -155,12 +135,19 @@
   </div>
 
   <script>
-    // ⚠️ REPLACE WITH YOUR DEPLOYED GOOGLE APPS SCRIPT WEB APP URL
-    const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxYvHW54FvF1lF5IMGFwivZaOFjbIf6FsqkXQ923PoEkUBX7m-DhTkxGnqm8ib_Jd0/exec";
+    // ⚠️ PASTE YOUR NEW DEPLOYED GOOGLE APPS SCRIPT WEB APP URL HERE
+    const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbygchpjn1EU0q-22j2lwtfpKkoFRmKMT3w-n1gwwFyaDM8_nMRufXf6XS5cYFHFVcmz/exec";
 
     let currentUser = null;
 
-    // TOGGLE BETWEEN REGISTER AND LOGIN VIEWS
+    // PERSISTENCE: Check session storage on page load
+    const savedUser = sessionStorage.getItem("collegeUser");
+    if (savedUser) {
+      currentUser = JSON.parse(savedUser);
+      document.getElementById('userStatus').innerText = `Logged in as: ${currentUser.Name}`;
+      document.getElementById('logoutBtn').classList.remove('hidden');
+    }
+
     function toggleAuthView(view) {
       if (view === 'login') {
         document.getElementById('view-register').classList.add('hidden');
@@ -171,13 +158,11 @@
       }
     }
 
-    // SWITCH TAB NAVIGATION WITH ACCESS CONTROL
     function switchTab(tabName) {
       if (tabName === 'submit' && !currentUser) {
         alert("Access Denied: Please Login or Register first!");
         tabName = 'auth';
       }
-
       document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
       document.querySelectorAll('.card').forEach(card => card.classList.add('hidden'));
 
@@ -198,7 +183,14 @@
       }
     }
 
-    // HANDLE REGISTRATION & REDIRECT TO LOGIN
+    function logout() {
+      currentUser = null;
+      sessionStorage.removeItem("collegeUser");
+      document.getElementById('userStatus').innerText = "Not Logged In";
+      document.getElementById('logoutBtn').classList.add('hidden');
+      switchTab('auth');
+    }
+
     async function handleRegister(e) {
       e.preventDefault();
       const payload = {
@@ -215,20 +207,14 @@
           headers: { "Content-Type": "text/plain;charset=utf-8" },
           body: JSON.stringify(payload)
         });
-
         alert("Registration Successful! Redirecting you to the Login page...");
-        
-        // Auto-fill login email/phone field
         document.getElementById('loginEmail').value = document.getElementById('regEmail').value;
-        
-        // Redirect to Login view
         toggleAuthView('login');
       } catch (err) {
         alert("Registration failed. Please try again.");
       }
     }
 
-    // HANDLE LOGIN & REDIRECT TO SUBMIT FORM
     async function handleLogin(e) {
       e.preventDefault();
       const payload = {
@@ -243,25 +229,27 @@
           headers: { "Content-Type": "text/plain;charset=utf-8" },
           body: JSON.stringify(payload)
         });
-        
         const textData = await res.text();
         const data = JSON.parse(textData);
 
         if (data.status === "success") {
           currentUser = data.user;
+          // PERSISTENCE: Save to session storage
+          sessionStorage.setItem("collegeUser", JSON.stringify(currentUser));
+          
           document.getElementById('userStatus').innerText = `Logged in as: ${currentUser.Name}`;
+          document.getElementById('logoutBtn').classList.remove('hidden');
+          
           alert(`Welcome ${currentUser.Name}! Opening Grievance portal...`);
           switchTab('submit');
         } else {
           alert("Invalid Login Credentials!");
         }
       } catch (err) {
-        console.error(err);
         alert("Login request failed. Please check credentials.");
       }
     }
 
-    // HANDLE GRIEVANCE SUBMISSION
     async function handleMessageSubmit(e) {
       e.preventDefault();
       if (!currentUser) {
@@ -298,13 +286,12 @@
       }
     }
 
-    // FETCH & RENDER DUAL FEED DATA
     async function loadPortalData() {
       try {
         const res = await fetch(`${GOOGLE_SCRIPT_URL}?action=get_portal_data`);
         const data = await res.json();
 
-        // 1. MY SUBMISSIONS & STATUS TRACKER
+        // 1. MY SUBMISSIONS
         const myStatusList = document.getElementById('myStatusList');
         if (currentUser && data.userSubmissions) {
           const myMsgs = data.userSubmissions.filter(m => m.AuthorName === currentUser.Name);
@@ -314,19 +301,15 @@
               const statusBadge = item.Status === "Approved" 
                 ? `<span class="badge-approved">Approved</span>` 
                 : `<span class="badge-pending">Pending Approval</span>`;
-              
               let replyHtml = item.AdminReply 
                 ? `<div class="admin-reply-box"><strong>Admin Response:</strong> ${item.AdminReply}</div>` 
                 : "";
-
               myStatusList.innerHTML += `
                 <div class="feed-item">
                   <div style="display:flex; justify-content:space-between; margin-bottom:6px;">
-                    <strong>${item.Category}</strong>
-                    ${statusBadge}
+                    <strong>${item.Category}</strong>${statusBadge}
                   </div>
-                  <p>${item.Content}</p>
-                  ${replyHtml}
+                  <p>${item.Content}</p>${replyHtml}
                 </div>`;
             });
           } else {
@@ -336,7 +319,7 @@
           myStatusList.innerHTML = "<p style='color:#666;'>Log in to view your message status.</p>";
         }
 
-        // 2. PUBLIC APPROVED FEED & ADMIN REPLIES
+        // 2. PUBLIC FEED
         const publicFeedList = document.getElementById('publicFeedList');
         if (data.publicFeed && data.publicFeed.length > 0) {
           publicFeedList.innerHTML = "";
@@ -344,12 +327,10 @@
             let replyHtml = item.AdminReply 
               ? `<div class="admin-reply-box"><strong>Admin Reply:</strong> ${item.AdminReply}</div>` 
               : "";
-
             publicFeedList.innerHTML += `
               <div class="feed-item">
                 <strong>${item.AuthorName} (${item.AuthorClass})</strong> - <span style="color:#d97706;">[${item.Category}]</span>
-                <p style="margin-top: 5px;">${item.Content}</p>
-                ${replyHtml}
+                <p style="margin-top: 5px;">${item.Content}</p>${replyHtml}
               </div>`;
           });
         } else {
